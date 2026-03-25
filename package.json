@@ -1,0 +1,32 @@
+{
+  "name": "backlog-story-generator-skill",
+  "version": "3.4.0",
+  "private": true,
+  "description": "Support tooling for an AgentSkill that generates, validates, packages, and exports epic and user-story packs.",
+  "author": "jovd83",
+  "license": "MIT",
+  "keywords": [
+    "agent-skill",
+    "agentskills",
+    "backlog",
+    "epics",
+    "user-stories",
+    "product-management"
+  ],
+  "scripts": {
+    "validate:examples": "node scripts/validate-stories.js ./examples/generated",
+    "validate:examples:json": "node scripts/validate-stories.js ./examples/generated --json",
+    "report:existing-pack": "node scripts/story-pack-report.js ./tests/fixtures/existing-pack",
+    "inspect:fixture-codebase": "node scripts/inspect-codebase-context.js ./tests/fixtures/codebase/admin-role-app",
+    "export:examples:jira": "node scripts/export-stories.js ./examples/generated ./tmp/examples-jira.csv jira",
+    "export:examples:ado": "node scripts/export-stories.js ./examples/generated ./tmp/examples-ado.csv ado",
+    "export:examples:github": "node scripts/export-stories.js ./examples/generated ./tmp/examples-github.csv github",
+    "export:examples:tulip": "node scripts/export-stories.js ./examples/generated ./tmp/examples-tulip.csv tulip",
+    "package": "node scripts/package-skill.js",
+    "test": "node --test tests/*.test.js",
+    "verify": "npm run validate:examples && npm test && npm run package"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

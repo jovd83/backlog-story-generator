@@ -1,0 +1,93 @@
+"Issue Type","Summary","Description","Priority","Story Points","Epic Name"
+"Story","[US-001] Capture Shipping Address","h3. User Story
+
+As a shopper
+
+I want to enter a shipping address during checkout
+
+So that my order can be delivered to the correct destination
+
+h3. Acceptance Criteria
+
+h4. Scenario 1: Valid address submission
+Given a shopper is on the shipping step of checkout
+When they enter a complete valid address and continue
+Then the address is saved to the checkout session
+
+h4. Scenario 2: Missing required field
+Given a shopper is on the shipping step of checkout
+When they leave a required address field blank and continue
+Then the form shows a validation error for the missing field
+
+h4. Scenario 3: Unsupported destination
+Given a shopper enters a country the business does not ship to
+When they attempt to continue checkout
+Then the system blocks progression and explains the shipping restriction
+
+h3. Business Rules
+- Destination support is limited to countries the business currently serves.
+
+h3. Scope Notes
+- This story covers shipping-address capture and validation only.
+- Payment and order-summary behavior are handled by separate stories.
+
+h3. Dependencies
+- Checkout session state must persist between steps.
+
+h3. Non-Functional Notes
+- Validation feedback should be accessible to keyboard and screen-reader users.
+
+h3. Testing Notes
+- Validate required-field errors, session persistence, and unsupported-country handling.
+
+h3. Open Questions
+N/A
+
+h3. Source Traceability
+- examples/input-checkout-requirements.md","High","3","Checkout Experience"
+"Story","[US-002] Select Shipping Method","h3. User Story
+
+As a shopper
+
+I want to choose between available shipping methods
+
+So that I can balance delivery speed and cost
+
+h3. Acceptance Criteria
+
+h4. Scenario 1: View available methods
+Given a shopper has entered a valid shipping address
+When they reach the shipping method step
+Then the system shows the available shipping methods for that destination
+
+h4. Scenario 2: Select express shipping
+Given standard and express shipping are available
+When the shopper selects express shipping
+Then the order total updates to reflect the express shipping cost
+
+h4. Scenario 3: Method unavailable
+Given only one shipping method is available for the destination
+When the shopper reaches the shipping method step
+Then unavailable methods are not selectable
+
+h3. Business Rules
+- Shipping options must reflect the destination country.
+
+h3. Scope Notes
+- This story focuses on method selection and cost recalculation.
+- Carrier-rate retrieval is treated as an existing dependency.
+
+h3. Dependencies
+- Requires a valid shipping address and a shipping-rate service response.
+
+h3. Non-Functional Notes
+- Shipping options should load quickly enough to avoid interrupting checkout flow.
+
+h3. Testing Notes
+- Validate destination-based availability, cost recalculation, and unavailable-method handling.
+
+h3. Open Questions
+N/A
+
+h3. Source Traceability
+- examples/input-checkout-requirements.md","High","2","Checkout Experience"

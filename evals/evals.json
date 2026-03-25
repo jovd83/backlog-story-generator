@@ -1,0 +1,98 @@
+{
+  "skill_name": "backlog-story-generator",
+  "version": "3.4.0",
+  "evals": [
+    {
+      "id": 1,
+      "name": "checkout-requirements-to-jira-pack",
+      "prompt": "Turn this checkout requirements summary into epics and user stories we can review with engineering. Users need to enter a shipping address, choose standard or express shipping, pay with a credit card, and review an order summary before placing the order. Keep the backlog small, practical, and ready to export to Jira.",
+      "expected_output": "A coherent checkout epic with multiple markdown story files, observable acceptance criteria, clear priorities, and story files that can be validated and exported to Jira without manual cleanup.",
+      "target_capabilities": [
+        "feature decomposition",
+        "epic shaping",
+        "story-pack generation",
+        "jira export readiness"
+      ],
+      "review_criteria": [
+        "Epic boundaries follow the checkout workflow rather than arbitrary splitting.",
+        "Stories are implementation-ready and small enough to validate independently.",
+        "Acceptance criteria are observable and written in Gherkin-style scenarios.",
+        "No important checkout capability is omitted or invented.",
+        "The closeout reports validation and export activity explicitly."
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "analytics-widget-preserves-performance-constraint",
+      "prompt": "We are building an admin dashboard chart widget. Users can switch between 7, 30, and 90 day ranges, filter by region, and expect the chart to load in under 1 second. Please generate stories that preserve the performance requirement without inventing a bunch of unrelated backlog noise.",
+      "expected_output": "A focused story pack for the widget that preserves the under-1-second requirement in acceptance criteria or non-functional notes, stays scoped to the widget workflow, and avoids filler sections.",
+      "target_capabilities": [
+        "non-functional requirement preservation",
+        "scope control",
+        "story writing"
+      ],
+      "review_criteria": [
+        "The under-1-second performance expectation is preserved explicitly.",
+        "The output avoids filler-only optional sections.",
+        "Story scope stays focused on the widget and its supporting behavior.",
+        "Non-functional concerns are grounded in the source prompt."
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "messy-warehouse-notes-normalized-into-backlog",
+      "prompt": "Normalize this messy source material into a clean story pack: warehouse staff must print shipping labels, reprint failed labels, and mark orders as packed. The notes also mention audit logging and role-based permissions, but they are scattered across meeting notes. Produce a backlog we could hand to product and QA.",
+      "expected_output": "A structured set of epics and stories that consolidates scattered operational requirements, separates core workflow from permissions and audit concerns, and keeps assumptions explicit.",
+      "target_capabilities": [
+        "normalization of scattered input",
+        "epic separation",
+        "assumption handling"
+      ],
+      "review_criteria": [
+        "Messy source material is normalized into coherent epics.",
+        "Operational workflow, permissions, and audit concerns are separated appropriately.",
+        "Assumptions are surfaced rather than hidden in story prose.",
+        "The backlog is readable by both product and QA audiences."
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "extend-existing-pack-without-renumbering",
+      "prompt": "Review an existing story directory, continue numbering from the highest story ID already present, and export the updated pack to Azure DevOps CSV. Do not renumber existing stories. Tell me what validation you performed before exporting.",
+      "expected_output": "A refined or extended story set that preserves numbering continuity, produces a valid Azure DevOps CSV, and reports duplicate-ID checks, filename alignment, and export verification.",
+      "target_capabilities": [
+        "incremental backlog extension",
+        "safe numbering",
+        "ado export readiness"
+      ],
+      "review_criteria": [
+        "Existing story IDs remain unchanged.",
+        "New story numbering continues from the highest observed story ID.",
+        "Validation steps are reported explicitly before export.",
+        "The final output is ready for Azure DevOps CSV import."
+      ],
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "codebase-grounded-story-pack-without-tech-hallucination",
+      "prompt": "Inspect this internal admin codebase and generate stories for improving role-management workflows, but do not guess frameworks, APIs, or test tools that are not already present. Separate observed behavior from proposed work.",
+      "expected_output": "A story pack grounded in inspected code and explicit evidence, with assumptions called out instead of invented implementation details.",
+      "target_capabilities": [
+        "codebase inspection",
+        "evidence-grounded decomposition",
+        "technology guardrails"
+      ],
+      "review_criteria": [
+        "Observed current-state behavior is distinguished from proposed backlog work.",
+        "No unsupported frameworks, APIs, or tools are invented.",
+        "Assumptions and thin-evidence areas are labeled clearly.",
+        "Stories remain actionable despite the guardrails."
+      ],
+      "files": []
+    }
+  ]
+}

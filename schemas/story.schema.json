@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentskills.io/schemas/backlog-story-generator/story.schema.json",
+  "title": "Backlog Story Generator Story Document",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "storyId",
+    "epicFeature",
+    "priority",
+    "storyPoints",
+    "status",
+    "userStory",
+    "acceptanceCriteria"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 5
+    },
+    "storyId": {
+      "type": "string",
+      "pattern": "^US-\\d{3,}$"
+    },
+    "epicFeature": {
+      "type": "string",
+      "minLength": 3
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["Critical", "High", "Medium", "Low"]
+    },
+    "storyPoints": {
+      "type": "string",
+      "enum": ["1", "2", "3", "5", "8", "13"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Proposed", "Ready", "In Progress", "Done"]
+    },
+    "userStory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["asA", "iWant", "soThat"],
+      "properties": {
+        "asA": {
+          "type": "string",
+          "minLength": 2
+        },
+        "iWant": {
+          "type": "string",
+          "minLength": 5
+        },
+        "soThat": {
+          "type": "string",
+          "minLength": 5
+        }
+      }
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["scenario", "given", "when", "then"],
+        "properties": {
+          "scenario": {
+            "type": "string",
+            "minLength": 3
+          },
+          "given": {
+            "type": "string",
+            "minLength": 3
+          },
+          "when": {
+            "type": "string",
+            "minLength": 3
+          },
+          "then": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    },
+    "businessRules": {
+      "type": "string"
+    },
+    "scopeNotes": {
+      "type": "string"
+    },
+    "dependencies": {
+      "type": "string"
+    },
+    "nonFunctionalNotes": {
+      "type": "string"
+    },
+    "testingNotes": {
+      "type": "string"
+    },
+    "openQuestions": {
+      "type": "string"
+    },
+    "sourceTraceability": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "implementationNotes": {
+      "type": "string"
+    },
+    "sourcePath": {
+      "type": "string"
+    }
+  }
+}

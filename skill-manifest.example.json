@@ -1,0 +1,40 @@
+{
+  "name": "backlog-story-generator",
+  "version": "3.3.0",
+  "description": "Generate structured product epics, backlog-ready user stories, and ticket-import story packs from requirements, discovery notes, SOPs, workshop notes, existing backlog files, or a live codebase.",
+  "author": "jovd83",
+  "license": "MIT",
+  "homepage": "https://github.com/jovd83/backlog-story-generator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jovd83/backlog-story-generator.git"
+  },
+  "keywords": [
+    "agent-skill",
+    "agentskills",
+    "backlog",
+    "epics",
+    "user-stories",
+    "product-management"
+  ],
+  "compatibility": {
+    "node": ">=18"
+  },
+  "entrypoint": "SKILL.md",
+  "contents": [
+    "SKILL.md",
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "references/",
+    "schemas/",
+    "scripts/",
+    "examples/",
+    "evals/",
+    "tests/"
+  ],
+  "notes": [
+    "This is an example manifest for publication workflows or external registries.",
+    "Adjust homepage, repository, and compatibility metadata for your own distribution target."
+  ]
+}

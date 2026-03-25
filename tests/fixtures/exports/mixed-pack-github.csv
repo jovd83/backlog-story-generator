@@ -1,0 +1,544 @@
+"Title","Body","Labels"
+"[US-001] Capture Shipping Address","## User Story
+
+As a shopper
+
+I want to enter a shipping address during checkout
+
+So that my order can be delivered to the correct destination
+
+## Acceptance Criteria
+
+### Scenario 1: Valid address submission
+Given a shopper is on the shipping step of checkout
+When they enter a complete valid address and continue
+Then the address is saved to the checkout session
+
+### Scenario 2: Missing required field
+Given a shopper is on the shipping step of checkout
+When they leave a required address field blank and continue
+Then the form shows a validation error for the missing field
+
+### Scenario 3: Unsupported destination
+Given a shopper enters a country the business does not ship to
+When they attempt to continue checkout
+Then the system blocks progression and explains the shipping restriction
+
+## Business Rules
+- Destination support is limited to countries the business currently serves.
+
+## Scope Notes
+- This story covers shipping-address capture and validation only.
+- Payment and order-summary behavior are handled by separate stories.
+
+## Dependencies
+- Checkout session state must persist between steps.
+
+## Non-Functional Notes
+- Validation feedback should be accessible to keyboard and screen-reader users.
+
+## Testing Notes
+- Validate required-field errors, session persistence, and unsupported-country handling.
+
+## Open Questions
+N/A
+
+## Source Traceability
+- examples/input-checkout-requirements.md","story,high"
+"[US-002] Select Shipping Method","## User Story
+
+As a shopper
+
+I want to choose between available shipping methods
+
+So that I can balance delivery speed and cost
+
+## Acceptance Criteria
+
+### Scenario 1: View available methods
+Given a shopper has entered a valid shipping address
+When they reach the shipping method step
+Then the system shows the available shipping methods for that destination
+
+### Scenario 2: Select express shipping
+Given standard and express shipping are available
+When the shopper selects express shipping
+Then the order total updates to reflect the express shipping cost
+
+### Scenario 3: Method unavailable
+Given only one shipping method is available for the destination
+When the shopper reaches the shipping method step
+Then unavailable methods are not selectable
+
+## Business Rules
+- Shipping options must reflect the destination country.
+
+## Scope Notes
+- This story focuses on method selection and cost recalculation.
+- Carrier-rate retrieval is treated as an existing dependency.
+
+## Dependencies
+- Requires a valid shipping address and a shipping-rate service response.
+
+## Non-Functional Notes
+- Shipping options should load quickly enough to avoid interrupting checkout flow.
+
+## Testing Notes
+- Validate destination-based availability, cost recalculation, and unavailable-method handling.
+
+## Open Questions
+N/A
+
+## Source Traceability
+- examples/input-checkout-requirements.md","story,high"
+"[US-010] View Sales Trend Widget","## User Story
+
+As a business analyst
+
+I want to view a sales trend widget on the admin dashboard
+
+So that I can understand recent sales performance without running a manual report
+
+## Acceptance Criteria
+
+### Scenario 1: Load default widget view
+Given an analyst opens the admin dashboard
+When the sales trend widget finishes loading
+Then the widget shows a chart and summary totals for the default date range
+
+### Scenario 2: Widget loads within target time
+Given an analyst opens the admin dashboard under normal operating conditions
+When the sales trend widget requests its initial data
+Then the widget displays usable content in under 1 second
+
+### Scenario 3: Data service unavailable
+Given the widget cannot retrieve sales data
+When the analyst views the dashboard
+Then the widget shows a clear error state with a retry option
+
+## Business Rules
+- The default date range should provide immediate value without extra filter interaction.
+
+## Scope Notes
+- This story covers initial widget rendering and default data load only.
+
+## Dependencies
+- Requires dashboard shell layout and analytics data availability.
+
+## Non-Functional Notes
+- The widget must display usable content in under 1 second.
+- The layout should fit common admin dashboard widths without horizontal scrolling.
+
+## Testing Notes
+- Validate default rendering, retry behavior, and the performance expectation under normal conditions.
+
+## Open Questions
+N/A
+
+## Source Traceability
+- examples/input-analytics-dashboard-widget.md","story,high"
+"[US-011] Filter Sales Trends By Range and Region","## User Story
+
+As a business analyst
+
+I want to filter the sales trend widget by date range and region
+
+So that I can analyze trends for the business slice I care about
+
+## Acceptance Criteria
+
+### Scenario 1: Change date range
+Given an analyst is viewing the sales trend widget
+When they switch between 7, 30, and 90 day ranges
+Then the chart reloads with data for the selected period
+
+### Scenario 2: Apply region filter
+Given multiple regions are available
+When the analyst selects a region filter
+Then the widget updates to show sales data scoped to that region
+
+### Scenario 3: No data for selected filters
+Given the selected range and region have no matching sales data
+When the widget finishes loading
+Then it shows a clear empty state instead of a broken chart
+
+## Business Rules
+- Date-range options are limited to 7, 30, and 90 days.
+
+## Scope Notes
+- This story extends the widget with filter controls and filtered data behavior.
+
+## Dependencies
+- Depends on the base widget rendering story and analytics data service support for the filters.
+
+## Non-Functional Notes
+- Filter controls should remain accessible and understandable for keyboard users.
+
+## Testing Notes
+- Validate date-range switching, region filtering, and empty-state behavior.
+
+## Open Questions
+N/A
+
+## Source Traceability
+- examples/input-analytics-dashboard-widget.md","story,high"
+"[US-020] Print Shipping Label","## User Story
+
+As a warehouse associate
+
+I want to print a shipping label for a packed order
+
+So that the package can be handed off for shipment
+
+## Acceptance Criteria
+
+### Scenario 1: Print label for packed order
+Given an order is ready for shipment at the packing station
+When the associate requests a shipping label
+Then the system sends the label to the configured printer and confirms the print action
+
+### Scenario 2: User lacks warehouse permission
+Given a user without warehouse shipping permission is signed in
+When they attempt to print a shipping label
+Then the system blocks the action and explains that they are not authorized
+
+### Scenario 3: Printer unavailable
+Given the packing station printer is temporarily disconnected
+When the associate requests a shipping label
+Then the system shows a recoverable printer error instead of falsely marking the label as printed
+
+## Business Rules
+- This story covers first-time label printing only.
+
+## Scope Notes
+- Reprinting and audit-specific behavior are handled by a separate story.
+
+## Dependencies
+- Requires order readiness status and printer integration.
+
+## Non-Functional Notes
+- Packing station actions should remain resilient to brief device interruptions.
+
+## Testing Notes
+- Validate authorization, successful printing, and printer-unavailable recovery behavior.
+
+## Open Questions
+N/A
+
+## Source Traceability
+- examples/input-warehouse-operations.md","story,critical"
+"[US-021] Reprint Label With Audit Log","## User Story
+
+As a warehouse lead
+
+I want to reprint a failed shipping label with audit tracking
+
+So that shipment recovery actions remain traceable
+
+## Acceptance Criteria
+
+### Scenario 1: Reprint failed label
+Given a shipment label failed during the first print attempt
+When an authorized warehouse lead requests a reprint
+Then the system issues a new print job for the same order
+
+### Scenario 2: Audit event recorded
+Given an authorized reprint request succeeds
+When the reprint action completes
+Then the system records who reprinted the label, when they did it, and for which order
+
+### Scenario 3: Unauthorized reprint attempt
+Given a user without reprint permission attempts to reprint a label
+When they submit the reprint request
+Then the system blocks the action and does not create an audit event that implies success
+
+## Business Rules
+- Reprints must remain attributable to an authorized user.
+
+## Scope Notes
+- This story covers reprint behavior and audit capture, not first-time printing.
+
+## Dependencies
+- Depends on label-printing capability and audit-log storage.
+
+## Non-Functional Notes
+- Audit data must be retained in a way that supports operational investigation.
+
+## Testing Notes
+- Validate successful reprints, unauthorized attempts, and audit-record completeness.
+
+## Open Questions
+- Confirm the required retention period for audit events.
+
+## Source Traceability
+- examples/input-warehouse-operations.md","story,high"
+"[US-030] View User Permissions","## User Story
+
+As a system administrator
+
+I want to view the roles assigned to a user account
+
+So that I can understand that user's current access before making changes
+
+## Acceptance Criteria
+
+### Scenario 1: View assigned roles
+Given an administrator opens a user's access details
+When the page finishes loading
+Then the system shows the roles currently assigned to that user
+
+### Scenario 2: View audit-relevant context
+Given an administrator is reviewing a user's access
+When the role details are displayed
+Then the system shows enough context to distinguish elevated roles from standard roles
+
+### Scenario 3: User record unavailable
+Given the requested user record cannot be retrieved
+When the administrator opens the access details view
+Then the system shows a clear error state instead of stale access data
+
+## Business Rules
+- Administrators need clear visibility before changing access.
+
+## Scope Notes
+- This story covers view-only permissions context, not role assignment changes.
+
+## Dependencies
+- Requires access to the user profile and role-assignment data source.
+
+## Non-Functional Notes
+- Permission details should load fast enough to support administrative triage workflows.
+
+## Testing Notes
+- Validate role display, elevated-role context, and unavailable-user handling.
+
+## Open Questions
+N/A
+
+## Source Traceability
+- examples/input-role-access-management.md","story,high"
+"[US-031] Assign and Revoke Roles","## User Story
+
+As a system administrator
+
+I want to assign and revoke roles for a user account
+
+So that access can be updated safely and appropriately
+
+## Acceptance Criteria
+
+### Scenario 1: Assign permitted role
+Given an administrator is allowed to manage user access
+When they assign a permitted role to a user
+Then the new role is saved and reflected in the user's effective permissions
+
+### Scenario 2: Prevent privilege escalation
+Given an administrator attempts to assign a role beyond their own authority
+When they submit the change
+Then the system blocks the action and explains that the role change is not permitted
+
+### Scenario 3: Audit access change
+Given a role assignment or revocation succeeds
+When the change is saved
+Then the system records who made the change, what changed, and when it occurred
+
+## Business Rules
+- Access changes must respect role-management authority boundaries.
+
+## Scope Notes
+- This story covers assignment and revocation workflows, including audit recording.
+
+## Dependencies
+- Requires current-role visibility, authorization policy checks, and audit-log persistence.
+
+## Non-Functional Notes
+- Role changes should preserve security and accountability expectations.
+
+## Testing Notes
+- Validate allowed changes, blocked privilege escalation, and audit-log completeness.
+
+## Open Questions
+- Confirm whether dual approval is required for sensitive roles.
+
+## Source Traceability
+- examples/input-role-access-management.md","story,critical"
+"[US-040] Book Clinic Appointment","## User Story
+
+As a patient
+
+I want to book an appointment from an available clinic slot
+
+So that I can secure care at a suitable time and location
+
+## Acceptance Criteria
+
+### Scenario 1: Book an available slot
+Given a patient is viewing available slots for a specialty and location
+When they select an available slot and confirm the booking
+Then the appointment is created and the slot is no longer available to other users
+
+### Scenario 2: Prevent double-booking
+Given two users attempt to book the same slot at nearly the same time
+When one booking is completed first
+Then the second user is informed that the slot is no longer available
+
+### Scenario 3: No matching slots
+Given no open slots match the selected specialty and location
+When the patient searches for appointments
+Then the system shows a clear empty state instead of creating a placeholder booking
+
+## Business Rules
+- A time slot can only be confirmed for one appointment at a time.
+
+## Scope Notes
+- This story covers slot selection and appointment booking, not reminders or rescheduling.
+
+## Dependencies
+- Requires slot availability data by specialty and location.
+
+## Non-Functional Notes
+- Availability updates should be timely enough to reduce booking conflicts during active scheduling.
+
+## Testing Notes
+- Validate successful booking, race-condition handling, and no-availability behavior.
+
+## Open Questions
+- Confirm whether patients can book on behalf of dependents in the initial release.
+
+## Source Traceability
+- examples/input-healthcare-appointment-scheduling.md","story,high"
+"[US-041] Cancel Appointment With Policy Notice","## User Story
+
+As a patient
+
+I want to cancel an upcoming appointment after reviewing the clinic policy
+
+So that I understand the consequences before confirming the cancellation
+
+## Acceptance Criteria
+
+### Scenario 1: Show policy before cancellation
+Given a patient chooses to cancel an upcoming appointment
+When they open the cancellation flow
+Then the system shows the applicable cancellation policy before confirmation
+
+### Scenario 2: Confirm cancellation
+Given the patient has reviewed the policy notice
+When they confirm the cancellation
+Then the appointment status changes to canceled and the slot becomes available again if clinic rules allow it
+
+### Scenario 3: Keep appointment when user backs out
+Given a patient opens the cancellation flow
+When they close the flow without confirming
+Then the appointment remains scheduled
+
+## Business Rules
+- Policy messaging must be shown before the cancellation is finalized.
+
+## Scope Notes
+- This story covers cancellation notice and confirmation behavior only.
+
+## Dependencies
+- Requires an appointment record and clinic policy content.
+
+## Non-Functional Notes
+- Policy messaging should be easy to read on both desktop and mobile appointment flows.
+
+## Testing Notes
+- Validate policy visibility, confirmed cancellation, and cancellation abandonment behavior.
+
+## Open Questions
+- Confirm whether same-day cancellations require different wording.
+
+## Source Traceability
+- examples/input-healthcare-appointment-scheduling.md","story,medium"
+"[US-050] Assign Technician By Territory and Skill","## User Story
+
+As a dispatch coordinator
+
+I want to assign a technician based on territory and skill match
+
+So that service jobs are routed to the most appropriate available technician
+
+## Acceptance Criteria
+
+### Scenario 1: Assign qualified technician
+Given a new service job is ready for dispatch
+When the coordinator selects a technician whose skills and territory match the job
+Then the job is assigned to that technician
+
+### Scenario 2: Prevent unsupported territory assignment
+Given a technician does not support the job territory
+When the coordinator attempts to assign that technician without an override
+Then the system blocks the assignment and explains the territory mismatch
+
+### Scenario 3: Show no qualified technician available
+Given no available technician matches the required territory and skill
+When the coordinator reviews assignment options
+Then the system shows that no qualified technician is currently available
+
+## Business Rules
+- Territory and skill constraints must be checked before standard assignment is allowed.
+
+## Scope Notes
+- This story covers manual dispatch assignment logic, not route optimization.
+
+## Dependencies
+- Requires technician skill, availability, and territory data.
+
+## Non-Functional Notes
+- Assignment decisions should remain understandable to dispatchers during high job volume periods.
+
+## Testing Notes
+- Validate successful assignment, blocked mismatch behavior, and no-match visibility.
+
+## Open Questions
+- Confirm which users can apply territory overrides.
+
+## Source Traceability
+- examples/input-field-service-dispatch.md","story,high"
+"[US-051] Update Job Status With Offline Recovery","## User Story
+
+As a field technician
+
+I want to update my job status even when connectivity is unstable
+
+So that dispatch and customer support can receive the latest service progress when the device reconnects
+
+## Acceptance Criteria
+
+### Scenario 1: Update status while connected
+Given a technician is viewing an assigned job with network connectivity
+When they change the status to en route, on site, or completed
+Then the updated status is saved and visible to dispatch
+
+### Scenario 2: Queue status while offline
+Given a technician loses connectivity during a service visit
+When they update the job status
+Then the device keeps the update locally and marks it for later synchronization
+
+### Scenario 3: Sync queued status after reconnect
+Given one or more job status updates were queued offline
+When the device reconnects successfully
+Then the queued updates are synchronized and become visible to dispatch and customer support
+
+## Business Rules
+- Job progress updates must preserve technician intent even when connectivity is intermittent.
+
+## Scope Notes
+- This story covers status update capture and recovery behavior, not full offline job editing.
+
+## Dependencies
+- Requires mobile technician job access and status synchronization support.
+
+## Non-Functional Notes
+- Offline recovery should minimize technician confusion about whether an update is pending or sent.
+
+## Testing Notes
+- Validate online updates, offline queuing, and synchronization after reconnect.
+
+## Open Questions
+- Confirm whether timestamp conflict rules are needed when multiple updates are queued.
+
+## Source Traceability
+- examples/input-field-service-dispatch.md","story,high"
