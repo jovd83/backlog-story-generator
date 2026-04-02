@@ -1,8 +1,7 @@
 {
-  "name": "backlog-story-generator-skill",
-  "version": "3.4.0",
-  "private": true,
-  "description": "Support tooling for an AgentSkill that generates, validates, packages, and exports epic and user-story packs.",
+  "name": "backlog-story-generator",
+  "version": "5.0.0",
+  "description": "AgentSkill repository for generating structured epics and backlog-ready user stories from requirements with validation, codebase grounding, and CSV export.",
   "author": "jovd83",
   "license": "MIT",
   "keywords": [
@@ -11,22 +10,34 @@
     "backlog",
     "epics",
     "user-stories",
+    "requirements-engineering",
     "product-management"
   ],
   "scripts": {
+    "setup": "node scripts/setup.js",
+    "preverify": "npm run setup",
     "validate:examples": "node scripts/validate-stories.js ./examples/generated",
     "validate:examples:json": "node scripts/validate-stories.js ./examples/generated --json",
+    "lint:quality:examples": "node scripts/lint-story-quality.js ./examples/generated",
+    "report:quality:examples": "node scripts/story-quality-report.js ./examples/generated",
+    "improve:examples": "node scripts/improve-story-pack.js ./examples/generated --refine",
+    "eval:report": "node scripts/generate-eval-report.js",
+    "check:eval-report": "node scripts/generate-eval-report.js --check",
     "report:existing-pack": "node scripts/story-pack-report.js ./tests/fixtures/existing-pack",
     "inspect:fixture-codebase": "node scripts/inspect-codebase-context.js ./tests/fixtures/codebase/admin-role-app",
-    "export:examples:jira": "node scripts/export-stories.js ./examples/generated ./tmp/examples-jira.csv jira",
-    "export:examples:ado": "node scripts/export-stories.js ./examples/generated ./tmp/examples-ado.csv ado",
-    "export:examples:github": "node scripts/export-stories.js ./examples/generated ./tmp/examples-github.csv github",
-    "export:examples:tulip": "node scripts/export-stories.js ./examples/generated ./tmp/examples-tulip.csv tulip",
+    "export:examples:jira": "node scripts/export-stories.js ./examples/generated ./exports/examples-jira.csv jira",
+    "export:examples:ado": "node scripts/export-stories.js ./examples/generated ./exports/examples-ado.csv ado",
+    "export:examples:github": "node scripts/export-stories.js ./examples/generated ./exports/examples-github.csv github",
+    "export:examples:tulip": "node scripts/export-stories.js ./examples/generated ./exports/examples-tulip.csv tulip",
+    "check:repo-health": "node scripts/check-repo-health.js",
     "package": "node scripts/package-skill.js",
     "test": "node --test tests/*.test.js",
-    "verify": "npm run validate:examples && npm test && npm run package"
+    "verify": "npm run setup && npm run validate:examples && npm run lint:quality:examples && npm run check:eval-report && npm run check:repo-health && npm test && npm run package"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
+  },
+  "dependencies": {
+    "marked": "^17.0.5"
   }
 }

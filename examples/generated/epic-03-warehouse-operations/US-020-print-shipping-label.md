@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds the operational ability to print a shipping label for an order. It matters because warehouse fulfillment depends on a reliable way to move packed orders into the shipment process.
+
+---
+
+## Functional / Business References
+- examples/input-warehouse-operations.md: source requirement narrative for Print Shipping Label
+
 ## Acceptance Criteria
 
 ### Scenario 1: Print label for packed order

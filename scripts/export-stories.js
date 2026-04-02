@@ -54,7 +54,6 @@ function buildDescription(story, format) {
     formatSection("Non-Functional Notes", story.nonFunctionalNotes),
     formatSection("Testing Notes", story.testingNotes),
     formatSection("Open Questions", story.openQuestions),
-    formatSection("Implementation Notes", story.implementationNotes),
     formatSourceTraceability(story),
   ].filter(Boolean);
 

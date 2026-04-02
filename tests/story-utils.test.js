@@ -17,7 +17,10 @@ test("parses canonical optional sections from example story", () => {
   const story = parseStory(exampleStoryPath);
   assert.equal(story.storyId, "US-021");
   assert.equal(story.titleSlug, "reprint-label-with-audit-log");
+  assert.match(story.context, /reprint/i);
+  assert.match(story.functionalBusinessReferences, /input-warehouse-operations\.md/);
   assert.match(story.businessRules, /authorized user/);
+  assert.equal(typeof story.ux, "string");
   assert.match(story.testingNotes, /audit-record completeness/);
   assert.ok(Array.isArray(story.sourceTraceability));
   assert.equal(story.sourceTraceability[0], "examples/input-warehouse-operations.md");

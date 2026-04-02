@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds the checkout step where the shopper provides a delivery address. It matters because shipping cannot proceed correctly unless the order is tied to a valid destination.
+
+---
+
+## Functional / Business References
+- examples/input-checkout-requirements.md: source requirement narrative for Capture Shipping Address
+
 ## Acceptance Criteria
 
 ### Scenario 1: Valid address submission

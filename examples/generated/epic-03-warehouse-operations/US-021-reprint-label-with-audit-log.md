@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds the ability to reprint a failed label while preserving who triggered the recovery action. It matters because warehouse teams need both operational continuity and auditability when label generation fails.
+
+---
+
+## Functional / Business References
+- examples/input-warehouse-operations.md: source requirement narrative for Reprint Label With Audit Log
+
 ## Acceptance Criteria
 
 ### Scenario 1: Reprint failed label

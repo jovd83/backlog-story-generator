@@ -60,3 +60,15 @@ test("returns schema and contract errors for malformed story content", () => {
   assert.ok(errors.some((error) => error.includes("filename")));
   assert.ok(errors.some((error) => error.includes("placeholders")));
 });
+
+test("requires context and functional business references sections", () => {
+  const story = parseStory(
+    path.join(examplesDir, "epic-01-checkout-experience", "US-001-capture-shipping-address.md")
+  );
+  story.context = "";
+  story.functionalBusinessReferences = "";
+
+  const errors = validateStory(story);
+  assert.ok(errors.some((error) => error.includes("story.context")));
+  assert.ok(errors.some((error) => error.includes("story.functionalBusinessReferences")));
+});

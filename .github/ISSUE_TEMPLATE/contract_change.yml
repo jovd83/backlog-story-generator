@@ -1,0 +1,43 @@
+name: Contract change
+description: Propose a change to the story contract, workflow, schema, export surface, or contributor-facing guidance.
+title: "[Contract]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the contract or workflow change you want to make.
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why this matters
+      description: Explain the problem or improvement opportunity behind the proposal.
+    validations:
+      required: true
+  - type: checkboxes
+    id: affected_layers
+    attributes:
+      label: Likely affected layers
+      description: Select the layers you expect this change to touch.
+      options:
+        - label: `SKILL.md`
+        - label: references or docs
+        - label: schema
+        - label: parser or validator
+        - label: refinement or quality tooling
+        - label: exports
+        - label: examples or tests
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks or migration notes
+      description: Call out compatibility risks, export impact, or areas that need extra review.
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: Describe how you would verify the change if implemented.

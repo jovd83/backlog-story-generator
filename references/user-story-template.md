@@ -1,36 +1,13 @@
 # User Story Template
 
-Use this as the canonical story-file template for this repository.
+Use this as the canonical story-file template.
 
-## Authoring Intent
+## Authoring Rules
 
-This template is designed to produce story files that are:
-- readable by product, engineering, QA, and delivery teams
-- parseable by the repository tooling
-- strict enough for validation and export
-- flexible enough to capture material context without bloating every story
-
-## Required Sections
-
-Every story file must include:
-- title heading
-- story metadata
-- `## User Story`
-- `## Acceptance Criteria`
-
-## Optional Sections
-
-Include these when they materially improve delivery clarity:
-- `## Business Rules`
-- `## Scope Notes`
-- `## Dependencies`
-- `## Non-Functional Notes`
-- `## Testing Notes`
-- `## Open Questions`
-- `## Source Traceability`
-- `## Implementation Notes`
-
-If you keep an optional section but do not yet have meaningful content, write `N/A` on one short line.
+- Keep the story title concise and action-oriented.
+- Keep `Story ID`, filename, and title slug aligned.
+- Mark optional sections `N/A` when they are intentionally not used.
+- Put only evidence-backed material into the story. Put unresolved decisions into `Open Questions`.
 
 ## Canonical Template
 
@@ -43,29 +20,43 @@ If you keep an optional section but do not yet have meaningful content, write `N
 **Story Points:** [1 | 2 | 3 | 5 | 8 | 13]
 **Status:** [Proposed | Ready | In Progress | Done]
 
+**Detailed Progress:**
+- [ ] Functional / Business Analysis
+- [ ] UX / UI Design
+- [ ] Architectural Work
+- [ ] Backend Development
+- [ ] Frontend Development
+- [ ] Plugin / Integration Development (N/A)
+- [ ] Unit Testing
+- [ ] Service Testing / E2E Testing
+- [ ] Frontend Testing
+- [ ] Technical Review
+- [ ] Technical Refactoring
+- [ ] Functional Review
+- [ ] Product Owner Review
+- [ ] Documentation
+
 ---
 
 ## User Story
 
-**As a** [user or system actor]
+**As a** [specific actor]
 **I want** [capability or task]
-**So that** [business value or outcome]
+**So that** [business value or operational outcome]
 
 ---
+
+## Context
+[Why this story exists and what it must accomplish]
+
+---
+
+## Functional / Business References
+- [Source artifact and relevant section or note]
 
 ## Acceptance Criteria
 
 ### Scenario 1: [Primary success path]
-**Given** [context]
-**When** [action]
-**Then** [expected outcome]
-
-### Scenario 2: [Alternate path]
-**Given** [context]
-**When** [action]
-**Then** [expected outcome]
-
-### Scenario 3: [Validation, failure, or edge case]
 **Given** [context]
 **When** [action]
 **Then** [expected outcome]
@@ -76,7 +67,7 @@ If you keep an optional section but do not yet have meaningful content, write `N
 - [Domain or policy rule]
 
 ## Scope Notes
-- [Implementation boundary, exclusion, sequencing note, or workflow clarification]
+- [Boundary, exclusion, sequencing note, or clarification]
 
 ## Dependencies
 - [System, team, vendor, data, or story dependency]
@@ -84,39 +75,18 @@ If you keep an optional section but do not yet have meaningful content, write `N
 ## Non-Functional Notes
 - [Performance, accessibility, security, reliability, compliance, or operability note]
 
+## UX
+- [Interaction, layout, accessibility, responsive, or content requirement]
+
 ## Testing Notes
-- [Key validation strategy, environments, or important coverage focus]
+- [Coverage focus, environments, fixtures, or validation strategy]
 
 ## Open Questions
 - [Decision still required before implementation]
 
 ## Source Traceability
-- [Referenced document, file path, workshop note, or observed code area]
+- [Referenced requirement, file path, workshop note, or observed code area]
 
 ## Implementation Notes
 - [Only include when implementation context materially affects delivery planning]
-```
-
-## Authoring Rules
-
-- Prefer one primary user outcome per story.
-- Split stories when acceptance criteria represent independently releasable behavior.
-- Keep acceptance criteria observable and testable.
-- Put implementation constraints in optional sections, not inside the user story statement.
-- Carry forward supported non-functional requirements instead of dropping them for brevity.
-- Never leave literal placeholders like `[Epic name]` or `[capability or task]` in final output.
-- Do not name frameworks, services, or tools unless the user or inspected codebase supports them.
-
-## File Naming
-
-Use:
-
-```text
-US-###-short-kebab-case-title.md
-```
-
-Example:
-
-```text
-US-031-assign-and-revoke-roles.md
 ```

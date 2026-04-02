@@ -1,6 +1,6 @@
 # Story Pack Structure
 
-Use this layout when writing story files to disk.
+Use this layout when writing a story pack to disk.
 
 ## Recommended Directory Layout
 
@@ -17,23 +17,25 @@ stories/
 
 ## Why This Structure Works
 
-- Epic folders make capability boundaries visible without opening every file.
-- Global story numbering simplifies validation, cross-references, and export behavior.
-- Story-level markdown files make incremental updates safer than one giant backlog document.
+- epic folders make capability boundaries visible
+- global story numbering simplifies traceability and export
+- one-file-per-story makes incremental updates safer than one giant backlog document
 
-## Delivery Artifacts
+## Expected Delivery Artifacts
 
-For a typical task, the skill should leave behind:
+A typical task may leave behind:
 - one or more epic folders
-- one story markdown file per backlog increment
-- optional export output such as `tmp/stories-jira.csv`
-- validation output in the command log or summary
+- one markdown file per story
+- optional generated output such as `exports/stories-jira.csv`
+- validation output in the terminal or a JSON report
+
+Markdown stories are the source of truth. Generated CSV and HTML are derived artifacts.
 
 ## Extension Guidance
 
-It is acceptable to add repository-local supporting files beside a story pack, such as:
-- a `README.md` explaining the source material
+It is acceptable to keep a small number of supporting files beside a story pack, for example:
+- a local README explaining the source material
 - a mapping file for an external backlog system
-- a manually curated assumptions note
+- a reviewer note listing assumptions or unresolved decisions
 
-Do not mix arbitrary design documents or implementation specs into epic folders unless the target repository already depends on that structure.
+Do not mix unrelated design documents or implementation specs into epic folders unless the target repository already depends on that structure.

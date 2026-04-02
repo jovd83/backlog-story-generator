@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Repository README
+    url: https://github.com/jovd83/backlog-story-generator#readme
+    about: Start here for installation, usage, and workflow guidance.
+  - name: Story Pack Quality Workflow
+    url: https://github.com/jovd83/backlog-story-generator/blob/main/docs/story-pack-quality-workflow.md
+    about: Review the validation and refinement workflow before opening a contract or behavior issue.

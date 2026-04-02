@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds appointment cancellation with explicit policy messaging. It matters because users need to understand the operational and business consequences before completing a cancellation.
+
+---
+
+## Functional / Business References
+- examples/input-healthcare-appointment-scheduling.md: source requirement narrative for Cancel Appointment With Policy Notice
+
 ## Acceptance Criteria
 
 ### Scenario 1: Show policy before cancellation

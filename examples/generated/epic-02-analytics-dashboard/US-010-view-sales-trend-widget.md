@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds a dashboard widget that shows sales trends to an administrative user. It matters because decision-makers need a quick way to see business movement without leaving the reporting surface.
+
+---
+
+## Functional / Business References
+- examples/input-analytics-dashboard-widget.md: source requirement narrative for View Sales Trend Widget
+
 ## Acceptance Criteria
 
 ### Scenario 1: Load default widget view

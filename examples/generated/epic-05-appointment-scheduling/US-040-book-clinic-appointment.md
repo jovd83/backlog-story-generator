@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds the booking flow for a clinic appointment. It matters because patients and staff need a reliable way to reserve an available slot without manual coordination.
+
+---
+
+## Functional / Business References
+- examples/input-healthcare-appointment-scheduling.md: source requirement narrative for Book Clinic Appointment
+
 ## Acceptance Criteria
 
 ### Scenario 1: Book an available slot

@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds job-status updates that can recover from offline conditions. It matters because field technicians cannot rely on uninterrupted connectivity while still needing accurate work-state tracking.
+
+---
+
+## Functional / Business References
+- examples/input-field-service-dispatch.md: source requirement narrative for Update Job Status With Offline Recovery
+
 ## Acceptance Criteria
 
 ### Scenario 1: Update status while connected

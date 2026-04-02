@@ -1,6 +1,6 @@
 # Export Guide
 
-The repository includes `scripts/export-stories.js` to turn validated markdown story files into CSV for backlog tools.
+Use `scripts/export-stories.js` to turn validated markdown story files into CSV for backlog tools.
 
 ## Supported Formats
 
@@ -21,29 +21,32 @@ Example:
 node scripts/export-stories.js ./examples/generated ./exports/jira.csv jira
 ```
 
-## Export Behavior
+## Export Discipline
 
 The exporter:
 - walks the input directory recursively
 - parses only markdown files that match the story contract
-- rejects malformed story files instead of silently exporting partial data
-- formats output for the chosen target tool
+- rejects malformed stories instead of silently exporting partial data
+- formats rows for the chosen downstream tool
 
-The exporter is intentionally downstream of validation. Treat markdown story files as the source of truth and CSV as a derived artifact.
+Treat markdown stories as the source of truth and CSV as a derived artifact.
+Exports are intentionally optimized for backlog tools rather than internal planning. Sections such as `Implementation Notes` are kept in markdown but omitted from the CSV description payload.
 
-## Validation Before Export
+## Validate Before Export
 
-Run validation first:
+Always run:
 
 ```bash
 node scripts/validate-stories.js <input-directory>
 ```
 
-Before treating an export as ready:
-- confirm each story has the required heading and metadata
-- confirm `## User Story` and `## Acceptance Criteria` are present
-- confirm story IDs are unique and filenames align with the IDs
-- inspect the generated CSV for empty descriptions or obviously truncated content
+Before calling an export ready, confirm:
+- each story has the required heading and metadata
+- `## User Story` and `## Acceptance Criteria` are present
+- story IDs are unique
+- filenames align with IDs and titles
+- no placeholders remain
+- the pack has already gone through the quality-improvement workflow when semantic cleanup is needed
 
 ## Field Mapping
 
@@ -56,11 +59,6 @@ Columns:
 - `Priority`
 - `Story Points`
 - `Epic Name`
-
-Description composition:
-- user story statement
-- acceptance criteria
-- selected optional notes when present
 
 ### Azure DevOps
 
@@ -103,11 +101,11 @@ Columns:
 
 ## Failure Cases
 
-Common causes of bad output:
-- heading does not match the template
-- required metadata lines were removed
-- acceptance criteria headings were renamed or corrupted
-- placeholder text was left in the story
-- the file fails schema-backed validation
+Common reasons export fails:
+- the heading does not match the template
+- required metadata lines were removed or renamed
+- acceptance criteria headings were corrupted
+- placeholder text remains
+- the file fails validation
 
-If export fails, fix the markdown source and rerun validation. Do not patch the CSV by hand and treat it as authoritative.
+If export fails, fix the markdown source and rerun validation. Do not patch the CSV manually and treat it as canonical.

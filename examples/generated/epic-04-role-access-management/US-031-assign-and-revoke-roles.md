@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds the capability to grant or remove roles from a user. It matters because access control needs to stay aligned with changing responsibilities while remaining governable.
+
+---
+
+## Functional / Business References
+- examples/input-role-access-management.md: source requirement narrative for Assign and Revoke Roles
+
 ## Acceptance Criteria
 
 ### Scenario 1: Assign permitted role

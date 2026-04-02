@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds dispatch assignment based on technician territory and skill fit. It matters because field work is more efficient when assignments reflect both coverage area and capability.
+
+---
+
+## Functional / Business References
+- examples/input-field-service-dispatch.md: source requirement narrative for Assign Technician By Territory and Skill
+
 ## Acceptance Criteria
 
 ### Scenario 1: Assign qualified technician

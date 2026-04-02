@@ -103,6 +103,12 @@ function validateStory(story) {
   if (!story.rawSections.userStory) {
     errors.push("story.userStory section is missing");
   }
+  if (!story.context) {
+    errors.push("story.context section is missing or empty");
+  }
+  if (!story.functionalBusinessReferences) {
+    errors.push("story.functionalBusinessReferences section is missing or empty");
+  }
   if (!story.rawSections.acceptanceCriteria) {
     errors.push("story.acceptanceCriteria section is missing");
   }
@@ -121,10 +127,13 @@ function validateStory(story) {
     story.userStory.asA,
     story.userStory.iWant,
     story.userStory.soThat,
+    story.context,
+    story.functionalBusinessReferences,
     story.businessRules,
     story.scopeNotes,
     story.dependencies,
     story.nonFunctionalNotes,
+    story.ux,
     story.testingNotes,
     story.openQuestions,
     story.implementationNotes,

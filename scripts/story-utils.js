@@ -6,6 +6,7 @@ const SECTION_ALIASES = {
   scopeNotes: ["Scope Notes", "Functional Requirements", "Functional Notes", "UI/UX Requirements", "UI/UX Notes"],
   dependencies: ["Dependencies"],
   nonFunctionalNotes: ["Non-Functional Notes", "Non-Functional Requirements"],
+  ux: ["UX", "UX Notes"],
   testingNotes: ["Testing Notes", "Testing Strategy"],
   openQuestions: ["Open Questions"],
   implementationNotes: ["Implementation Notes", "Technical Considerations"],
@@ -31,7 +32,7 @@ function readMetadata(content, label) {
 
 function readSection(content, heading) {
   const escapedHeading = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const pattern = new RegExp(`^## ${escapedHeading}\\s*$([\\s\\S]*?)(?=^## |^---\\s*$|\\Z)`, "m");
+  const pattern = new RegExp(`^## ${escapedHeading}\\s*$([\\s\\S]*?)(?=^## |^---\\s*$|(?![\\s\\S]))`, "m");
   const match = content.match(pattern);
   return match ? match[1].trim() : "";
 }
@@ -152,11 +153,14 @@ function parseStory(filePath) {
     storyPoints: readMetadata(content, "Story Points"),
     status: readMetadata(content, "Status"),
     userStory: parseUserStorySection(rawSections.userStory),
+    context: readSection(content, "Context"),
+    functionalBusinessReferences: readSection(content, "Functional / Business References"),
     acceptanceCriteria: parseAcceptanceCriteria(rawSections.acceptanceCriteria),
     businessRules: readFirstMatchingSection(content, SECTION_ALIASES.businessRules),
     scopeNotes: readAllMatchingSections(content, SECTION_ALIASES.scopeNotes),
     dependencies: readFirstMatchingSection(content, SECTION_ALIASES.dependencies),
     nonFunctionalNotes: readFirstMatchingSection(content, SECTION_ALIASES.nonFunctionalNotes),
+    ux: readFirstMatchingSection(content, SECTION_ALIASES.ux),
     testingNotes: readFirstMatchingSection(content, SECTION_ALIASES.testingNotes),
     openQuestions: readFirstMatchingSection(content, SECTION_ALIASES.openQuestions),
     sourceTraceability: parseSourceTraceability(readFirstMatchingSection(content, SECTION_ALIASES.sourceTraceability)),

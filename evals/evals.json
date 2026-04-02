@@ -1,6 +1,6 @@
 {
   "skill_name": "backlog-story-generator",
-  "version": "3.4.0",
+  "version": "5.0.0",
   "evals": [
     {
       "id": 1,
@@ -91,6 +91,40 @@
         "No unsupported frameworks, APIs, or tools are invented.",
         "Assumptions and thin-evidence areas are labeled clearly.",
         "Stories remain actionable despite the guardrails."
+      ],
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "story-value-and-context-are-not-boilerplate",
+      "prompt": "Turn these requirements into a small reviewable story pack, but make sure the story value and context are meaningful. We need users to save a draft incident report, resume it later, and submit it for review with an audit trail. Do not write generic phrases like 'so that the capability is available in the platform' or context that explains how the file was generated.",
+      "expected_output": "A small story pack whose 'So that' clauses express real business or operational value and whose 'Context' sections explain what each capability is and why it matters in the workflow.",
+      "target_capabilities": [
+        "story writing quality",
+        "business value extraction",
+        "context writing"
+      ],
+      "review_criteria": [
+        "The 'So that' clauses describe real user, business, or operational value.",
+        "The 'Context' sections explain the capability and why it matters instead of describing the prompt or template.",
+        "The output avoids reusable boilerplate across all stories."
+      ],
+      "files": []
+    },
+    {
+      "id": 7,
+      "name": "acceptance-criteria-are-story-specific",
+      "prompt": "Generate stories for a returns portal where shoppers can request a return label, track return status, and be blocked when the return window has expired. The acceptance criteria must be specific to each story and should not use generic scaffolding like 'the platform completes the requested action successfully.'",
+      "expected_output": "A reviewable story pack whose acceptance criteria use story-specific entities, states, and outcomes for both success and failure paths.",
+      "target_capabilities": [
+        "acceptance criteria quality",
+        "story specificity",
+        "negative-path coverage"
+      ],
+      "review_criteria": [
+        "Acceptance criteria mention story-specific states and outcomes.",
+        "At least one failure, permission, or edge path is represented where relevant.",
+        "The scenarios do not read like generic placeholders."
       ],
       "files": []
     }

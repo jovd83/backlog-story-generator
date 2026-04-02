@@ -1,250 +1,227 @@
 ---
 name: backlog-story-generator
-description: Generate structured product epics, backlog-ready user stories, and ticket-import story packs from requirements, discovery notes, SOPs, workshop notes, existing backlog files, or a live codebase. Use this skill whenever a user wants to decompose product scope into organized epics, normalize inconsistent stories, continue story numbering safely, validate markdown story packs, or export backlog artifacts to Jira, Azure DevOps, GitHub Issues, or Tulip.
+description: Generate structured epics, backlog-ready user stories, and ticket-import story packs from product requirements, discovery notes, workshop outputs, SOPs, existing backlog folders, or an observed codebase. Use when Codex needs to decompose scope into epics, write user stories with Gherkin acceptance criteria, preserve numbering continuity, validate the pack, or export the result to Jira, Azure DevOps, GitHub Issues, or Tulip.
 ---
 
 # Backlog Story Generator
 
-Create backlog artifacts that product, design, engineering, QA, and delivery teams can act on without a second translation pass.
+Generate a reviewable backlog pack from messy or incomplete source material without pretending unknown details are known.
 
-This skill turns source material into:
-- coherent epic breakdowns
-- implementation-ready user stories
-- markdown story packs
-- Gherkin-style acceptance criteria
-- validation-ready backlog exports
+Use this skill to turn requirements into:
+- epic folders
+- one markdown file per user story
+- optional import-ready CSV exports
+- a short delivery summary with assumptions, gaps, and validation results
 
-This skill does not:
-- invent unsupported product scope
-- act as shared organizational memory
-- push tickets into external tools unless the user explicitly asks for that deployment step
+## Responsibility
 
-## When To Use
+This skill is responsible for:
+- shaping epics around business capabilities or workflow boundaries
+- writing implementable user stories with observable Gherkin scenarios
+- preserving traceability to the provided source material
+- extending an existing numbered story pack safely
+- validating the generated pack before claiming it is ready
+- exporting validated story packs into supported backlog-tool CSV formats
 
-Use this skill when the user asks to:
-- turn requirements, PRDs, workshops, manuals, SOPs, discovery notes, audit notes, or codebase context into epics and stories
-- break a large feature area into backlog-ready increments
-- clean up inconsistent story files into one reusable standard
-- extend an existing story pack without renumbering what already exists
-- validate or export a markdown story directory for Jira, Azure DevOps, GitHub Issues, or Tulip
+This skill is not responsible for:
+- inventing product decisions the source material does not support
+- silently filling in architecture, APIs, vendors, or frameworks without evidence
+- creating implementation plans disguised as user stories
+- managing cross-agent shared memory inside this repository
 
-Do not use this skill when the user only wants:
-- light brainstorming without deliverable backlog artifacts
-- a one-paragraph feature summary
-- a deep system design document rather than a delivery backlog
+## Supported Inputs
 
-## Operating Principles
+Accept any combination of:
+- PRDs, feature briefs, workshop notes, discovery notes, SOPs, or markdown requirements
+- existing backlog folders that already contain numbered story files
+- a local codebase path when the backlog should be grounded in observed implementation evidence
+- export target preferences such as `jira`, `ado`, `github`, or `tulip`
 
-- Ground every story in provided evidence, observed code, or clearly labeled assumptions.
-- Prefer a small, coherent backlog over a long list of brittle micro-stories.
-- Keep stories independently testable and reviewable.
-- Carry forward important constraints such as performance, compliance, permissions, accessibility, and operational dependencies when the source supports them.
-- Keep optional sections concise. Use them to reduce ambiguity, not to decorate the file.
+Treat scattered or conflicting inputs as a reason to surface assumptions and open questions, not as permission to fabricate certainty.
 
-## Expected Inputs
+## Core Workflow
 
-Expect one or more of:
-- raw requirements, notes, or existing story files
-- a codebase or subdirectory to inspect
-- a target output directory
-- a preferred export target such as `jira`, `ado`, `github`, or `tulip`
-- repository conventions that affect IDs, folders, priorities, or story sizing
+Follow this sequence unless the user explicitly asks for a narrower task.
 
-If information is incomplete:
-- make the smallest reasonable assumption set
-- label assumptions explicitly
-- only interrupt the user when a missing decision would materially change the backlog structure or export target
+1. Ingest the source material.
+   Distinguish confirmed requirements, inferred structure, unresolved gaps, and implementation evidence.
+2. Ground the work.
+   If a codebase path is provided, run:
 
-## Default Deliverables
+   ```bash
+   node scripts/inspect-codebase-context.js <path-to-codebase>
+   ```
 
-When working in a writable workspace, produce:
-1. An epic breakdown
-2. A story pack on disk using the canonical template in `references/user-story-template.md`
-3. Validation output from `node scripts/validate-stories.js <stories-dir>`
-4. A concise closeout summary covering assumptions, unresolved questions, and validation/export results
+   Use only observed files and dependencies as evidence.
+3. Inspect any existing pack before adding new stories.
+   Find the highest existing story ID and continue numbering from there.
+   Never renumber existing stories unless the task is explicitly a migration or normalization.
+4. Shape epics.
+   Group stories by business capability, workflow boundary, or operational concern.
+   Prefer stable business language over team-specific implementation jargon.
+5. Draft stories.
+   Use [references/user-story-template.md](references/user-story-template.md) as the canonical structure.
+   Use [references/naming-convention.md](references/naming-convention.md) for epic folders, IDs, and filenames.
+   Use [references/story-drafting-playbook.md](references/story-drafting-playbook.md) when the source material is broad, messy, or likely to produce generic prose.
+   Use [references/acceptance-criteria-patterns.md](references/acceptance-criteria-patterns.md) when scenarios start sounding reusable across unrelated stories.
+6. Preserve evidence and scope.
+   Put business rules, dependencies, non-functional needs, and traceability into the appropriate sections instead of hiding them inside the story statement.
+7. Validate before delivery.
 
-When the user requests export, also produce:
-5. A CSV file from `node scripts/export-stories.js <stories-dir> <output.csv> [format]`
+   ```bash
+   node scripts/validate-stories.js <story-pack-directory>
+   ```
 
-When the user only wants planning help, provide the same structure in conversation and say what would be written to disk.
+   Fix validation failures before presenting the output as ready.
+   If the pack is large or the prose quality is uneven, also run:
 
-## Canonical Story Pack Standard
+   ```bash
+   node scripts/story-quality-report.js <story-pack-directory>
+   ```
 
-Follow `references/user-story-template.md` as the source of truth.
+   Use the summary to identify repeated weak fields before doing a refinement pass.
+   When the pack is structurally valid but still generic, run:
 
-Each story file should:
-- use a `# User Story:` title heading
-- include required metadata fields
-- contain one `## User Story` section with `As a / I want / So that`
-- contain one `## Acceptance Criteria` section with observable Gherkin-style scenarios
-- include optional sections only when they reduce ambiguity or capture material delivery context
+   ```bash
+   node scripts/refine-generic-story-pack.js <story-pack-directory>
+   ```
 
-Default optional sections:
-- `## Business Rules`
-- `## Scope Notes`
-- `## Dependencies`
-- `## Non-Functional Notes`
-- `## Testing Notes`
-- `## Open Questions`
-- `## Source Traceability`
-- `## Implementation Notes`
+   Then rerun validation and the quality checks before calling the pack ready.
+   If you want the repository to handle that whole quality-improvement loop in one command, run:
 
-Write `N/A` briefly when a retained section is intentionally empty. Do not leave raw template placeholders behind.
+   ```bash
+   node scripts/improve-story-pack.js <story-pack-directory> --refine
+   ```
 
-## Workflow
+   Use `--force-refine` when you intentionally want to reapply deterministic refinements to an already clean pack.
+8. Export only from validated markdown source when requested.
 
-### 1. Read and normalize the source
+   ```bash
+   node scripts/export-stories.js <story-pack-directory> <output.csv> <format>
+   ```
 
-Extract:
-- actors and roles
-- business outcomes
-- workflow steps
-- business rules and constraints
-- integrations and dependencies
-- quality expectations
-- unresolved decisions
+9. Deliver a concise closeout.
+   Report what was created or changed, what was validated, any exports produced, the assumptions made, and any open questions that still need human decisions.
 
-If source material is messy, normalize it before drafting stories. Make inference visible instead of implicit.
+## Gotchas
 
-### 2. Define the epic model
+- A structurally valid pack can still be low quality. Validation catches contract problems; use the quality lint and quality report to catch generic prose.
+- Blind runs from messy source material often preserve source noise unless you deliberately normalize duplicated sections, malformed actor phrasing, or mixed-language lines.
+- Blind runs and curated benchmark packs may legitimately differ in story count when trailing notes, duplicated sections, or field wishlists are classified differently. Make that decision explicit instead of treating every count change as an error.
+- Do not mistake the sandbox output for the skill contract. The markdown pack is a benchmark surface; the real capability is the generation, validation, refinement, and export workflow.
+- If acceptance criteria start sounding reusable across unrelated stories, stop and rewrite them before continuing. Generic success-path scaffolding is one of the easiest ways to produce weak backlog output.
+- `Context` should explain the capability and why it matters. It should never describe the prompt, template, reconstruction process, or repository mechanics.
+- When the source contains trailing notes, field wishlists, or partial ideas, decide explicitly whether they belong in stories, epic notes, or open questions. Do not let them drift into the pack by accident.
 
-Group work by business capability, workflow boundary, or delivery stream.
+## Story Authoring Rules
 
-Use `references/naming-convention.md` and `references/story-pack-structure.md` to shape:
-- epic folder names
-- story IDs
-- filenames
-- output directory layout
-
-If the target directory already contains story files:
-- inspect the highest story ID first
-- continue numbering without renumbering existing files
-- preserve stable conventions unless the user explicitly asks for normalization
-
-### 3. Draft right-sized stories
-
-For each story:
-- keep scope small enough to implement, test, and review independently
-- make the `So that` clause express real business value
-- prefer one primary outcome per story
-- split stories when acceptance criteria describe independently releasable behaviors
-- record important exclusions, dependencies, and operational notes in optional sections instead of overloading the story statement
-
-Technology guardrail:
-- do not guess frameworks, vendors, APIs, or test tools
-- only name technology when the user states it or it is clearly present in the inspected codebase
-- otherwise use `TBD` or `N/A`
-
-### 4. Validate before you claim readiness
-
-Before finishing:
-- confirm story IDs are unique
-- confirm filenames begin with the story ID and match the title slug
-- confirm required headings and metadata are present
-- confirm there are no leftover placeholder tokens such as `[title]` or `[Epic name]`
-- run `node scripts/validate-stories.js <stories-dir>`
-- if exporting, run `node scripts/export-stories.js <stories-dir> <output.csv> [format]`
-
-If validation or export fails:
-- fix the markdown source
-- rerun validation
-- do not leave the repository in a partially valid state
-
-### 5. Export only when useful
-
-Use CSV export by default.
-
-Treat direct API pushes as a separate deployment action:
-- validate credentials first
-- dry-run payload structure first
-- summarize what was pushed and what was not
-
-Use `references/export-guide.md` for field mapping behavior.
+- Write one markdown file per story.
+- Use globally sequential `US-###` identifiers unless the repository already establishes a different convention.
+- Keep story titles action-oriented and specific.
+- Use concrete actors in the `As a` clause whenever possible.
+- Make the `So that` clause express business value or operational outcome.
+- Do not restate the epic name or say the capability is merely "available in the platform" as the value statement.
+- Write `Context` as a short "what and why" explanation of the capability itself. Do not describe the prompt, repository, template, or reconstruction process there.
+- Write acceptance criteria as observable `Given / When / Then` scenarios.
+- Make each acceptance-criteria scenario specific to the story behavior. Do not use generic fallbacks such as "the platform completes the requested action successfully."
+- Draft the story in this order: actor, capability, value, main success path, important failure path, then optional supporting sections.
+- Capture negative paths, permission boundaries, and important edge cases when the source material implies them.
+- Keep optional sections meaningful. If a section adds no value, mark it `N/A` rather than leaving template residue.
+- Prefer `N/A` over generic filler for optional sections like `UX`, `Testing Notes`, or `Implementation Notes`.
+- Keep `Source Traceability` explicit. Point to the requirement note, source file, workshop note, or observed code area that justified the story.
 
 ## Guardrails
 
-- Do not fabricate business rules, integrations, compliance requirements, or architectural decisions without support.
-- Do not create a huge story list when a smaller set of coherent increments is stronger.
-- Do not fill every optional section with boilerplate.
-- Do not silently discard important non-functional or operational constraints.
-- Do not overwrite existing story files unless the task is explicitly a refinement or regeneration task.
-- When code and prose disagree, surface the conflict in the final summary.
-- When the source is too thin for confident decomposition, generate the smallest credible draft and mark the uncertainty clearly.
+- Do not invent requirements, integrations, frameworks, test tools, or architecture decisions that were not supplied or observed.
+- Do not collapse unrelated work into giant placeholder stories just to reduce story count.
+- Do not create filler-heavy optional sections.
+- Do not use boilerplate prose that could fit any story, especially in `So that`, `Context`, and `Acceptance Criteria`.
+- Do not claim a story pack is ready without running validation or clearly stating that validation was not run.
+- Do not patch exported CSV by hand and treat it as authoritative. The markdown stories are the source of truth.
+- When evidence is thin, label the gap in `Open Questions`, `Scope Notes`, or the delivery summary.
 
-## Response Contract
+## Output Contract
 
-Close every substantial task with:
-1. What was created or changed
-2. Validation or export commands run
-3. Key assumptions and unresolved questions
-4. Any conflicts, risks, or thin-evidence areas
+Default output shape:
 
-If no files were written, say so explicitly.
+```text
+stories/
+|-- epic-01-example-capability/
+|   |-- US-001-first-story.md
+|   `-- US-002-second-story.md
+`-- epic-02-next-capability/
+    `-- US-003-third-story.md
+```
+
+Each story must follow the canonical structure in [references/user-story-template.md](references/user-story-template.md).
+
+When useful, also provide:
+- an epic overview based on [references/epic-overview-template.md](references/epic-overview-template.md)
+- a validation report from `scripts/validate-stories.js`
+- a story-pack summary from `scripts/story-pack-report.js`
+- a CSV export for the user-requested backlog platform
 
 ## Memory Model
 
-Use memory only where it improves reliability and keeps behavior auditable.
+Use memory deliberately and keep the boundaries explicit.
 
-- Runtime memory: current source material, assumptions, numbering choices, and in-flight decomposition decisions for the active task
-- Project-local persistent memory: only if the repository already keeps stable backlog conventions or mapping files that must be reused within this skill or target project
-- Shared memory: keep outside this repository; integrate through a shared-memory skill or other approved cross-agent boundary when broader reuse is truly needed
+### Runtime memory
 
-Do not automatically promote runtime observations into persistent memory.
+Use runtime memory for the current task only:
+- extracted actors
+- provisional epic candidates
+- unresolved requirement gaps
+- observed numbering continuity
+- temporary export or validation results
 
-## File Map
+Do not assume runtime notes become persistent.
 
-- `references/user-story-template.md`: canonical story template and section semantics
-- `references/naming-convention.md`: story IDs, filenames, and epic folder rules
-- `references/story-pack-structure.md`: recommended directory layout and delivery artifacts
-- `references/export-guide.md`: export formats, field mappings, and export guidance
-- `schemas/story.schema.json`: schema for parsed story documents
-- `scripts/story-utils.js`: story parser and shared helpers
-- `scripts/validate-stories.js`: validation CLI for story packs
-- `scripts/export-stories.js`: markdown-to-CSV exporter
-- `scripts/package-skill.js`: local packaging helper
-- `evals/evals.json`: realistic evaluation prompts for regression testing
+### Project or skill memory
 
-## Quick Commands
+Use project-local persistent memory only when it materially helps repeated work inside one repository or one backlog pack.
+Examples:
+- local naming preferences that are stable for this repository
+- confirmed export defaults for this project
+- a vetted assumptions ledger that the user wants preserved locally
+
+If you persist project-local memory, keep it auditable and scoped to this repository. Do not silently promote temporary notes.
+
+### Shared memory
+
+Do not implement shared cross-agent memory inside this skill.
+If the task truly requires reusable cross-repository conventions, treat shared memory as an external dependency and integrate through a dedicated shared-memory skill or equivalent boundary.
+
+## References To Load As Needed
+
+- [references/user-story-template.md](references/user-story-template.md): canonical story file structure
+- [references/naming-convention.md](references/naming-convention.md): epic folder, story ID, and filename rules
+- [references/story-pack-structure.md](references/story-pack-structure.md): expected directory layout and derived artifacts
+- [references/backlog-quality-checklist.md](references/backlog-quality-checklist.md): ready-for-review checklist
+- [references/story-drafting-playbook.md](references/story-drafting-playbook.md): field-by-field drafting guidance for stronger story prose
+- [references/acceptance-criteria-patterns.md](references/acceptance-criteria-patterns.md): scenario selection patterns for story-specific Gherkin
+- [references/export-guide.md](references/export-guide.md): export behavior and field mappings
+- [docs/adapt-for-your-org.md](docs/adapt-for-your-org.md): safe customization guidance
+- [docs/story-pack-quality-workflow.md](docs/story-pack-quality-workflow.md): repeatable validation and refinement loop
+- [docs/memory-model.md](docs/memory-model.md): repository memory policy and promotion rules
+
+## Tooling
+
+Useful commands:
 
 ```bash
-node scripts/validate-stories.js <stories-dir>
-node scripts/validate-stories.js <stories-dir> --json
-node scripts/export-stories.js <stories-dir> <output.csv> jira
-node scripts/export-stories.js <stories-dir> <output.csv> ado
-node scripts/export-stories.js <stories-dir> <output.csv> github
-node scripts/export-stories.js <stories-dir> <output.csv> tulip
-node scripts/package-skill.js
+node scripts/validate-stories.js <dir>
+node scripts/validate-stories.js <dir> --json
+node scripts/lint-story-quality.js <dir>
+node scripts/story-quality-report.js <dir>
+node scripts/refine-generic-story-pack.js <dir>
+node scripts/improve-story-pack.js <dir> --refine
+node scripts/export-stories.js <dir> <out.csv> jira
+node scripts/story-pack-report.js <dir>
+node scripts/inspect-codebase-context.js <path>
 ```
 
-## Examples
-
-### Example 1: Requirements to validated Jira-ready pack
-Input: "Turn this checkout requirements doc into epics and user stories we can import into Jira."
-
-Expected behavior:
-- derive epics from the checkout workflow
-- create story files in epic folders
-- validate the pack
-- export a Jira-ready CSV
-- summarize assumptions and unresolved product decisions
-
-### Example 2: Existing codebase to backlog uplift
-Input: "Inspect this admin app and create stories for role-management improvements without inventing backend work we do not already have."
-
-Expected behavior:
-- inspect the codebase first
-- separate observed system behavior from proposed improvements
-- draft a focused story pack
-- call out evidence gaps and assumptions separately
-
-## Failure Handling
-
-If the source material is too thin:
-- generate the smallest trustworthy draft
-- keep assumptions explicit
-- identify what information is missing for a higher-confidence backlog
-
-If validation or export output is empty, malformed, or unexpectedly sparse:
-- inspect headings, metadata, and file naming first
-- verify the directory contains real story files
-- rerun validation after fixing the markdown source
+Run validation before export whenever feasible.
+Run the story-quality lint when you need confidence that the pack is not merely structurally valid but also free of obvious boilerplate.
+Run the story-quality report when the pack is large and you need a concise hotspot summary before refining weak stories.
+Run the generic-story refiner when a pack clearly contains reusable boilerplate that should be replaced with story-specific value, context, and scenarios.
+Run the improvement workflow when you want validation, reporting, optional refinement, and post-checks in one repeatable step.

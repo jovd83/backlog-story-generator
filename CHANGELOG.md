@@ -1,8 +1,51 @@
 # Changelog
 
-All notable changes to this repository are documented in this file.
+All notable changes to this repository are documented here.
 
-The format follows a simple Keep a Changelog style.
+## [Unreleased]
+
+### Added
+- Added `scripts/improve-story-pack.js` as a single-command validation, reporting, and refinement workflow for story packs.
+- Added `scripts/check-repo-health.js` to verify public-repo governance files and metadata alignment.
+- Added `scripts/generate-eval-report.js` to generate a repository-grounded evaluation coverage report from the current repo state.
+- Added `tests/check-repo-health.test.js`.
+- Added `tests/generate-eval-report.test.js`.
+- Added `tests/improve-story-pack.test.js`.
+- Added `docs/story-pack-quality-workflow.md` to document the end-to-end quality loop.
+- Added GitHub Actions CI in `.github/workflows/ci.yml`.
+- Added `.github/pull_request_template.md`.
+- Added GitHub issue templates under `.github/ISSUE_TEMPLATE/`.
+- Added tag-driven release automation in `.github/workflows/release.yml`.
+- Added `SECURITY.md` with supported-version and vulnerability-reporting guidance.
+- Added `SUPPORT.md` to define support boundaries and issue-routing expectations.
+- Added `.github/CODEOWNERS` for maintainer ownership metadata.
+
+### Changed
+- Expanded the parser and schema to recognize the `UX` section explicitly.
+- Extended semantic quality checks and deterministic refinement to cover `UX`, `Testing Notes`, `Open Questions`, and `Implementation Notes`.
+- Kept backlog-tool CSV exports focused by omitting `Implementation Notes` from exported descriptions.
+- Aligned the README, customization guide, examples guide, export guide, and packaging metadata with the current quality-improvement workflow.
+- Aligned contributor guidance and the README with the new CI-backed verification workflow.
+- Extended GitHub-facing maintenance guidance to cover issue intake and packaged release publication.
+- Extended the public repository surface to include governance, support, and security policy links.
+- Extended packaging metadata and repository verification to include governance files and repo-health checks.
+- Replaced stale hand-maintained evaluation reporting with a deterministic generated coverage report workflow.
+- Added eval-report freshness checks so verification fails when `evals/latest-eval-report.md` drifts from the live repo state.
+
+## [5.0.0] - 2026-04-01
+
+### Changed
+- Renamed the primary skill identity to `backlog-story-generator` across skill metadata, packaging, and repository documentation.
+- Rewrote `SKILL.md` into a stronger operational contract with explicit workflow, output expectations, evidence guardrails, validation discipline, and memory boundaries.
+- Rebuilt `README.md` for public GitHub readiness with clearer scope, architecture, usage, and repository responsibilities.
+- Reworked key reference files to make the story contract more precise and less prototype-like.
+- Simplified `scripts/setup.js` into a deterministic preflight instead of a mixed setup-and-install routine.
+- Expanded packaging metadata so the packaged skill advertises the actual repository contents more accurately.
+
+### Added
+- Added `CONTRIBUTING.md`.
+- Added `docs/memory-model.md`.
+- Added `memory/README.md` to make project-local persistence explicit and auditable.
 
 ## [3.4.0] - 2026-03-25
 

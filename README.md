@@ -1,256 +1,277 @@
 # Backlog Story Generator
 
-An AgentSkill for turning raw product inputs into disciplined backlog artifacts: epics, markdown user stories, validation-ready story packs, and CSV exports for common delivery tools.
+[![Version](https://img.shields.io/badge/version-5.0.0-blue.svg)](#)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D20-43853d.svg)](#requirements)
+[![CI](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml)
 
-## Project Metadata
+`backlog-story-generator` is an AgentSkill repository for turning raw product inputs into structured epic-and-story packs that can be reviewed, validated, and exported into common backlog tools.
 
-- Name: `backlog-story-generator`
-- Author: `jovd83`
-- Version: `3.4.0`
-- License: `MIT`
-
-This repository is intended to be:
-- installable as a reusable AgentSkill
-- readable by maintainers and contributors
-- safe to extend without weakening the story contract
-- practical for real product-delivery workflows
+It is designed for AI-assisted backlog authoring where the output must be:
+- grounded in evidence
+- readable by product, engineering, and QA
+- safe to extend incrementally
+- ready for validation and downstream import
 
 ## What This Skill Does
 
-The skill is responsible for:
-- analyzing requirements, discovery notes, SOPs, process docs, workshops, or codebase context
-- grouping work into coherent epics
-- drafting backlog-ready user stories with observable Gherkin-style acceptance criteria
-- validating story packs against a clear repository contract
-- exporting story packs to Jira, Azure DevOps, GitHub Issues, or Tulip CSV formats
+The skill helps Codex:
+- decompose source material into epics shaped around business capabilities or workflow boundaries
+- write one markdown file per user story using a stable contract
+- preserve numbering continuity when extending an existing backlog pack
+- validate the story pack before calling it ready
+- export validated packs to Jira, Azure DevOps, GitHub Issues, or Tulip CSV
+- ground backlog work in an observed codebase without hallucinating unobserved tools or frameworks
 
-The skill is not responsible for:
-- inventing unsupported product scope
-- acting as cross-project shared memory
-- pushing tickets to external systems by default
+## Capability Matrix
 
-Direct API pushes are optional and intentionally outside the default workflow.
+| Capability | What The Skill Can Do | Key Artifacts |
+| :--- | :--- | :--- |
+| Source ingestion and normalization | Turn messy notes, PRDs, workshop output, or scattered backlog text into a coherent epic-and-story structure. | [`SKILL.md`](./SKILL.md), [`references/story-drafting-playbook.md`](./references/story-drafting-playbook.md) |
+| Epic and story-pack generation | Generate one markdown file per story plus a stable folder-oriented backlog pack structure. | [`references/user-story-template.md`](./references/user-story-template.md), [`references/story-pack-structure.md`](./references/story-pack-structure.md) |
+| Existing-pack extension | Continue an existing numbered backlog safely without renumbering previously accepted stories. | [`references/naming-convention.md`](./references/naming-convention.md), [`scripts/story-pack-report.js`](./scripts/story-pack-report.js) |
+| Structural validation | Verify that generated stories match the canonical contract, required sections, IDs, and filenames. | [`schemas/story.schema.json`](./schemas/story.schema.json), [`scripts/validate-stories.js`](./scripts/validate-stories.js) |
+| Semantic quality linting | Detect generic `So that` clauses, boilerplate `Context`, weak acceptance criteria, and filler-heavy optional sections. | [`scripts/lint-story-quality.js`](./scripts/lint-story-quality.js), [`references/story-writing-quality.md`](./references/story-writing-quality.md) |
+| Deterministic refinement | Improve structurally valid but generic packs by rewriting common weak patterns into clearer story-specific prose. | [`scripts/refine-generic-story-pack.js`](./scripts/refine-generic-story-pack.js), [`references/acceptance-criteria-patterns.md`](./references/acceptance-criteria-patterns.md) |
+| Quality hotspot reporting | Summarize repeated weaknesses across large packs so reviewers can see the main issues quickly. | [`scripts/story-quality-report.js`](./scripts/story-quality-report.js), [`docs/story-pack-quality-workflow.md`](./docs/story-pack-quality-workflow.md) |
+| One-command pack improvement | Run validation, quality reporting, optional refinement, and post-checks in a repeatable workflow. | [`scripts/improve-story-pack.js`](./scripts/improve-story-pack.js) |
+| Backlog-tool export | Export validated packs to Jira, Azure DevOps, GitHub Issues, and Tulip CSV formats. | [`scripts/export-stories.js`](./scripts/export-stories.js), [`references/export-guide.md`](./references/export-guide.md) |
+| Codebase-grounded backlog authoring | Inspect a real repository and propose backlog work without inventing frameworks, APIs, or tools that are not observed. | [`scripts/inspect-codebase-context.js`](./scripts/inspect-codebase-context.js), [`evals/evals.json`](./evals/evals.json) |
+| Repository health and packaging | Keep skill metadata, governance files, eval reporting, and packaged artifacts aligned for GitHub-ready distribution. | [`scripts/check-repo-health.js`](./scripts/check-repo-health.js), [`scripts/package-skill.js`](./scripts/package-skill.js), [`scripts/generate-eval-report.js`](./scripts/generate-eval-report.js) |
 
-## Who It Is For
+## What This Repository Contains
 
-This skill is useful for:
-- product managers turning source material into backlog structure
-- engineering leads decomposing a feature area into implementable increments
-- delivery managers normalizing inconsistent story files
-- QA or test leads who need observable acceptance criteria instead of vague tickets
-- AI agents that need a repeatable backlog-authoring contract instead of ad hoc prose
+| Path | Purpose |
+| :--- | :--- |
+| [`SKILL.md`](./SKILL.md) | The primary skill contract used by an agent |
+| [`references/`](./references/) | Canonical templates, naming rules, and quality guidance |
+| [`scripts/`](./scripts/) | Validation, export, packaging, reporting, and codebase-inspection tooling |
+| [`examples/`](./examples/) | Example source inputs and generated story packs |
+| [`schemas/`](./schemas/) | JSON Schema for story document validation |
+| [`tests/`](./tests/) | Regression coverage for parsing, validation, export, packaging, and inspection |
+| [`docs/`](./docs/) | Customization and architecture guidance |
+| [`evals/`](./evals/) | Lightweight evaluation prompts and review criteria |
+| [`memory/`](./memory/) | Optional project-local memory guidance, not shared-memory infrastructure |
 
-## Repository Layout
+## Scope Boundaries
 
-```text
-.
-|-- SKILL.md
-|-- README.md
-|-- CHANGELOG.md
-|-- openai.yaml
-|-- skill-manifest.example.json
-|-- CONTRIBUTING.md
-|-- docs/
-|-- package.json
-|-- evals/
-|-- examples/
-|-- references/
-|-- schemas/
-|-- scripts/
-`-- tests/
-```
+This repository is responsible for backlog generation, validation, and export guidance.
 
-## Skill Contract
-
-The repository now uses one canonical story format across:
-- [`SKILL.md`](./SKILL.md)
-- [`references/user-story-template.md`](./references/user-story-template.md)
-- [`schemas/story.schema.json`](./schemas/story.schema.json)
-- [`scripts/story-utils.js`](./scripts/story-utils.js)
-- [`scripts/validate-stories.js`](./scripts/validate-stories.js)
-- [`scripts/export-stories.js`](./scripts/export-stories.js)
-- [`scripts/story-pack-report.js`](./scripts/story-pack-report.js)
-- [`scripts/inspect-codebase-context.js`](./scripts/inspect-codebase-context.js)
-
-That consistency is deliberate. The examples, parser, schema, and exporter are meant to reinforce one durable contract rather than multiple loosely related drafts.
-
-## Install
-
-1. Copy this repository into your Agent Skills directory.
-2. Ensure Node.js 18 or later is available for validation, export, testing, and packaging.
-3. Invoke the skill when backlog decomposition, story normalization, validation, or export is needed.
+It is not a shared-memory framework, a requirements management platform, or an autonomous product-planning system. If you need cross-agent memory, treat that as an external integration boundary rather than something embedded into this skill.
 
 ## Quick Start
 
-Validate the bundled example pack:
-
 ```bash
+npm install
 npm run validate:examples
+npm test
+npm run package
 ```
 
-Export the examples to Jira CSV:
-
-```bash
-npm run export:examples:jira
-```
-
-Run the full local verification workflow:
+Run the full repository verification flow:
 
 ```bash
 npm run verify
 ```
 
-Build a distributable package:
+GitHub pull requests run the same verification workflow in CI on Node 20 and Node 22.
+Tagged releases publish the packaged `.skill` artifact through GitHub Actions.
+
+## Use The Skill
+
+Typical requests that should trigger this skill:
+- "Break down this PRD into epics and user stories."
+- "Extend the existing backlog pack in `stories/` without renumbering current stories."
+- "Generate a Jira-ready CSV from these validated stories."
+- "Inspect this codebase and propose backlog work without inventing frameworks or APIs."
+
+The operational workflow lives in [`SKILL.md`](./SKILL.md). The short version is:
+
+1. Ingest source material and separate evidence from assumptions.
+2. Inspect an existing story pack or codebase when relevant.
+3. Draft epic folders and story files using the canonical template.
+4. Validate the pack.
+5. Export only from validated markdown when the user requests a downstream format.
+
+## Story Contract
+
+Each story file is expected to contain:
+- story metadata such as ID, epic, priority, points, and status
+- a user story statement with `As a`, `I want`, and `So that`
+- Gherkin-style acceptance criteria
+- optional supporting sections for rules, dependencies, notes, and traceability
+
+Canonical references:
+- [`references/user-story-template.md`](./references/user-story-template.md)
+- [`references/naming-convention.md`](./references/naming-convention.md)
+- [`references/story-pack-structure.md`](./references/story-pack-structure.md)
+- [`references/backlog-quality-checklist.md`](./references/backlog-quality-checklist.md)
+- [`references/story-writing-quality.md`](./references/story-writing-quality.md)
+- [`references/story-drafting-playbook.md`](./references/story-drafting-playbook.md)
+- [`references/acceptance-criteria-patterns.md`](./references/acceptance-criteria-patterns.md)
+
+## Tooling
+
+Validate a story pack:
 
 ```bash
-npm run package
+node scripts/validate-stories.js <stories-dir>
 ```
 
-## Canonical Output Structure
-
-The default story-pack layout is:
-
-```text
-stories/
-|-- epic-01-checkout-experience/
-|   |-- US-001-capture-shipping-address.md
-|   `-- US-002-select-shipping-method.md
-`-- epic-02-payment-processing/
-    `-- US-003-submit-card-payment.md
-```
-
-See [`references/story-pack-structure.md`](./references/story-pack-structure.md) and [`references/naming-convention.md`](./references/naming-convention.md) for the naming and layout rules.
-
-## Authoring Workflow
-
-1. Read the source material and extract roles, goals, workflows, constraints, dependencies, and unresolved decisions.
-2. Define epics around business capability or workflow boundaries.
-3. Draft stories using [`references/user-story-template.md`](./references/user-story-template.md).
-4. Follow the naming and numbering rules in [`references/naming-convention.md`](./references/naming-convention.md).
-5. Validate the pack with `node scripts/validate-stories.js <stories-dir>`.
-6. Export with `node scripts/export-stories.js <stories-dir> <output.csv> [format]` if needed.
-7. Summarize assumptions, conflicts, and unresolved questions.
-
-## Validation and Export Tooling
-
-### Validator
-
-`scripts/validate-stories.js` checks:
-- required headings and metadata
-- schema compliance
-- duplicate story IDs
-- filename and story ID alignment
-- obvious leftover placeholders
-
-Optional JSON output is available:
+Emit JSON validation output:
 
 ```bash
-node scripts/validate-stories.js ./examples/generated --json
+node scripts/validate-stories.js <stories-dir> --json
 ```
 
-Preflight reporting for extending an existing pack is also available:
+Lint for generic story boilerplate:
 
 ```bash
-node scripts/story-pack-report.js ./tests/fixtures/existing-pack
+node scripts/lint-story-quality.js <stories-dir>
 ```
 
-### Exporter
-
-`scripts/export-stories.js`:
-- recursively scans story directories
-- parses only valid story markdown files
-- rejects malformed story files instead of silently exporting weak data
-- writes tool-specific CSV for `jira`, `ado`, `github`, or `tulip`
-
-See [`references/export-guide.md`](./references/export-guide.md) for field mappings and usage guidance.
-
-For codebase-grounded backlog work, the repository also includes an evidence-only inspection helper:
+Summarize the main quality hotspots in a large pack:
 
 ```bash
-node scripts/inspect-codebase-context.js ./tests/fixtures/codebase/admin-role-app
+node scripts/story-quality-report.js <stories-dir>
 ```
 
-## Memory Boundaries
+Refine a structurally valid but generic pack:
 
-This skill uses a scoped memory model:
-- Runtime memory: temporary task context, assumptions, numbering choices, decomposition decisions
-- Project-local memory: only stable local conventions or mapping files already maintained in the project
-- Shared memory: intentionally out of scope for this repository; integrate through a dedicated shared-memory boundary if needed
+```bash
+node scripts/refine-generic-story-pack.js <stories-dir>
+```
 
-The repository does not auto-promote temporary working context into persistent memory.
+Run the full quality-improvement loop in one command:
 
-## Examples
+```bash
+node scripts/improve-story-pack.js <stories-dir> --refine
+```
 
-See [`examples/README.md`](./examples/README.md) for the example catalog.
+Export a validated pack:
 
-Included source inputs:
-- [`examples/input-checkout-requirements.md`](./examples/input-checkout-requirements.md)
-- [`examples/input-analytics-dashboard-widget.md`](./examples/input-analytics-dashboard-widget.md)
-- [`examples/input-warehouse-operations.md`](./examples/input-warehouse-operations.md)
-- [`examples/input-role-access-management.md`](./examples/input-role-access-management.md)
-- [`examples/input-healthcare-appointment-scheduling.md`](./examples/input-healthcare-appointment-scheduling.md)
-- [`examples/input-field-service-dispatch.md`](./examples/input-field-service-dispatch.md)
+```bash
+node scripts/export-stories.js <stories-dir> <output.csv> jira
+```
 
-Representative generated stories:
-- [`examples/generated/epic-01-checkout-experience/US-001-capture-shipping-address.md`](./examples/generated/epic-01-checkout-experience/US-001-capture-shipping-address.md)
-- [`examples/generated/epic-02-analytics-dashboard/US-010-view-sales-trend-widget.md`](./examples/generated/epic-02-analytics-dashboard/US-010-view-sales-trend-widget.md)
-- [`examples/generated/epic-03-warehouse-operations/US-020-print-shipping-label.md`](./examples/generated/epic-03-warehouse-operations/US-020-print-shipping-label.md)
-- [`examples/generated/epic-04-role-access-management/US-031-assign-and-revoke-roles.md`](./examples/generated/epic-04-role-access-management/US-031-assign-and-revoke-roles.md)
-- [`examples/generated/epic-05-appointment-scheduling/US-040-book-clinic-appointment.md`](./examples/generated/epic-05-appointment-scheduling/US-040-book-clinic-appointment.md)
-- [`examples/generated/epic-06-field-service-dispatch/US-050-assign-technician-by-territory-and-skill.md`](./examples/generated/epic-06-field-service-dispatch/US-050-assign-technician-by-territory-and-skill.md)
+Inspect a codebase for evidence-only grounding:
 
-The example catalog now spans commerce, analytics, warehouse operations, access management, healthcare scheduling, and field-service dispatch so contributors can regression-check the skill against more than one style of backlog decomposition.
+```bash
+node scripts/inspect-codebase-context.js <repo-path>
+```
 
-## Evaluation Strategy
+Run repository-health checks for docs, governance, and metadata alignment:
 
-The repository includes realistic evaluation prompts in [`evals/evals.json`](./evals/evals.json).
+```bash
+node scripts/check-repo-health.js
+```
 
-The evaluation set is designed to exercise:
-- greenfield feature decomposition
-- preservation of non-functional constraints
-- normalization of inconsistent or scattered input
-- safe extension of an existing story pack without renumbering
-- export readiness and validation discipline
+Package the repository into a distributable skill directory:
 
-The repo now also includes:
-- an end-to-end existing-pack fixture under [`tests/fixtures/existing-pack`](./tests/fixtures/existing-pack)
-- a codebase-grounded anti-hallucination fixture under [`tests/fixtures/codebase/admin-role-app`](./tests/fixtures/codebase/admin-role-app)
+```bash
+node scripts/package-skill.js
+```
 
-Use the evals as regression prompts when changing the skill contract, parser, exporter, or examples.
+## Story Pack Workflow
 
-## Packaging
+For the full improvement loop, use:
 
-`npm run package` builds a local distributable directory at `dist/backlog-story-generator.skill/` and generates `skill-manifest.json`.
+```bash
+node scripts/improve-story-pack.js <stories-dir> --refine
+```
 
-The packaging flow:
-- does not publish automatically
-- does not mutate source files
-- excludes transient directories such as `dist/`, `tmp/`, and `node_modules/`
+That command wraps:
+- structural validation
+- semantic quality reporting
+- deterministic refinement when appropriate
+- post-refinement checks
 
-For public distribution or registry-style publishing, start from [`skill-manifest.example.json`](./skill-manifest.example.json) and adapt the metadata to your actual release target.
+See [`docs/story-pack-quality-workflow.md`](./docs/story-pack-quality-workflow.md) for the detailed workflow and decision path.
 
-For OpenAI-facing repository metadata and command hints, see [`openai.yaml`](./openai.yaml).
+## Gotchas
 
-## Extensibility
+- Passing structural validation does not guarantee good backlog prose. Use semantic quality linting when you care about story quality, not just file shape.
+- Large blind runs from messy notes can preserve duplicated sections or source noise unless the generation step normalizes them deliberately.
+- Blind runs and curated benchmark packs can differ in story count when trailing notes, duplicated sections, or field wishlists are normalized differently. Treat that as a modeling decision, not automatically as a defect.
+- Sandbox packs are examples and benchmark surfaces, not the skill contract itself. The skill's real value is the end-to-end workflow around generation, validation, refinement, and export.
+- Generic `So that`, `Context`, and acceptance criteria are the most common failure modes in raw generation output.
+- Trailing requirement notes or partial schema ideas in the source can accidentally turn into stories if the generation workflow does not classify them intentionally.
 
-Safe extension points:
-- add new export targets in [`scripts/export-stories.js`](./scripts/export-stories.js)
-- extend the schema and parser together when introducing new story sections
-- add new example packs for other domains
-- add richer validation rules or reporting as long as the core story contract stays clear
-- add or update target-specific export fixtures under [`tests/fixtures/exports`](./tests/fixtures/exports) when exporter behavior changes
+## Memory Model
 
-For teams adopting or forking this repository, see [`docs/adapt-for-your-org.md`](./docs/adapt-for-your-org.md).
+The repository uses a deliberately narrow memory model:
+- runtime memory: temporary notes for the current request
+- project-local memory: optional persistent conventions for one repo or backlog pack
+- shared memory: intentionally out of scope for this repository
 
-Out of scope for the current implementation:
-- direct hosted integrations with ticketing platforms
-- autonomous backlog-grooming loops
-- cross-agent shared-memory infrastructure
+See [`docs/memory-model.md`](./docs/memory-model.md) for the full policy.
 
-## Contributing
+## Derived Artifacts
 
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+The following directories are considered generated or derived output rather than canonical source:
+- `dist/`
+- `tmp/`
+- `exports/`
+
+Treat markdown story files as the source of truth. Do not manually patch generated CSV as if it were authoritative.
+
+## Customization
+
+Organizations usually adapt:
+- naming and numbering conventions
+- required story sections
+- export defaults
+- example packs
+- terminology for status, priority, or sizing
+
+Start with [`docs/adapt-for-your-org.md`](./docs/adapt-for-your-org.md).
+For the repeatable quality-improvement loop, also see [`docs/story-pack-quality-workflow.md`](./docs/story-pack-quality-workflow.md).
+
+## Evaluation
+
+Evaluation prompts and review criteria live under [`evals/`](./evals/). They are intended to test:
+- feature decomposition quality
+- preservation of non-functional requirements
+- continuity when extending an existing pack
+- export readiness
+- evidence-grounded behavior when a codebase is involved
+
+The repository also includes a semantic quality lint so structurally valid but generic story packs can be caught earlier.
+For larger packs, use the quality report to see repeated weak fields and issue clusters without reading the full raw lint output.
+If the pack is still too generic after generation, use the refiner to replace common boilerplate in `So that`, `Context`, acceptance criteria, and dependency notes before a final review pass.
+If you want that workflow wrapped into one repeatable command, use `scripts/improve-story-pack.js`.
+For a repository-grounded evaluation coverage snapshot, regenerate [`evals/latest-eval-report.md`](./evals/latest-eval-report.md) with:
+
+```bash
+npm run eval:report
+```
+
+To verify that the checked-in report is current:
+
+```bash
+npm run check:eval-report
+```
+
+## Requirements
+
+- Node.js 20 or later
+
+## Repository Status
+
+This repository is ready to use as:
+- a local skill
+- a forkable baseline for internal backlog standards
+- a GitHub-ready open-source skill repository with validation and regression coverage
+- a repo with issue templates, CI, release automation, security reporting guidance, and maintainer ownership metadata for public maintenance
+
+## Governance
+
+Maintainer-facing repository policies live in:
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- [`SUPPORT.md`](./SUPPORT.md)
+- [`SECURITY.md`](./SECURITY.md)
+- [`.github/CODEOWNERS`](./.github/CODEOWNERS)
 
 ## License
 
-This repository now includes the MIT license in [`LICENSE`](./LICENSE).
+MIT. See [`LICENSE`](./LICENSE).

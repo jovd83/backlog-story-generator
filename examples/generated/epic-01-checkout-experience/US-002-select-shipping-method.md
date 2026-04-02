@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds the decision point where the shopper chooses how the order will be delivered. It matters because shipping speed and availability affect both customer expectation and fulfillment flow.
+
+---
+
+## Functional / Business References
+- examples/input-checkout-requirements.md: source requirement narrative for Select Shipping Method
+
 ## Acceptance Criteria
 
 ### Scenario 1: View available methods

@@ -77,7 +77,7 @@ function main() {
     copyRecursive(path.join(repoRoot, entry.name), path.join(packageDir, entry.name));
   }
 
-  const manifest = {
+const manifest = {
     name: skillName,
     version,
     description: skillDescription,
@@ -91,8 +91,14 @@ function main() {
       "CHANGELOG.md",
       "LICENSE",
       "CONTRIBUTING.md",
+      "SECURITY.md",
+      "SUPPORT.md",
+      "openai.yaml",
+      ".agents/",
+      ".github/",
       "skill-manifest.example.json",
       "docs/",
+      "memory/",
       "references/",
       "schemas/",
       "scripts/",

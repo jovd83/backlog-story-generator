@@ -1,28 +1,30 @@
 name: backlog-story-generator
-version: 3.4.0
+display_name: Backlog Story Generator
+version: 5.0.0
 author: jovd83
 license: MIT
-description: Generate structured product epics, backlog-ready user stories, and ticket-import story packs from requirements, discovery notes, SOPs, workshop notes, existing backlog files, or a live codebase.
+description: Generate structured epics and backlog-ready user stories from requirements, discovery notes, existing story packs, or an observed codebase. Includes validation, evidence guardrails, and CSV export for Jira, Azure DevOps, GitHub Issues, and Tulip.
+short_description: Turn requirements into validated epic and user story packs.
+default_prompt: Generate a validated backlog story pack from the provided source material, preserve numbering continuity when extending an existing pack, surface assumptions explicitly, and export only if requested.
 entrypoint: SKILL.md
 repository:
   name: backlog-story-generator
-  visibility: public-ready
-artifacts:
-  package_dir: dist/backlog-story-generator.skill
-  manifest_example: skill-manifest.example.json
+  visibility: public
 compatibility:
-  node: ">=18"
+  node: ">=20"
 commands:
+  setup: npm run setup
   verify: npm run verify
-  package: npm run package
   validate_examples: npm run validate:examples
-  export_examples_jira: npm run export:examples:jira
+  lint_quality_examples: npm run lint:quality:examples
+  improve_examples: npm run improve:examples
+  package: npm run package
   report_existing_pack: npm run report:existing-pack
-  inspect_fixture_codebase: npm run inspect:fixture-codebase
 evaluation:
   prompts: evals/evals.json
-  latest_report: evals/latest-eval-report.md
 docs:
   readme: README.md
   changelog: CHANGELOG.md
-  adaptation_guide: docs/adapt-for-your-org.md
+  customization: docs/adapt-for-your-org.md
+  quality_workflow: docs/story-pack-quality-workflow.md
+  memory_model: docs/memory-model.md

@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds a way to inspect the permissions currently assigned to a user. It matters because administrators need visibility before they can safely review or adjust access.
+
+---
+
+## Functional / Business References
+- examples/input-role-access-management.md: source requirement narrative for View User Permissions
+
 ## Acceptance Criteria
 
 ### Scenario 1: View assigned roles

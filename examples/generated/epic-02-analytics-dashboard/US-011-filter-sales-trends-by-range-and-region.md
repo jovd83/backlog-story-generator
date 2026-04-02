@@ -16,6 +16,14 @@
 
 ---
 
+## Context
+This story adds filtering controls for the sales trend widget. It matters because users need to narrow the data to the period and geography relevant to the question they are trying to answer.
+
+---
+
+## Functional / Business References
+- examples/input-analytics-dashboard-widget.md: source requirement narrative for Filter Sales Trends By Range and Region
+
 ## Acceptance Criteria
 
 ### Scenario 1: Change date range

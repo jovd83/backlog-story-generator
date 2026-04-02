@@ -1,7 +1,7 @@
 {
   "name": "backlog-story-generator",
-  "version": "3.3.0",
-  "description": "Generate structured product epics, backlog-ready user stories, and ticket-import story packs from requirements, discovery notes, SOPs, workshop notes, existing backlog files, or a live codebase.",
+  "version": "5.0.0",
+  "description": "Generate structured product epics, backlog-ready user stories, and ticket-import story packs from requirements, discovery notes, existing backlog folders, or an observed codebase.",
   "author": "jovd83",
   "license": "MIT",
   "homepage": "https://github.com/jovd83/backlog-story-generator",
@@ -15,17 +15,26 @@
     "backlog",
     "epics",
     "user-stories",
-    "product-management"
+    "product-management",
+    "requirements-engineering"
   ],
   "compatibility": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "entrypoint": "SKILL.md",
   "contents": [
     "SKILL.md",
     "README.md",
-    "LICENSE",
+    "CHANGELOG.md",
     "CONTRIBUTING.md",
+    "SECURITY.md",
+    "SUPPORT.md",
+    "LICENSE",
+    "openai.yaml",
+    ".agents/",
+    ".github/",
+    "docs/",
+    "memory/",
     "references/",
     "schemas/",
     "scripts/",
@@ -34,7 +43,8 @@
     "tests/"
   ],
   "notes": [
-    "This is an example manifest for publication workflows or external registries.",
-    "Adjust homepage, repository, and compatibility metadata for your own distribution target."
+    "This manifest is an example publication descriptor for registries or internal distribution workflows.",
+    "Treat generated outputs such as dist, tmp, and exports as derived artifacts rather than canonical source.",
+    "Use scripts/improve-story-pack.js when you want validation, quality reporting, and deterministic refinement in one repeatable workflow."
   ]
 }
