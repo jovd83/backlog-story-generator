@@ -2,7 +2,7 @@
 
 All notable changes to this repository are documented here.
 
-## [Unreleased]
+## [5.1.0]
 
 ### Added
 - Added `scripts/improve-story-pack.js` as a single-command validation, reporting, and refinement workflow for story packs.
@@ -16,8 +16,6 @@ All notable changes to this repository are documented here.
 - Added `.github/pull_request_template.md`.
 - Added GitHub issue templates under `.github/ISSUE_TEMPLATE/`.
 - Added tag-driven release automation in `.github/workflows/release.yml`.
-- Added `SECURITY.md` with supported-version and vulnerability-reporting guidance.
-- Added `SUPPORT.md` to define support boundaries and issue-routing expectations.
 - Added `.github/CODEOWNERS` for maintainer ownership metadata.
 
 ### Changed

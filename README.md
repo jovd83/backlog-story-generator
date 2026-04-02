@@ -1,6 +1,6 @@
 # Backlog Story Generator
 
-[![Version](https://img.shields.io/badge/version-5.0.0-blue.svg)](#)
+[![Version](https://img.shields.io/badge/version-5.1.0-blue.svg)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-43853d.svg)](#requirements)
 [![CI](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml)
@@ -264,14 +264,6 @@ This repository is ready to use as:
 - a forkable baseline for internal backlog standards
 - a GitHub-ready open-source skill repository with validation and regression coverage
 - a repo with issue templates, CI, release automation, security reporting guidance, and maintainer ownership metadata for public maintenance
-
-## Governance
-
-Maintainer-facing repository policies live in:
-- [`CONTRIBUTING.md`](./CONTRIBUTING.md)
-- [`SUPPORT.md`](./SUPPORT.md)
-- [`SECURITY.md`](./SECURITY.md)
-- [`.github/CODEOWNERS`](./.github/CODEOWNERS)
 
 ## License
 
