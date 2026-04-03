@@ -54,7 +54,7 @@ test("flags generic generated story prose", () => {
 ---
 
 ## Context
-Generic Story adds support for users who need to do the thing. This matters because the platform needs to make things work. The outcome should be available within the owning TMT project context without relying on manual workarounds outside the system.
+This story belongs to the Generic Epic backlog and should keep project scope, traceability, and operability clear while TMT grows.
 
 ---
 

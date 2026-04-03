@@ -1,4 +1,4 @@
-# User Story: Use a RAG so I can use a LLM-model with a chat-window to answer questions like Do we have a test that does A in situation B With change request X which test cases need to be adapted
+# User Story: Use a RAG So I Can Use a LLM Model with a Chat Window to Answer Questions Like Do We Have a Test That Does a in Situation B with Change Request X Which Test Cases Need to Be Adapted
 
 **Story ID:** US-141
 **Epic/Feature:** AI Capabilities
@@ -27,13 +27,13 @@
 ## User Story
 
 **As a** tester
-**I want** to use a RAG so I can use a LLM-model with a chat-window to answer questions like Do we have a test that does A in situation B With change request X which test cases need to be adapted
-**So that** teams can move faster while still grounding decisions in project evidence
+**I want** to use a RAG so i can use a LLM model with a chat window to answer questions like do we have a test that does a in situation b with change request x which test cases need to be adapted
+**So that** teams can answer repository questions faster without manually searching across project artifacts
 
 ---
 
 ## Context
-Use a RAG so I can use a LLM-model with a chat-window to answer questions like Do we have a test that does A in situation B With change request X which test cases need to be adapted exists so teams can move faster while still grounding decisions in project evidence. It belongs to the AI Capabilities backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to use a RAG so i can use a LLM model with a chat window to answer questions like do we have a test that does a in situation b with change request x which test cases need to be adapted in the AI Capabilities epic. Today, the capability is not yet a dedicated project-scoped workflow. With this change, tester can use a RAG so i can use a LLM model with a chat window to answer questions like do we have a test that does a in situation b with change request x which test cases need to be adapted inside the current project boundary, and teams can answer repository questions faster without manually searching across project artifacts. It sits with the other AI Capabilities stories that use project knowledge to accelerate analysis and Across the product, it supports faster analysis while staying grounded in project knowledge
 
 ---
 
@@ -43,20 +43,20 @@ Use a RAG so I can use a LLM-model with a chat-window to answer questions like D
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Use a RAG so I can use a LLM-model with a chat-window to answer questions like Do we have a test that does A in situation B With change request X which test cases need to be adapted
-**Given** a tester is working inside the correct TMT project and is ready to use a RAG so I can use a LLM-model with a chat-window to answer questions like Do we have a test that does A in situation B With change request X which test cases need to be adapted
-**When** they use a RAG so I can use a LLM-model with a chat-window to answer questions like Do we have a test that does A in situation B With change request X which test cases need to be adapted
-**Then** the AI-assisted output is returned from project-scoped source material and can be reviewed by the team before action is taken
+### Scenario 1: Valid project-scoped Use a RAG So I Can Use a LLM Model with a Chat Window to Answer Questions Like Do We Have a Test That Does a in Situation B with Change Request X Which Test Cases Need to Be Adapted
+**Given** a tester is working in a TMT project with the required repository-grounded AI answers context
+**When** they use a RAG so i can use a LLM model with a chat window to answer questions like do we have a test that does a in situation b with change request x which test cases need to be adapted using valid project data
+**Then** the response is returned from project-scoped repository knowledge with relevant supporting context
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for use a RAG so I can use a LLM-model with a chat-window to answer questions like Do we have a test that does A in situation B With change request X which test cases need to be adapted are missing
-**When** the tester tries to use a RAG so I can use a LLM-model with a chat-window to answer questions like Do we have a test that does A in situation B With change request X which test cases need to be adapted
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the repository-grounded AI answers request is missing required data or the user lacks the needed permission
+**When** they attempt to use a RAG so i can use a LLM model with a chat window to answer questions like do we have a test that does a in situation b with change request x which test cases need to be adapted
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: Outputs stay grounded
-**Given** the project contains the source material needed for the AI-assisted workflow
-**When** the user requests an answer or generated artifact
-**Then** the result stays tied to project-scoped source content rather than unsupported invention
+### Scenario 3: Responses stay grounded in project knowledge
+**Given** the project contains indexed repository artifacts relevant to the question
+**When** the user requests an answer or generated output from the AI capability
+**Then** the response stays grounded in project-scoped source material instead of unsupported invention
 
 ---
 
@@ -69,25 +69,25 @@ Use a RAG so I can use a LLM-model with a chat-window to answer questions like D
 - Retrieval, prompting, and human review can be decomposed later if implementation needs it.
 
 ## Dependencies
-- Project-scoped source content, retrieval/indexing support, and permission-aware access to AI features.
+- Requires project-scoped repository content, indexing, and retrieval support for grounded AI responses.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Clearly separate user input, supporting source context, and generated output so trust can be evaluated.
+N/A
 
 ## Testing Notes
-- Cover grounded-output behavior, insufficient-source handling, and permission-aware access to project content.
-- Add checks that prove generated results remain reviewable before downstream use.
+- Cover grounded responses, missing-source handling, and traceability of generated answers back to project knowledge.
 
 ## Open Questions
-- Which project artifacts should be treated as authoritative sources for this AI-assisted workflow?
+- Which repository artifacts should be considered authoritative sources for grounded answers in this project?
 
 ## Source Traceability
 - C:/projects/VS_prj/TMT_codex/starting_point/starting_point_func.md
 - C:/projects/VS_prj/TMT_codex/starting_point/starting_point_tech.md
 
 ## Implementation Notes
-- Keep retrieval, generation, and stored AI context project-scoped so information cannot leak across projects.
+- Keep retrieval and answer-generation components project-scoped so repository content does not leak across projects.
+

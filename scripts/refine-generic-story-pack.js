@@ -44,6 +44,10 @@ function replaceLine(content, label, value) {
   return content.replace(pattern, `$1${value}`);
 }
 
+function replaceStoryTitle(content, value) {
+  return content.replace(/^# User Story:\s*.+$/m, `# User Story: ${value}`);
+}
+
 function replaceSection(content, heading, body) {
   const pattern = new RegExp(
     `(^## ${escapeRegex(heading)}\\s*$)([\\s\\S]*?)(?=^## |^---\\s*$|(?![\\s\\S]))`,
@@ -82,6 +86,9 @@ function normalizeTerminology(value) {
     [/\bmarkdown\b/gi, "Markdown"],
     [/\brag\b/gi, "RAG"],
     [/\bllm\b/gi, "LLM"],
+    [/\btdd\b/gi, "TDD"],
+    [/\bbdd\b/gi, "BDD"],
+    [/\bgdpr\b/gi, "GDPR"],
     [/\bjunit4\b/gi, "JUnit 4"],
     [/\bjunit5\b/gi, "JUnit 5"],
     [/\bjunit 4\b/gi, "JUnit 4"],
@@ -93,6 +100,8 @@ function normalizeTerminology(value) {
     [/\bselenium\b/gi, "Selenium"],
     [/\bcucumber\b/gi, "Cucumber"],
     [/\bpostman\b/gi, "Postman"],
+    [/\btestlink\b/gi, "TestLink"],
+    [/\btmt\b/gi, "TMT"],
     [/\bapi\b/g, "API"],
     [/\bci\/cd\b/gi, "CI/CD"],
   ];
@@ -104,11 +113,211 @@ function humanizeSubject(value) {
   return normalizeTerminology(String(value || "").trim().toLowerCase());
 }
 
-function titleToCapabilityPhrase(title, fallback) {
-  const normalizedTitle = normalizeTerminology(title.trim());
-  const normalizedFallback = normalizeTerminology(fallback.replace(/^to\s+/i, "").trim());
+function deslugifyTitleSeed(fileName) {
+  return String(fileName || "")
+    .replace(/^US-\d+-/i, "")
+    .replace(/\.md$/i, "")
+    .replace(/-/g, " ")
+    .trim();
+}
+
+function startsWithActionVerb(value) {
+  const firstWord = String(value || "")
+    .trim()
+    .split(/\s+/)[0]
+    .toLowerCase();
+
+  return [
+    "access",
+    "add",
+    "analyze",
+    "assign",
+    "book",
+    "cancel",
+    "choose",
+    "clone",
+    "compare",
+    "consult",
+    "copy",
+    "create",
+    "delete",
+    "detect",
+    "define",
+    "discuss",
+    "edit",
+    "embed",
+    "export",
+    "generate",
+    "handle",
+    "import",
+    "integrate",
+    "isolate",
+    "link",
+    "list",
+    "manage",
+    "mark",
+    "monitor",
+    "perform",
+    "print",
+    "preserve",
+    "push",
+    "remove",
+    "reprint",
+    "reuse",
+    "restore",
+    "review",
+    "run",
+    "save",
+    "search",
+    "select",
+    "show",
+    "support",
+    "tag",
+    "update",
+    "use",
+    "view",
+  ].includes(firstWord);
+}
+
+function defaultVerbForType(type) {
+  switch (type) {
+    case "view":
+    case "report":
+      return "view";
+    case "link":
+      return "link";
+    case "integration":
+      return "import";
+    case "manage":
+      return "manage";
+    case "workflow":
+      return "perform";
+    case "security":
+      return "control";
+    case "platform":
+      return "provide";
+    case "reuse":
+      return "reuse";
+    case "ai":
+      return "generate";
+    case "remove":
+      return "remove";
+    default:
+      return "handle";
+  }
+}
+
+function stripStoryPrefix(value) {
+  let text = String(value || "").trim();
+  let previous;
+
+  do {
+    previous = text;
+    text = text
+      .replace(/^to\s+/i, "")
+      .replace(/^as\s+(?:a|an)\s+[^,]+,?\s*i want\s*/i, "")
+      .replace(/^i want\s*/i, "")
+      .trim();
+  } while (text !== previous);
+
+  return text;
+}
+
+function cleanGeneratedPhrase(value) {
+  let text = String(value || "").trim();
+  let previous;
+
+  do {
+    previous = text;
+    text = text
+      .replace(/^handle\s+/i, "")
+      .replace(/^(handle|manage|provide|control|import|view|remove|support|use|perform)\s+(?=(manage|define|provide|support|view|run|generate|integrate|comment|discuss|preserve|monitor|delete|copy|reuse|add|select|export|import|review|create|embed|isolate|handle)\b)/i, "")
+      .replace(/^(\w+)\s+\1\b\s*/i, "$1 ")
+      .trim();
+  } while (text !== previous);
+
+  return text;
+}
+
+function titleToCapabilityPhrase(story, fallback) {
+  const candidates = [
+    deslugifyTitleSeed(story.fileName),
+    story.title,
+    fallback,
+  ]
+    .map((value) => cleanGeneratedPhrase(normalizeTerminology(stripStoryPrefix(String(value || "").trim()))))
+    .filter(Boolean);
 
   const explicitPatterns = [
+    [/^That a (.+?) contains(?: the following fields)?$/i, (_, subject) => `define ${humanizeSubject(subject)} fields`],
+    [/^A manual which explains each feature$/i, () => "view a manual that explains each feature"],
+    [/^A query query language to do advanced searches$/i, () => "run advanced searches with a query language"],
+    [/^That the system generates test cases based on requirements$/i, () => "generate test cases from requirements"],
+    [/^That the system is capable of generating diagrams of requirements$/i, () => "generate requirement diagrams"],
+    [/^That the system can perform exploratory testing based on a high level test case$/i, () => "perform exploratory testing from a high-level test case"],
+    [/^To take snapshots in an vectorDB$/i, () => "take snapshots in a vector database"],
+    [/^A confluence macro to show test case,? and their results in confluence$/i, () => "show test cases and results in Confluence with a macro"],
+    [/^Templates to start pipelines\/runs to run individual test cases, test classes, \.\.\. in CI\/CD platforms \((.+)\)$/i, () => "start pipelines for individual automated tests"],
+    [/^CI pipelines to push results automatically, from: (.+)$/i, () => "push results automatically from CI pipelines"],
+    [/^Data export of any given test suite\/collections? \(with options\) in .+$/i, () => "export selected test suite or collection data"],
+    [/^Data export of a complete project \(with options\) in .+$/i, () => "export complete project data"],
+    [/^Full data export$/i, () => "export full project data"],
+    [/^Dry-run import validation$/i, () => "validate imports with a dry run"],
+    [/^Execution progress reports$/i, () => "view execution progress reports"],
+    [/^Real-time dashboards$/i, () => "view real-time dashboards"],
+    [/^Custom dashboards$/i, () => "view custom dashboards"],
+    [/^Dashboard with metrics$/i, () => "view dashboards with metrics"],
+    [/^Exportable reports \((.+)\)$/i, (_, subject) => `export reports as ${humanizeSubject(subject)}`],
+    [/^Automation vs manual ratios$/i, () => "view automation versus manual ratios"],
+    [/^Trend analysis$/i, () => "view trend analysis"],
+    [/^Coverage indicators$/i, () => "view coverage indicators"],
+    [/^Traceability matrices$/i, () => "view traceability matrices"],
+    [/^Activity history$/i, () => "view activity history"],
+    [/^Notifications$/i, () => "view notifications"],
+    [/^Comments on (.+)$/i, (_, subject) => `comment on ${humanizeSubject(subject)}`],
+    [/^Execution discussions$/i, () => "discuss test execution"],
+    [/^Shared documentation pages$/i, () => "use shared documentation pages"],
+    [/^Mentions \(@user\)$/i, () => "mention users"],
+    [/^Flaky test detection$/i, () => "detect flaky tests"],
+    [/^Hierarchical collections or suites$/i, () => "organize hierarchical collections and suites"],
+    [/^Reusable test sets$/i, () => "reuse test sets"],
+    [/^Bulk edit capabilities$/i, () => "bulk edit test assets"],
+    [/^Plain text test cases$/i, () => "create plain-text test cases"],
+    [/^BDD test cases$/i, () => "create BDD test cases"],
+    [/^Step-based TDD test cases$/i, () => "create step-based TDD test cases"],
+    [/^Parameterized test cases$/i, () => "create parameterized test cases"],
+    [/^Rich text editing \((.+)\)$/i, (_, subject) => `edit rich text with ${humanizeSubject(subject).replace("/", " and ")}`],
+    [/^Webhook support$/i, () => "support webhooks"],
+    [/^Jenkins integration$/i, () => "integrate with Jenkins"],
+    [/^GitLab CI integration$/i, () => "integrate with GitLab CI"],
+    [/^Confluence page embedding$/i, () => "embed Confluence pages"],
+    [/^OAuth \/ token-based auth for integrations$/i, () => "manage OAuth and token-based integration authentication"],
+    [/^CSV\/XML\/JSON imports$/i, () => "import CSV, XML, and JSON data"],
+    [/^Usage analytics$/i, () => "view usage analytics"],
+    [/^Feature flags$/i, () => "manage feature flags"],
+    [/^Health monitoring$/i, () => "monitor platform health"],
+    [/^Upgrade paths$/i, () => "manage upgrade paths"],
+    [/^Backups and restores$/i, () => "manage backups and restores"],
+    [/^Async processing$/i, () => "support asynchronous processing"],
+    [/^Indexed search$/i, () => "provide indexed search"],
+    [/^Horizontal scaling$/i, () => "support horizontal scaling"],
+    [/^Performance metrics$/i, () => "monitor performance metrics"],
+    [/^Plugin support for future extensions$/i, () => "support plugins for future extensions"],
+    [/^Versioned APIs for backward compatibility$/i, () => "provide versioned APIs for backward compatibility"],
+    [/^A modular architecture so features can be enabled\/disabled$/i, () => "provide a modular architecture for feature enablement"],
+    [/^Fast response times even with large datasets$/i, () => "support fast response times with large datasets"],
+    [/^Project(?: |-)?level configuration$/i, () => "manage project-level configuration"],
+    [/^Isolated data per project$/i, () => "isolate data per project"],
+    [/^Per(?: |-)?project configuration$/i, () => "manage per-project configuration"],
+    [/^Custom fields$/i, () => "manage custom fields"],
+    [/^Configurable statuses$/i, () => "manage configurable statuses"],
+    [/^Custom workflows$/i, () => "manage custom workflows"],
+    [/^Naming conventions$/i, () => "manage naming conventions"],
+    [/^Audit logs$/i, () => "view audit logs"],
+    [/^Permission scopes$/i, () => "manage permission scopes"],
+    [/^Immutable execution history$/i, () => "preserve immutable execution history"],
+    [/^GDPR-compliant data handling$/i, () => "handle data in a GDPR-compliant way"],
+    [/^SSO support$/i, () => "support SSO"],
     [/^Rich Text Editing with (.+)$/i, (_, detail) => `edit rich text with ${humanizeSubject(detail)}`],
     [/^(.+) Detection$/i, (_, subject) => `detect ${humanizeSubject(subject)}`],
     [/^(.+) Monitoring$/i, (_, subject) => `monitor ${humanizeSubject(subject)}`],
@@ -134,22 +343,60 @@ function titleToCapabilityPhrase(title, fallback) {
     [/^Perform (.+)$/i, (_, subject) => `perform ${humanizeSubject(subject)}`],
   ];
 
-  for (const [pattern, builder] of explicitPatterns) {
-    const match = normalizedTitle.match(pattern);
-    if (match) {
-      return builder(...match);
+  for (const candidate of candidates) {
+    for (const [pattern, builder] of explicitPatterns) {
+      const match = candidate.match(pattern);
+      if (match) {
+        return builder(...match);
+      }
     }
   }
 
+  const normalizedFallback = candidates[candidates.length - 1] || "";
   if (/^have\s+/i.test(normalizedFallback)) {
     return normalizedFallback.replace(/^have\s+/i, "use ");
   }
 
-  return normalizedFallback || lowerFirst(normalizedTitle);
+  return candidates[0] || normalizedFallback;
 }
 
 function capabilityPhrase(story) {
-  return titleToCapabilityPhrase(story.title, story.userStory.iWant);
+  const type = inferType(story);
+  const phrase = titleToCapabilityPhrase(story, story.userStory.iWant);
+
+  if (startsWithActionVerb(phrase)) {
+    return phrase;
+  }
+
+  return `${defaultVerbForType(type)} ${phrase}`.trim();
+}
+
+function toStoryTitle(capability) {
+  const lowerWords = new Set(["a", "an", "and", "as", "at", "by", "for", "in", "of", "on", "or", "the", "to", "vs", "with"]);
+
+  return capability
+    .split(/\s+/)
+    .map((word, index) => {
+      if (!word) {
+        return word;
+      }
+      return word
+        .split(/([/-])/)
+        .map((part, partIndex) => {
+          if (/^[/-]$/.test(part) || !part) {
+            return part;
+          }
+          if (/^[A-Z0-9]+$/.test(part)) {
+            return part;
+          }
+          if (index > 0 && partIndex === 0 && lowerWords.has(part.toLowerCase())) {
+            return part.toLowerCase();
+          }
+          return part.charAt(0).toUpperCase() + part.slice(1);
+        })
+        .join("");
+    })
+    .join(" ");
 }
 
 function objectLabel(story, capability, type) {
@@ -209,10 +456,9 @@ function inferActor(story) {
 
 function inferType(story) {
   const title = story.title.toLowerCase();
-  const capability = capabilityPhrase(story).toLowerCase();
-  const text = `${title} ${capability}`;
+  const text = `${title} ${story.userStory.iWant.toLowerCase()} ${story.userStory.soThat.toLowerCase()}`;
 
-  if (/rag|llm|ai|vector|snapshot|generate|exploratory testing/.test(text)) return "ai";
+  if (/rag|llm|\bai\b|vector|snapshot|generate|exploratory testing/.test(text)) return "ai";
   if (/report|dashboard|trend|matrix|indicator|metrics/.test(text)) return "report";
   if (/permission|role|audit|sso|oauth|gdpr|security/.test(text)) return "security";
   if (/performance|fast response|million|horizontal scaling|async|health monitoring|backup/.test(text)) return "platform";
@@ -285,8 +531,83 @@ function buildOutcome(story, type) {
   }
 }
 
-function buildContext(story, capability, outcome) {
-  return `This story adds the ability to ${capability} within a TMT project. It matters because ${outcome}.`;
+function buildAsIs(story, type) {
+  const title = story.title.toLowerCase();
+
+  if (/report|dashboard|trend|matrix|indicator|metrics|coverage|query|search|filter/.test(title)) {
+    return "Today, the needed information is still spread across separate records, so teams have to assemble it manually before they can act.";
+  }
+
+  if (/import|export|sync|integration|api|webhook|openapi|swagger|jira|confluence|jenkins|gitlab|plugin/.test(title)) {
+    return "Today, the workflow still depends on manual handoffs or disconnected system steps.";
+  }
+
+  if (/permission|role|sso|audit|gdpr|security|access/.test(title)) {
+    return "Today, access and control are handled more broadly than this project-scoped need requires.";
+  }
+
+  if (/performance|scaling|millions|async|health|backup/.test(title)) {
+    return "Today, the product still needs explicit scale or resilience handling for this area.";
+  }
+
+  if (/copy|clone|reuse|template|restore/.test(title)) {
+    return "Today, users still need to rebuild or duplicate this work by hand.";
+  }
+
+  if (/create|update|delete|manage|add|assign|attach|tag|store|save|print|reprint|link/.test(title)) {
+    return "Today, the capability is handled through a less direct or less consistent workflow.";
+  }
+
+  if (type === "view") {
+    return "Today, the relevant information is not yet exposed as a dedicated project view.";
+  }
+
+  return "Today, the capability is not yet a dedicated project-scoped workflow.";
+}
+
+function buildToBe(story, actor, capability, outcome) {
+  return `With this change, ${lowerFirst(actor)} can ${capability} inside the current project boundary, and ${outcome}.`;
+}
+
+function buildRelation(story, type) {
+  const epic = story.epicFeature;
+
+  const sameEpicByType = {
+    view: `the other ${epic} stories that surface, filter, or inspect project information`,
+    report: `the other ${epic} stories that turn execution data into visible status and trends`,
+    link: `the other ${epic} stories that connect requirements, tests, and results`,
+    integration: `the other ${epic} stories that move data between TMT and external systems`,
+    manage: `the other ${epic} stories that create, update, or maintain core project data`,
+    workflow: `the other ${epic} stories that move the project through a lifecycle or status change`,
+    security: `the other ${epic} stories that control access, auditability, and compliance`,
+    platform: `the other ${epic} foundation stories that the rest of the product depends on`,
+    reuse: `the other ${epic} stories that let teams duplicate or reuse existing work`,
+    ai: `the other ${epic} stories that use project knowledge to accelerate analysis`,
+    remove: `the other ${epic} stories that retire or clean up obsolete project data`,
+  };
+
+  const productByType = {
+    view: "Across the product, it improves findability and trust in project information",
+    report: "Across the product, it supports decision-making without forcing manual reporting work",
+    link: "Across the product, it keeps traceability intact from requirement to result",
+    integration: "Across the product, it keeps TMT connected to external tools without losing control of the data",
+    manage: "Across the product, it keeps core project records consistent and usable",
+    workflow: "Across the product, it keeps operational state aligned for downstream work",
+    security: "Across the product, it protects project boundaries and audit evidence",
+    platform: "Across the product, it provides the foundation that later epics can safely build on",
+    reuse: "Across the product, it reduces duplicate effort and keeps setup consistent",
+    ai: "Across the product, it supports faster analysis while staying grounded in project knowledge",
+    remove: "Across the product, it keeps old data from confusing active delivery work",
+  };
+
+  return `It sits with ${sameEpicByType[type] || `the other ${epic} stories in this epic`} and ${productByType[type] || "supports the broader TMT product"}`;
+}
+
+function buildContext(story, actor, capability, outcome, type) {
+  const asIs = buildAsIs(story, type);
+  const toBe = buildToBe(story, actor, capability, outcome);
+  const relation = buildRelation(story, type);
+  return `This story adds the ability for ${lowerFirst(actor)} to ${capability} in the ${story.epicFeature} epic. ${asIs} ${toBe} ${relation}`;
 }
 
 function buildSuccessThen(story, type, capability, objectPhrase) {
@@ -568,8 +889,9 @@ function refineStoryContent(content, story) {
   const actor = inferActor(story);
   const type = inferType(story);
   const capability = capabilityPhrase(story);
+  const storyTitle = toStoryTitle(capability);
   const outcome = buildOutcome(story, type);
-  const context = buildContext(story, capability, outcome);
+  const context = buildContext(story, actor, capability, outcome, type);
   const acceptanceCriteria = buildAcceptanceCriteria(story, actor, type);
   const dependencies = buildDependencies(story, type, capability);
   const ux = buildUx(story, type);
@@ -578,6 +900,7 @@ function refineStoryContent(content, story) {
   const implementationNotes = buildImplementationNotes(story, type);
 
   let updated = content;
+  updated = replaceStoryTitle(updated, storyTitle);
   updated = replaceLine(updated, "As a", actor);
   updated = replaceLine(updated, "I want", `to ${capability}`);
   updated = replaceLine(updated, "So that", outcome);

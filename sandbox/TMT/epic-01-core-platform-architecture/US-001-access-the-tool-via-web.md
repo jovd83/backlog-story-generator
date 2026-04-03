@@ -1,4 +1,4 @@
-# User Story: Access the tool via web
+# User Story: Access the Tool Via Web
 
 **Story ID:** US-001
 **Epic/Feature:** Core Platform Architecture
@@ -28,12 +28,12 @@
 
 **As a** system administrator
 **I want** to access the tool via web
-**So that** the platform foundation supports safe and scalable TMT delivery
+**So that** the project workflow can be completed consistently inside TMT
 
 ---
 
 ## Context
-Access the tool via web exists so the platform foundation supports safe and scalable TMT delivery. It belongs to the Core Platform Architecture backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for system administrator to access the tool via web in the Core Platform Architecture epic. Today, access and control are handled more broadly than this project-scoped need requires. With this change, system administrator can access the tool via web inside the current project boundary, and the project workflow can be completed consistently inside TMT. It sits with the other Core Platform Architecture stories in this epic and supports the broader TMT product
 
 ---
 
@@ -43,20 +43,20 @@ Access the tool via web exists so the platform foundation supports safe and scal
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Access the tool via web
-**Given** a system administrator is working inside the correct TMT project and is ready to access the tool via web
-**When** they access the tool via web
-**Then** the platform behavior is available for the intended scope without breaking project boundaries
+### Scenario 1: Valid project-scoped Access the Tool Via Web
+**Given** a system administrator is working in a TMT project with the required the tool via web context
+**When** they access the tool via web using valid project data
+**Then** the the tool via web capability is completed for the current project
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for access the tool via web are missing
-**When** the system administrator tries to access the tool via web
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the the tool via web request is missing required data or the user lacks the needed permission
+**When** they attempt to access the tool via web
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: State stays reviewable
-**Given** the story changes data, structure, or workflow state in TMT
-**When** the operation completes
-**Then** the resulting state can still be reviewed later through normal project views and audit trails
+### Scenario 3: Project state remains traceable
+**Given** the the tool via web action changes project data or workflow state
+**When** the action succeeds
+**Then** the resulting state remains visible and traceable in the relevant TMT area
 
 ---
 
@@ -69,7 +69,7 @@ Access the tool via web exists so the platform foundation supports safe and scal
 - Detailed service, module, or infrastructure decomposition can follow during implementation planning.
 
 ## Dependencies
-- Shared platform services for authorization, storage, deployment, and configuration.
+- Requires project-scoped authorization and persistence support for the tool via web.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
@@ -79,8 +79,7 @@ Access the tool via web exists so the platform foundation supports safe and scal
 N/A
 
 ## Testing Notes
-- Cover the intended platform behavior plus invalid or unauthorized paths.
-- Add service and API checks where the story changes cross-cutting runtime behavior.
+N/A
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

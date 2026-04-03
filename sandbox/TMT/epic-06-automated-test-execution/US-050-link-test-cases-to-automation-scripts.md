@@ -1,4 +1,4 @@
-# User Story: Link test cases to automation scripts
+# User Story: Link Test Cases to Automation Scripts
 
 **Story ID:** US-050
 **Epic/Feature:** Automated Test Execution
@@ -28,12 +28,12 @@
 
 **As a** tester
 **I want** to link test cases to automation scripts
-**So that** release and coverage decisions can rely on current execution evidence
+**So that** related requirements, tests, and execution records stay connected across the project lifecycle
 
 ---
 
 ## Context
-Link test cases to automation scripts exists so release and coverage decisions can rely on current execution evidence. It belongs to the Automated Test Execution backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to link test cases to automation scripts in the Automated Test Execution epic. Today, the capability is handled through a less direct or less consistent workflow. With this change, tester can link test cases to automation scripts inside the current project boundary, and related requirements, tests, and execution records stay connected across the project lifecycle. It sits with the other Automated Test Execution stories that connect requirements, tests, and results and Across the product, it keeps traceability intact from requirement to result
 
 ---
 
@@ -43,20 +43,20 @@ Link test cases to automation scripts exists so release and coverage decisions c
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Link test cases to automation scripts
-**Given** a tester is working inside the correct TMT project and is ready to link test cases to automation scripts
-**When** they link test cases to automation scripts
-**Then** the execution, planning, or traceability state is updated on the correct project artifacts and remains visible afterward
+### Scenario 1: Valid project-scoped Link Test Cases to Automation Scripts
+**Given** a tester is working in a TMT project with the required test cases to automation scripts context
+**When** they link test cases to automation scripts using valid project data
+**Then** the new relationship is saved and visible from the affected project records
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for link test cases to automation scripts are missing
-**When** the tester tries to link test cases to automation scripts
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the test cases to automation scripts request is missing required data or the user lacks the needed permission
+**When** they attempt to link test cases to automation scripts
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: State stays reviewable
-**Given** the story changes data, structure, or workflow state in TMT
-**When** the operation completes
-**Then** the resulting state can still be reviewed later through normal project views and audit trails
+### Scenario 3: Traceability and audit evidence
+**Given** the test cases to automation scripts activity affects stored project records
+**When** the test cases to automation scripts action completes
+**Then** the resulting change remains traceable with the affected records and timestamps
 
 ---
 
@@ -69,18 +69,17 @@ Link test cases to automation scripts exists so release and coverage decisions c
 - Wider analytics and vendor-specific rollout concerns belong in linked epics when needed.
 
 ## Dependencies
-- Planned test assets, execution state, evidence storage, and traceability identifiers.
+- Requires project-scoped authorization and persistence support for test cases to automation scripts.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Make current status, scope, and next action obvious to the tester or lead using the workflow.
+- Provide clear validation, success, and failure feedback at the point where the user performs the action.
 
 ## Testing Notes
-- Cover the main workflow plus permission, validation, or missing-scope failures.
-- Add end-to-end checks when the story changes a user-facing execution path.
+- Cover the primary success path, validation or permission failures, and persistence of the resulting project state.
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

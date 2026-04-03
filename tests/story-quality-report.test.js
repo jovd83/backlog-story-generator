@@ -42,7 +42,7 @@ test("surfaces repeated hotspots for a generic story pack", () => {
 ---
 
 ## Context
-This story was reconstructed from the source backlog in the canonical skill format.
+This story belongs to the Test Epic backlog and should keep project scope, traceability, and operability clear while TMT grows.
 
 ---
 

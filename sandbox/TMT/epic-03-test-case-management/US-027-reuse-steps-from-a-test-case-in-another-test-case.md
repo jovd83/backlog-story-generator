@@ -1,4 +1,4 @@
-# User Story: Reuse steps from a test case in another test case
+# User Story: Reuse Steps From a Test Case in Another Test Case
 
 **Story ID:** US-027
 **Epic/Feature:** Test Case Management
@@ -28,12 +28,12 @@
 
 **As a** tester
 **I want** to reuse steps from a test case in another test case
-**So that** test assets stay maintainable and trustworthy as coverage evolves
+**So that** teams can reuse proven setup faster instead of recreating the same assets from scratch
 
 ---
 
 ## Context
-Reuse steps from a test case in another test case exists so test assets stay maintainable and trustworthy as coverage evolves. It belongs to the Test Case Management backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to reuse steps from a test case in another test case in the Test Case Management epic. Today, users still need to rebuild or duplicate this work by hand. With this change, tester can reuse steps from a test case in another test case inside the current project boundary, and teams can reuse proven setup faster instead of recreating the same assets from scratch. It sits with the other Test Case Management stories that let teams duplicate or reuse existing work and Across the product, it reduces duplicate effort and keeps setup consistent
 
 ---
 
@@ -43,20 +43,20 @@ Reuse steps from a test case in another test case exists so test assets stay mai
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Reuse steps from a test case in another test case
-**Given** a tester is working inside the correct TMT project and is ready to reuse steps from a test case in another test case
-**When** they reuse steps from a test case in another test case
-**Then** the test asset is saved with the expected structure and remains usable in later organization, planning, or execution workflows
+### Scenario 1: Valid project-scoped Reuse Steps From a Test Case in Another Test Case
+**Given** a tester is working in a TMT project with the required steps from a test case in another test case context
+**When** they reuse steps from a test case in another test case using valid project data
+**Then** the duplicated or reusable steps from a test case in another test case is created from the selected source
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for reuse steps from a test case in another test case are missing
-**When** the tester tries to reuse steps from a test case in another test case
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the steps from a test case in another test case request is missing required data or the user lacks the needed permission
+**When** they attempt to reuse steps from a test case in another test case
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: State stays reviewable
-**Given** the story changes data, structure, or workflow state in TMT
-**When** the operation completes
-**Then** the resulting state can still be reviewed later through normal project views and audit trails
+### Scenario 3: Project state remains traceable
+**Given** the steps from a test case in another test case action changes project data or workflow state
+**When** the action succeeds
+**Then** the resulting state remains visible and traceable in the relevant TMT area
 
 ---
 
@@ -69,18 +69,17 @@ Reuse steps from a test case in another test case exists so test assets stay mai
 - UI and API design details can evolve as long as the authoring contract stays clear.
 
 ## Dependencies
-- Test artifact persistence, project-scoped authorization, and repository navigation support.
+- Requires project-scoped authorization and persistence support for steps from a test case in another test case.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Keep the workflow clear enough that a tester understands what will be saved before confirming the change.
+N/A
 
 ## Testing Notes
-- Cover valid authoring, validation failures, and later retrieval of the saved artifact.
-- Add UI coverage when the story changes a user-facing editing workflow.
+N/A
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

@@ -37,14 +37,19 @@ Answer two things:
 1. What capability is being added or changed?
 2. Why does that capability matter in this domain?
 
-Keep it short. Two or three sentences is usually enough.
+Also make the current and future state visible:
+3. What is the AS-IS workflow today?
+4. What is the TO-BE workflow after the story lands?
+5. How does the story relate to the rest of the epic and the wider product?
+
+Keep it short. Three sentences is usually enough.
 
 Weak:
 - `This story was reconstructed from the source backlog`
 - `This story belongs to the X domain and should respect the target stack`
 
 Stronger:
-- `This story adds the ability to reprint a failed label without creating ambiguity about who performed the recovery action. It matters because warehouse teams need both operational continuity and auditability when shipments fail.`
+- `This story adds the ability to reprint a failed label without creating ambiguity about who performed the recovery action. Today, warehouse teams rely on a slower manual recovery path; with this story, they can restore the shipment flow while keeping audit evidence intact. It complements the other recovery stories in the epic and supports the broader product goal of reliable warehouse operations.`
 
 ## Better Acceptance Criteria
 

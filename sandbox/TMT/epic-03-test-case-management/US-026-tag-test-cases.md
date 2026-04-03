@@ -1,4 +1,4 @@
-# User Story: Tag test cases
+# User Story: Tag Test Cases
 
 **Story ID:** US-026
 **Epic/Feature:** Test Case Management
@@ -28,12 +28,12 @@
 
 **As a** tester
 **I want** to tag test cases
-**So that** test assets stay maintainable and trustworthy as coverage evolves
+**So that** project work can be maintained consistently inside the managed test repository
 
 ---
 
 ## Context
-Tag test cases exists so test assets stay maintainable and trustworthy as coverage evolves. It belongs to the Test Case Management backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to tag test cases in the Test Case Management epic. Today, the capability is handled through a less direct or less consistent workflow. With this change, tester can tag test cases inside the current project boundary, and project work can be maintained consistently inside the managed test repository. It sits with the other Test Case Management stories that create, update, or maintain core project data and Across the product, it keeps core project records consistent and usable
 
 ---
 
@@ -43,20 +43,20 @@ Tag test cases exists so test assets stay maintainable and trustworthy as covera
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Tag test cases
-**Given** a tester is working inside the correct TMT project and is ready to tag test cases
-**When** they tag test cases
-**Then** the test asset is saved with the expected structure and remains usable in later organization, planning, or execution workflows
+### Scenario 1: Valid project-scoped Tag Test Cases
+**Given** a tester is working in a TMT project with the required test cases context
+**When** they tag test cases using valid project data
+**Then** the new or updated test cases is saved inside the current project
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for tag test cases are missing
-**When** the tester tries to tag test cases
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the test cases request is missing required data or the user lacks the needed permission
+**When** they attempt to tag test cases
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: State stays reviewable
-**Given** the story changes data, structure, or workflow state in TMT
-**When** the operation completes
-**Then** the resulting state can still be reviewed later through normal project views and audit trails
+### Scenario 3: Project state remains traceable
+**Given** the test cases action changes project data or workflow state
+**When** the action succeeds
+**Then** the resulting state remains visible and traceable in the relevant TMT area
 
 ---
 
@@ -69,18 +69,17 @@ Tag test cases exists so test assets stay maintainable and trustworthy as covera
 - UI and API design details can evolve as long as the authoring contract stays clear.
 
 ## Dependencies
-- Test artifact persistence, project-scoped authorization, and repository navigation support.
+- Requires project-scoped authorization and persistence support for test cases.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Keep the workflow clear enough that a tester understands what will be saved before confirming the change.
+- Provide clear validation, success, and failure feedback at the point where the user performs the action.
 
 ## Testing Notes
-- Cover valid authoring, validation failures, and later retrieval of the saved artifact.
-- Add UI coverage when the story changes a user-facing editing workflow.
+- Cover the primary success path, validation or permission failures, and persistence of the resulting project state.
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

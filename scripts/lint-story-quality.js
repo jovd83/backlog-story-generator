@@ -13,6 +13,10 @@ const GENERIC_PATTERNS = {
     /without relying on manual workarounds outside the system/i,
     /reconstructed from/i,
     /canonical skill format/i,
+    /belongs to the .* backlog/i,
+    /should keep project scope, traceability, and operability clear while tmt grows/i,
+    /the platform foundation supports safe and scalable tmt delivery/i,
+    /available in tmt with clear project-scoped behavior/i,
   ],
   acceptance: [
     /completes the requested action successfully/i,

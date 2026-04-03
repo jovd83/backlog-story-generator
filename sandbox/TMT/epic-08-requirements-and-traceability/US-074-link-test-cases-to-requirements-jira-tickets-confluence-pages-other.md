@@ -1,4 +1,4 @@
-# User Story: Link test cases to requirements jira tickets confluence pages other
+# User Story: Link Test Cases to Requirements Jira Tickets Confluence Pages Other
 
 **Story ID:** US-074
 **Epic/Feature:** Requirements and Traceability
@@ -27,13 +27,13 @@
 ## User Story
 
 **As a** tester
-**I want** to link test cases to requirements jira tickets confluence pages other
-**So that** release and coverage decisions can rely on current execution evidence
+**I want** to link test cases to requirements Jira tickets Confluence pages other
+**So that** coverage can be traced from requirements to the tests and results that implement them
 
 ---
 
 ## Context
-Link test cases to requirements jira tickets confluence pages other exists so release and coverage decisions can rely on current execution evidence. It belongs to the Requirements and Traceability backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to link test cases to requirements Jira tickets Confluence pages other in the Requirements and Traceability epic. Today, the workflow still depends on manual handoffs or disconnected system steps. With this change, tester can link test cases to requirements Jira tickets Confluence pages other inside the current project boundary, and coverage can be traced from requirements to the tests and results that implement them. It sits with the other Requirements and Traceability stories that use project knowledge to accelerate analysis and Across the product, it supports faster analysis while staying grounded in project knowledge
 
 ---
 
@@ -43,20 +43,20 @@ Link test cases to requirements jira tickets confluence pages other exists so re
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Link test cases to requirements jira tickets confluence pages other
-**Given** a tester is working inside the correct TMT project and is ready to link test cases to requirements jira tickets confluence pages other
-**When** they link test cases to requirements jira tickets confluence pages other
-**Then** the execution, planning, or traceability state is updated on the correct project artifacts and remains visible afterward
+### Scenario 1: Valid project-scoped Link Test Cases to Requirements Jira Tickets Confluence Pages Other
+**Given** a tester is working in a TMT project with the required requirement links context
+**When** they link test cases to requirements Jira tickets Confluence pages other using valid project data
+**Then** the selected test case and requirement are linked and the relationship is visible from the affected records
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for link test cases to requirements jira tickets confluence pages other are missing
-**When** the tester tries to link test cases to requirements jira tickets confluence pages other
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the requirement links request is missing required data or the user lacks the needed permission
+**When** they attempt to link test cases to requirements Jira tickets Confluence pages other
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: References remain consistent
-**Given** the workflow exchanges identifiers, links, or packages with another system or format
-**When** the operation succeeds
-**Then** the resulting identifiers, links, or packages can still be followed during troubleshooting or audit review
+### Scenario 3: Traceability and audit evidence
+**Given** the requirement links activity affects stored project records
+**When** the requirement links action completes
+**Then** the resulting change remains traceable with the affected records and timestamps
 
 ---
 
@@ -69,25 +69,25 @@ Link test cases to requirements jira tickets confluence pages other exists so re
 - Wider analytics and vendor-specific rollout concerns belong in linked epics when needed.
 
 ## Dependencies
-- Planned test assets, execution state, evidence storage, and traceability identifiers.
+- Requires project-scoped requirement records, test cases, and traceability persistence.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Make current status, scope, and next action obvious to the tester or lead using the workflow.
+- Provide clear validation, success, and failure feedback at the point where the user performs the action.
 
 ## Testing Notes
-- Cover the main workflow plus permission, validation, or missing-scope failures.
-- Add end-to-end checks when the story changes a user-facing execution path.
+- Cover grounded responses, missing-source handling, and traceability of generated answers back to project knowledge.
 
 ## Open Questions
-N/A
+- Which repository artifacts should be considered authoritative sources for grounded answers in this project?
 
 ## Source Traceability
 - C:/projects/VS_prj/TMT_codex/starting_point/starting_point_func.md
 - C:/projects/VS_prj/TMT_codex/starting_point/starting_point_tech.md
 
 ## Implementation Notes
-N/A
+- Keep retrieval and answer-generation components project-scoped so repository content does not leak across projects.
+

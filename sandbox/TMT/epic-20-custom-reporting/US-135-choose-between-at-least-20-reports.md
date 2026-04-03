@@ -1,4 +1,4 @@
-# User Story: Choose between at least 20 reports
+# User Story: Choose Between at Least 20 Reports
 
 **Story ID:** US-135
 **Epic/Feature:** Custom Reporting
@@ -28,12 +28,12 @@
 
 **As a** test lead
 **I want** to choose between at least 20 reports
-**So that** stakeholders can understand quality status without assembling data manually
+**So that** stakeholders can monitor quality status without relying on manual reporting
 
 ---
 
 ## Context
-Choose between at least 20 reports exists so stakeholders can understand quality status without assembling data manually. It belongs to the Custom Reporting backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for test lead to choose between at least 20 reports in the Custom Reporting epic. Today, the needed information is still spread across separate records, so teams have to assemble it manually before they can act. With this change, test lead can choose between at least 20 reports inside the current project boundary, and stakeholders can monitor quality status without relying on manual reporting. It sits with the other Custom Reporting stories that turn execution data into visible status and trends and Across the product, it supports decision-making without forcing manual reporting work
 
 ---
 
@@ -43,20 +43,20 @@ Choose between at least 20 reports exists so stakeholders can understand quality
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Choose between at least 20 reports
-**Given** a test lead is working inside the correct TMT project and is ready to choose between at least 20 reports
-**When** they choose between at least 20 reports
-**Then** the requested report, dashboard, query, or collaboration view reflects the selected scope clearly enough to act on
+### Scenario 1: Valid project-scoped Choose Between at Least 20 Reports
+**Given** a test lead is working in a TMT project with the required between at least 20 reports context
+**When** they choose between at least 20 reports using valid project data
+**Then** the relevant between at least 20 reports is shown for the current project scope
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for choose between at least 20 reports are missing
-**When** the test lead tries to choose between at least 20 reports
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the between at least 20 reports request is missing required data or the user lacks the needed permission
+**When** they attempt to choose between at least 20 reports
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: Filters and scope are respected
-**Given** the user narrows the workflow to a specific project, cycle, period, or filter set
-**When** they open the resulting view or output
-**Then** the result reflects that selected scope instead of mixing unrelated data
+### Scenario 3: Project state remains traceable
+**Given** the between at least 20 reports action changes project data or workflow state
+**When** the action succeeds
+**Then** the resulting state remains visible and traceable in the relevant TMT area
 
 ---
 
@@ -69,18 +69,17 @@ Choose between at least 20 reports exists so stakeholders can understand quality
 - Raw execution ingestion and deeper metric design can be decomposed later when needed.
 
 ## Dependencies
-- Stable execution, repository, and identity data to power the selected view or notification.
+- Requires project-scoped retrieval of the data needed to support between at least 20 reports.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Make filters, current scope, and the meaning of the shown output obvious to the intended audience.
+- Make scoped data easy to scan and filter without forcing the user into multiple navigation steps.
 
 ## Testing Notes
-- Cover scoped output accuracy plus no-data, invalid-filter, or permission edge cases.
-- Add UI coverage when the story changes dashboards, query results, or collaboration flows.
+- Cover scoped retrieval, empty-state behavior, and permission-limited visibility for the displayed data.
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

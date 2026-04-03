@@ -1,4 +1,4 @@
-# User Story: Support millions of test cases
+# User Story: Support Millions of Test Cases
 
 **Story ID:** US-121
 **Epic/Feature:** Performance Scalability
@@ -28,12 +28,12 @@
 
 **As a** system administrator
 **I want** to support millions of test cases
-**So that** the platform foundation supports safe and scalable TMT delivery
+**So that** the platform remains reliable as project scale and usage grow
 
 ---
 
 ## Context
-Support millions of test cases exists so the platform foundation supports safe and scalable TMT delivery. It belongs to the Performance Scalability backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for system administrator to support millions of test cases in the Performance Scalability epic. Today, the product still needs explicit scale or resilience handling for this area. With this change, system administrator can support millions of test cases inside the current project boundary, and the platform remains reliable as project scale and usage grow. It sits with the other Performance Scalability foundation stories that the rest of the product depends on and Across the product, it provides the foundation that later epics can safely build on
 
 ---
 
@@ -43,20 +43,20 @@ Support millions of test cases exists so the platform foundation supports safe a
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Support millions of test cases
-**Given** a system administrator is working inside the correct TMT project and is ready to support millions of test cases
-**When** they support millions of test cases
-**Then** the platform behavior is available for the intended scope without breaking project boundaries
+### Scenario 1: Valid project-scoped Support Millions of Test Cases
+**Given** a system administrator is working in a TMT project with the required millions of test cases context
+**When** they support millions of test cases using valid project data
+**Then** the millions of test cases capability is available within the expected project scale and operating boundaries
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for support millions of test cases are missing
-**When** the system administrator tries to support millions of test cases
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the millions of test cases request is missing required data or the user lacks the needed permission
+**When** they attempt to support millions of test cases
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: State stays reviewable
-**Given** the story changes data, structure, or workflow state in TMT
-**When** the operation completes
-**Then** the resulting state can still be reviewed later through normal project views and audit trails
+### Scenario 3: Scale expectations remain visible
+**Given** the project contains a representative volume of millions of test cases
+**When** the millions of test cases capability is exercised
+**Then** the platform stays within the expected response and scalability boundaries for this story
 
 ---
 
@@ -69,7 +69,7 @@ Support millions of test cases exists so the platform foundation supports safe a
 - Detailed service, module, or infrastructure decomposition can follow during implementation planning.
 
 ## Dependencies
-- Shared platform services for authorization, storage, deployment, and configuration.
+- Requires platform services that can sustain millions of test cases within the stated volume or performance expectations.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
@@ -79,8 +79,7 @@ Support millions of test cases exists so the platform foundation supports safe a
 N/A
 
 ## Testing Notes
-- Cover the intended platform behavior plus invalid or unauthorized paths.
-- Add service and API checks where the story changes cross-cutting runtime behavior.
+- Cover response-time expectations, failure recovery, and representative load for the targeted scale scenario.
 
 ## Open Questions
 N/A
@@ -90,4 +89,5 @@ N/A
 - C:/projects/VS_prj/TMT_codex/starting_point/starting_point_tech.md
 
 ## Implementation Notes
-N/A
+- Prefer designs that preserve project isolation and operability as throughput or data volume increases.
+

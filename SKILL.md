@@ -110,7 +110,7 @@ Follow this sequence unless the user explicitly asks for a narrower task.
 - Blind runs and curated benchmark packs may legitimately differ in story count when trailing notes, duplicated sections, or field wishlists are classified differently. Make that decision explicit instead of treating every count change as an error.
 - Do not mistake the sandbox output for the skill contract. The markdown pack is a benchmark surface; the real capability is the generation, validation, refinement, and export workflow.
 - If acceptance criteria start sounding reusable across unrelated stories, stop and rewrite them before continuing. Generic success-path scaffolding is one of the easiest ways to produce weak backlog output.
-- `Context` should explain the capability and why it matters. It should never describe the prompt, template, reconstruction process, or repository mechanics.
+- `Context` should explain the capability, the AS-IS state, the TO-BE state, the user gain, and the story's relationship to the rest of the epic and product. It should never describe the prompt, template, reconstruction process, or repository mechanics.
 - When the source contains trailing notes, field wishlists, or partial ideas, decide explicitly whether they belong in stories, epic notes, or open questions. Do not let them drift into the pack by accident.
 
 ## Story Authoring Rules
@@ -121,7 +121,7 @@ Follow this sequence unless the user explicitly asks for a narrower task.
 - Use concrete actors in the `As a` clause whenever possible.
 - Make the `So that` clause express business value or operational outcome.
 - Do not restate the epic name or say the capability is merely "available in the platform" as the value statement.
-- Write `Context` as a short "what and why" explanation of the capability itself. Do not describe the prompt, repository, template, or reconstruction process there.
+- Write `Context` as a short explanation of what the story is, what it changes from AS-IS to TO-BE, what users gain, and how it fits with the rest of the epic and product. Do not describe the prompt, repository, template, or reconstruction process there.
 - Write acceptance criteria as observable `Given / When / Then` scenarios.
 - Make each acceptance-criteria scenario specific to the story behavior. Do not use generic fallbacks such as "the platform completes the requested action successfully."
 - Draft the story in this order: actor, capability, value, main success path, important failure path, then optional supporting sections.

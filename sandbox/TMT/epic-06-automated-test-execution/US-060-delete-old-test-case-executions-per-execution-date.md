@@ -1,4 +1,4 @@
-# User Story: Delete old test case executions per execution date
+# User Story: Delete Old Test Case Executions Per Execution Date
 
 **Story ID:** US-060
 **Epic/Feature:** Automated Test Execution
@@ -27,13 +27,13 @@
 ## User Story
 
 **As a** tester
-**I want** to be able to delete old test case executions per execution date
-**So that** release and coverage decisions can rely on current execution evidence
+**I want** to delete old test case executions per execution date
+**So that** obsolete project data does not confuse active delivery work
 
 ---
 
 ## Context
-Delete old test case executions per execution date exists so release and coverage decisions can rely on current execution evidence. It belongs to the Automated Test Execution backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to delete old test case executions per execution date in the Automated Test Execution epic. Today, the capability is handled through a less direct or less consistent workflow. With this change, tester can delete old test case executions per execution date inside the current project boundary, and obsolete project data does not confuse active delivery work. It sits with the other Automated Test Execution stories that retire or clean up obsolete project data and Across the product, it keeps old data from confusing active delivery work
 
 ---
 
@@ -43,20 +43,20 @@ Delete old test case executions per execution date exists so release and coverag
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Delete old test case executions per execution date
-**Given** a tester is working inside the correct TMT project and is ready to be able to delete old test case executions per execution date
-**When** they be able to delete old test case executions per execution date
-**Then** the execution, planning, or traceability state is updated on the correct project artifacts and remains visible afterward
+### Scenario 1: Valid project-scoped Delete Old Test Case Executions Per Execution Date
+**Given** a tester is working in a TMT project with the required old test case executions per execution date context
+**When** they delete old test case executions per execution date using valid project data
+**Then** the affected old test case executions per execution date is removed from active use in the current project
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for delete old test case executions per execution date are missing
-**When** the tester tries to be able to delete old test case executions per execution date
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the old test case executions per execution date request is missing required data or the user lacks the needed permission
+**When** they attempt to delete old test case executions per execution date
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: State stays reviewable
-**Given** the story changes data, structure, or workflow state in TMT
-**When** the operation completes
-**Then** the resulting state can still be reviewed later through normal project views and audit trails
+### Scenario 3: Project state remains traceable
+**Given** the old test case executions per execution date action changes project data or workflow state
+**When** the action succeeds
+**Then** the resulting state remains visible and traceable in the relevant TMT area
 
 ---
 
@@ -69,18 +69,17 @@ Delete old test case executions per execution date exists so release and coverag
 - Wider analytics and vendor-specific rollout concerns belong in linked epics when needed.
 
 ## Dependencies
-- Planned test assets, execution state, evidence storage, and traceability identifiers.
+- Requires project-scoped authorization and persistence support for old test case executions per execution date.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Make current status, scope, and next action obvious to the tester or lead using the workflow.
+N/A
 
 ## Testing Notes
-- Cover the main workflow plus permission, validation, or missing-scope failures.
-- Add end-to-end checks when the story changes a user-facing execution path.
+N/A
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

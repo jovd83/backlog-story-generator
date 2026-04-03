@@ -1,4 +1,4 @@
-# User Story: Import from TestLink
+# User Story: Import From TestLink
 
 **Story ID:** US-098
 **Epic/Feature:** Import Export Migration
@@ -28,12 +28,12 @@
 
 **As a** integrator
 **I want** to import from TestLink
-**So that** teams can exchange or publish test information without losing control of the data
+**So that** external tools and teams can exchange project data without manual re-entry
 
 ---
 
 ## Context
-Import from TestLink exists so teams can exchange or publish test information without losing control of the data. It belongs to the Import Export Migration backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for integrator to import from TestLink in the Import Export Migration epic. Today, the workflow still depends on manual handoffs or disconnected system steps. With this change, integrator can import from TestLink inside the current project boundary, and external tools and teams can exchange project data without manual re-entry. It sits with the other Import Export Migration stories that move data between TMT and external systems and Across the product, it keeps TMT connected to external tools without losing control of the data
 
 ---
 
@@ -43,20 +43,20 @@ Import from TestLink exists so teams can exchange or publish test information wi
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Import from TestLink
-**Given** a integrator is working inside the correct TMT project and is ready to import from TestLink
-**When** they import from TestLink
-**Then** the TMT record and the external, imported, or documented reference stay aligned for the selected scope
+### Scenario 1: Valid project-scoped Import From TestLink
+**Given** an integrator is working in a TMT project with the required import from TestLink context
+**When** they import from TestLink using valid project data
+**Then** the import from TestLink flow completes and the project data remains synchronized in the relevant target area
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for import from TestLink are missing
-**When** the integrator tries to import from TestLink
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the import from TestLink request is missing required data or the user lacks the needed permission
+**When** they attempt to import from TestLink
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: References remain consistent
-**Given** the workflow exchanges identifiers, links, or packages with another system or format
-**When** the operation succeeds
-**Then** the resulting identifiers, links, or packages can still be followed during troubleshooting or audit review
+### Scenario 3: Traceability and audit evidence
+**Given** the import from TestLink activity affects stored project records
+**When** the import from TestLink action completes
+**Then** the resulting change remains traceable with the affected records and timestamps
 
 ---
 
@@ -69,25 +69,25 @@ Import from TestLink exists so teams can exchange or publish test information wi
 - Vendor-specific implementation choices can remain open at backlog stage unless the source requires them.
 
 ## Dependencies
-- Connector configuration, published contracts, import/export mappings, or external platform access as relevant.
+- Requires project-scoped connection, credential, and persistence support for import from TestLink.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Make the selected scope, current mapping, and resulting external reference understandable to the user.
+- Provide clear validation, success, and failure feedback at the point where the user performs the action.
 
 ## Testing Notes
-- Cover the happy path, auth or validation failures, and consistency of stored references or exported artifacts.
-- Add integration checks when another system contributes part of the workflow.
+- Cover successful data exchange, invalid external input, and traceability of synchronized records.
 
 ## Open Questions
-- Which source-field mappings are mandatory for the first migration-ready release?
+N/A
 
 ## Source Traceability
 - C:/projects/VS_prj/TMT_codex/starting_point/starting_point_func.md
 - C:/projects/VS_prj/TMT_codex/starting_point/starting_point_tech.md
 
 ## Implementation Notes
-- Keep connector-specific logic isolated so later vendors or formats can be added without rewriting the core platform workflow.
+N/A
+

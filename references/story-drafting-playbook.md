@@ -46,8 +46,14 @@ Quick test:
 `Context` should answer:
 - what capability is being added or changed?
 - why does it matter in this workflow or domain?
+- what is the current AS-IS state?
+- what is the intended TO-BE state?
+- how does this story relate to the other stories in the epic and to the broader product?
 
-Keep it short. Two or three sentences is usually enough.
+Keep it short. Three sentences is usually enough:
+1. what the story is
+2. what changes from AS-IS to TO-BE and what users gain
+3. how it fits with the rest of the epic and the product
 
 Weak:
 - talks about the prompt, template, repo, or reconstruction process
@@ -55,7 +61,7 @@ Weak:
 - describes the target stack instead of the problem
 
 Stronger:
-- `This story adds the ability to reprint a failed label without losing traceability about who initiated the recovery action. It matters because warehouse staff need to recover shipment flow quickly while preserving audit evidence.`
+- `This story adds the ability to reprint a failed label without losing traceability about who initiated the recovery action. Today, warehouse staff have to recover shipments through a slower manual path; with this change, they can restore shipment flow while preserving audit evidence. It sits with the other shipment recovery stories in the epic and supports the broader product need for reliable, auditable warehouse operations.`
 
 ## Better Acceptance Criteria
 

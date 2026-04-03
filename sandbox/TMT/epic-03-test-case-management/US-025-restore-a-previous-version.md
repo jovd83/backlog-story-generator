@@ -1,4 +1,4 @@
-# User Story: Restore a previous version
+# User Story: Restore a Previous Version
 
 **Story ID:** US-025
 **Epic/Feature:** Test Case Management
@@ -28,12 +28,12 @@
 
 **As a** tester
 **I want** to restore a previous version
-**So that** test assets stay maintainable and trustworthy as coverage evolves
+**So that** teams can reuse proven setup faster instead of recreating the same assets from scratch
 
 ---
 
 ## Context
-Restore a previous version exists so test assets stay maintainable and trustworthy as coverage evolves. It belongs to the Test Case Management backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to restore a previous version in the Test Case Management epic. Today, users still need to rebuild or duplicate this work by hand. With this change, tester can restore a previous version inside the current project boundary, and teams can reuse proven setup faster instead of recreating the same assets from scratch. It sits with the other Test Case Management stories that let teams duplicate or reuse existing work and Across the product, it reduces duplicate effort and keeps setup consistent
 
 ---
 
@@ -43,20 +43,20 @@ Restore a previous version exists so test assets stay maintainable and trustwort
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Restore a previous version
-**Given** a tester is working inside the correct TMT project and is ready to restore a previous version
-**When** they restore a previous version
-**Then** the test asset is saved with the expected structure and remains usable in later organization, planning, or execution workflows
+### Scenario 1: Valid project-scoped Restore a Previous Version
+**Given** a tester is working in a TMT project with the required a previous version context
+**When** they restore a previous version using valid project data
+**Then** the duplicated or reusable a previous version is created from the selected source
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for restore a previous version are missing
-**When** the tester tries to restore a previous version
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the a previous version request is missing required data or the user lacks the needed permission
+**When** they attempt to restore a previous version
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: History remains understandable
-**Given** earlier versions of the same artifact already exist in the project
-**When** the user completes the version-related workflow
-**Then** the resulting change stays traceable against prior versions instead of overwriting history invisibly
+### Scenario 3: Traceability and audit evidence
+**Given** the a previous version activity affects stored project records
+**When** the a previous version action completes
+**Then** the resulting change remains traceable with the affected records and timestamps
 
 ---
 
@@ -69,18 +69,17 @@ Restore a previous version exists so test assets stay maintainable and trustwort
 - UI and API design details can evolve as long as the authoring contract stays clear.
 
 ## Dependencies
-- Test artifact persistence, project-scoped authorization, and repository navigation support.
+- Requires project-scoped authorization and persistence support for a previous version.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Keep the workflow clear enough that a tester understands what will be saved before confirming the change.
+N/A
 
 ## Testing Notes
-- Cover valid authoring, validation failures, and later retrieval of the saved artifact.
-- Add UI coverage when the story changes a user-facing editing workflow.
+N/A
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

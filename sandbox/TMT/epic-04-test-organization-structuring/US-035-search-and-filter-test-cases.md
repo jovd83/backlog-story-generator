@@ -1,4 +1,4 @@
-# User Story: Search and filter test cases
+# User Story: Search and Filter Test Cases
 
 **Story ID:** US-035
 **Epic/Feature:** Test Organization Structuring
@@ -28,12 +28,12 @@
 
 **As a** tester
 **I want** to search and filter test cases
-**So that** test assets stay maintainable and trustworthy as coverage evolves
+**So that** teams can inspect the right project information without rebuilding it manually
 
 ---
 
 ## Context
-Search and filter test cases exists so test assets stay maintainable and trustworthy as coverage evolves. It belongs to the Test Organization Structuring backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to search and filter test cases in the Test Organization Structuring epic. Today, the needed information is still spread across separate records, so teams have to assemble it manually before they can act. With this change, tester can search and filter test cases inside the current project boundary, and teams can inspect the right project information without rebuilding it manually. It sits with the other Test Organization Structuring stories that surface, filter, or inspect project information and Across the product, it improves findability and trust in project information
 
 ---
 
@@ -43,20 +43,20 @@ Search and filter test cases exists so test assets stay maintainable and trustwo
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Search and filter test cases
-**Given** a tester is working inside the correct TMT project and is ready to search and filter test cases
-**When** they search and filter test cases
-**Then** the test asset is saved with the expected structure and remains usable in later organization, planning, or execution workflows
+### Scenario 1: Valid project-scoped Search and Filter Test Cases
+**Given** a tester is working in a TMT project with the required and filter test cases context
+**When** they search and filter test cases using valid project data
+**Then** the relevant and filter test cases is shown for the current project scope
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for search and filter test cases are missing
-**When** the tester tries to search and filter test cases
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the and filter test cases request is missing required data or the user lacks the needed permission
+**When** they attempt to search and filter test cases
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: Filters and scope are respected
-**Given** the user narrows the workflow to a specific project, cycle, period, or filter set
-**When** they open the resulting view or output
-**Then** the result reflects that selected scope instead of mixing unrelated data
+### Scenario 3: Project state remains traceable
+**Given** the and filter test cases action changes project data or workflow state
+**When** the action succeeds
+**Then** the resulting state remains visible and traceable in the relevant TMT area
 
 ---
 
@@ -69,18 +69,17 @@ Search and filter test cases exists so test assets stay maintainable and trustwo
 - UI and API design details can evolve as long as the authoring contract stays clear.
 
 ## Dependencies
-- Test artifact persistence, project-scoped authorization, and repository navigation support.
+- Requires project-scoped retrieval of the data needed to support and filter test cases.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Keep the workflow clear enough that a tester understands what will be saved before confirming the change.
+- Keep the result view readable so users can confirm scope and outcome without extra interpretation work.
 
 ## Testing Notes
-- Cover valid authoring, validation failures, and later retrieval of the saved artifact.
-- Add UI coverage when the story changes a user-facing editing workflow.
+- Cover scoped retrieval, empty-state behavior, and permission-limited visibility for the displayed data.
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

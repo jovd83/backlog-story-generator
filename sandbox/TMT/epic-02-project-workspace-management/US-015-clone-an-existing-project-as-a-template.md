@@ -1,4 +1,4 @@
-# User Story: Clone an existing project as a template
+# User Story: Clone an Existing Project as a Template
 
 **Story ID:** US-015
 **Epic/Feature:** Project Workspace Management
@@ -28,12 +28,12 @@
 
 **As a** system administrator
 **I want** to clone an existing project as a template
-**So that** the platform foundation supports safe and scalable TMT delivery
+**So that** teams can reuse proven setup faster instead of recreating the same assets from scratch
 
 ---
 
 ## Context
-Clone an existing project as a template exists so the platform foundation supports safe and scalable TMT delivery. It belongs to the Project Workspace Management backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for system administrator to clone an existing project as a template in the Project Workspace Management epic. Today, users still need to rebuild or duplicate this work by hand. With this change, system administrator can clone an existing project as a template inside the current project boundary, and teams can reuse proven setup faster instead of recreating the same assets from scratch. It sits with the other Project Workspace Management stories that let teams duplicate or reuse existing work and Across the product, it reduces duplicate effort and keeps setup consistent
 
 ---
 
@@ -43,20 +43,20 @@ Clone an existing project as a template exists so the platform foundation suppor
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Clone an existing project as a template
-**Given** a system administrator is working inside the correct TMT project and is ready to clone an existing project as a template
-**When** they clone an existing project as a template
-**Then** the platform behavior is available for the intended scope without breaking project boundaries
+### Scenario 1: Valid project-scoped Clone an Existing Project as a Template
+**Given** a system administrator is working in a TMT project with the required an existing project as a template context
+**When** they clone an existing project as a template using valid project data
+**Then** the duplicated or reusable an existing project as a template is created from the selected source
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for clone an existing project as a template are missing
-**When** the system administrator tries to clone an existing project as a template
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the an existing project as a template request is missing required data or the user lacks the needed permission
+**When** they attempt to clone an existing project as a template
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: State stays reviewable
-**Given** the story changes data, structure, or workflow state in TMT
-**When** the operation completes
-**Then** the resulting state can still be reviewed later through normal project views and audit trails
+### Scenario 3: Project scope boundaries are preserved
+**Given** another project contains similar an existing project as a template
+**When** the user works with an existing project as a template in the current project
+**Then** data from other projects is not exposed or changed unless the story explicitly allows it
 
 ---
 
@@ -69,7 +69,7 @@ Clone an existing project as a template exists so the platform foundation suppor
 - Detailed service, module, or infrastructure decomposition can follow during implementation planning.
 
 ## Dependencies
-- Shared platform services for authorization, storage, deployment, and configuration.
+- Requires project-scoped authorization and persistence support for an existing project as a template.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
@@ -79,8 +79,7 @@ Clone an existing project as a template exists so the platform foundation suppor
 N/A
 
 ## Testing Notes
-- Cover the intended platform behavior plus invalid or unauthorized paths.
-- Add service and API checks where the story changes cross-cutting runtime behavior.
+N/A
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

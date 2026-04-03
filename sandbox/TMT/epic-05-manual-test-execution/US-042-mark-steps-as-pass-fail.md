@@ -1,4 +1,4 @@
-# User Story: Mark steps as pass/fail
+# User Story: Mark Steps as Pass Fail
 
 **Story ID:** US-042
 **Epic/Feature:** Manual Test Execution
@@ -27,13 +27,13 @@
 ## User Story
 
 **As a** tester
-**I want** to mark steps as pass/fail
-**So that** release and coverage decisions can rely on current execution evidence
+**I want** to mark steps as pass fail
+**So that** execution status and operational progress stay accurate for project decisions
 
 ---
 
 ## Context
-Mark steps as pass/fail exists so release and coverage decisions can rely on current execution evidence. It belongs to the Manual Test Execution backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to mark steps as pass fail in the Manual Test Execution epic. Today, the capability is not yet a dedicated project-scoped workflow. With this change, tester can mark steps as pass fail inside the current project boundary, and execution status and operational progress stay accurate for project decisions. It sits with the other Manual Test Execution stories that move the project through a lifecycle or status change and Across the product, it keeps operational state aligned for downstream work
 
 ---
 
@@ -43,20 +43,20 @@ Mark steps as pass/fail exists so release and coverage decisions can rely on cur
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Mark steps as pass/fail
-**Given** a tester is working inside the correct TMT project and is ready to mark steps as pass/fail
-**When** they mark steps as pass/fail
-**Then** the execution, planning, or traceability state is updated on the correct project artifacts and remains visible afterward
+### Scenario 1: Valid project-scoped Mark Steps as Pass Fail
+**Given** a tester is working in a TMT project with the required steps as pass fail context
+**When** they mark steps as pass fail using valid project data
+**Then** the updated steps as pass fail state is saved and shown to the user
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for mark steps as pass/fail are missing
-**When** the tester tries to mark steps as pass/fail
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the steps as pass fail request is missing required data or the user lacks the needed permission
+**When** they attempt to mark steps as pass fail
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: State stays reviewable
-**Given** the story changes data, structure, or workflow state in TMT
-**When** the operation completes
-**Then** the resulting state can still be reviewed later through normal project views and audit trails
+### Scenario 3: Responses stay grounded in project knowledge
+**Given** the project contains indexed repository artifacts relevant to the question
+**When** the user requests an answer or generated output from the AI capability
+**Then** the response stays grounded in project-scoped source material instead of unsupported invention
 
 ---
 
@@ -69,18 +69,17 @@ Mark steps as pass/fail exists so release and coverage decisions can rely on cur
 - Wider analytics and vendor-specific rollout concerns belong in linked epics when needed.
 
 ## Dependencies
-- Planned test assets, execution state, evidence storage, and traceability identifiers.
+- Requires project-scoped authorization and persistence support for steps as pass fail.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Make current status, scope, and next action obvious to the tester or lead using the workflow.
+- Provide clear validation, success, and failure feedback at the point where the user performs the action.
 
 ## Testing Notes
-- Cover the main workflow plus permission, validation, or missing-scope failures.
-- Add end-to-end checks when the story changes a user-facing execution path.
+- Cover the primary success path, validation or permission failures, and persistence of the resulting project state.
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

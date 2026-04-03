@@ -1,4 +1,4 @@
-# User Story: Create test plans
+# User Story: Create Test Plans
 
 **Story ID:** US-071
 **Epic/Feature:** Test Cycles and Plans
@@ -28,12 +28,12 @@
 
 **As a** tester
 **I want** to create test plans
-**So that** release and coverage decisions can rely on current execution evidence
+**So that** project work can be maintained consistently inside the managed test repository
 
 ---
 
 ## Context
-Create test plans exists so release and coverage decisions can rely on current execution evidence. It belongs to the Test Cycles and Plans backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story adds the ability for tester to create test plans in the Test Cycles and Plans epic. Today, the capability is handled through a less direct or less consistent workflow. With this change, tester can create test plans inside the current project boundary, and project work can be maintained consistently inside the managed test repository. It sits with the other Test Cycles and Plans stories that create, update, or maintain core project data and Across the product, it keeps core project records consistent and usable
 
 ---
 
@@ -43,20 +43,20 @@ Create test plans exists so release and coverage decisions can rely on current e
 
 ## Acceptance Criteria
 
-### Scenario 1: Complete Create test plans
-**Given** a tester is working inside the correct TMT project and is ready to create test plans
-**When** they create test plans
-**Then** the execution, planning, or traceability state is updated on the correct project artifacts and remains visible afterward
+### Scenario 1: Valid project-scoped Create Test Plans
+**Given** a tester is working in a TMT project with the required test plans context
+**When** they create test plans using valid project data
+**Then** the new or updated test plans is saved inside the current project
 
-### Scenario 2: Block invalid or unauthorized changes
-**Given** required input, mappings, or permissions for create test plans are missing
-**When** the tester tries to create test plans
-**Then** TMT prevents the change and explains what must be corrected before work can continue
+### Scenario 2: Invalid input or insufficient permission
+**Given** the test plans request is missing required data or the user lacks the needed permission
+**When** they attempt to create test plans
+**Then** the system blocks the change and explains what must be corrected before the workflow can continue
 
-### Scenario 3: State stays reviewable
-**Given** the story changes data, structure, or workflow state in TMT
-**When** the operation completes
-**Then** the resulting state can still be reviewed later through normal project views and audit trails
+### Scenario 3: Project state remains traceable
+**Given** the test plans action changes project data or workflow state
+**When** the action succeeds
+**Then** the resulting state remains visible and traceable in the relevant TMT area
 
 ---
 
@@ -69,18 +69,17 @@ Create test plans exists so release and coverage decisions can rely on current e
 - Wider analytics and vendor-specific rollout concerns belong in linked epics when needed.
 
 ## Dependencies
-- Planned test assets, execution state, evidence storage, and traceability identifiers.
+- Requires project-scoped authorization and persistence support for test plans.
 
 ## Non-Functional Notes
 - TMT implementation should stay compatible with the source stack direction: Java Spring Boot backend and Angular frontend.
 - Project boundaries, authorization, and auditability should remain intact for this workflow.
 
 ## UX
-- Make current status, scope, and next action obvious to the tester or lead using the workflow.
+- Provide clear validation, success, and failure feedback at the point where the user performs the action.
 
 ## Testing Notes
-- Cover the main workflow plus permission, validation, or missing-scope failures.
-- Add end-to-end checks when the story changes a user-facing execution path.
+- Cover the primary success path, validation or permission failures, and persistence of the resulting project state.
 
 ## Open Questions
 N/A
@@ -91,3 +90,4 @@ N/A
 
 ## Implementation Notes
 N/A
+

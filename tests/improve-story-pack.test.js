@@ -47,7 +47,7 @@ test("refines a generic pack and reports the improvement result", () => {
 ---
 
 ## Context
-This story was reconstructed from the source backlog to express the Create Manual Test Cases capability in the current canonical skill format.
+This story belongs to the Test Case Management backlog and should keep project scope, traceability, and operability clear while TMT grows.
 
 ---
 
