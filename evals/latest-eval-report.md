@@ -1,6 +1,5 @@
 # Latest Eval Report
 
-Date: 2026-04-02
 Skill: `backlog-story-generator`
 Version: `5.0.0`
 
@@ -20,7 +19,7 @@ The report summarizes:
 - eval prompts: 7
 - example stories: 12
 - automated test files: 12
-- approximate automated tests: 33
+- approximate automated tests: 34
 - repository verification command: `npm run verify`
 - repo-health command: `npm run check:repo-health`
 

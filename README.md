@@ -78,6 +78,13 @@ npm run verify
 GitHub pull requests run the same verification workflow in CI on Node 20 and Node 22.
 Tagged releases publish the packaged `.skill` artifact through GitHub Actions.
 
+## Governance
+
+- Contribution guidance: [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- Security reporting: [`SECURITY.md`](./SECURITY.md)
+- Support path: [`SUPPORT.md`](./SUPPORT.md)
+- Maintainer ownership: [`.github/CODEOWNERS`](./.github/CODEOWNERS)
+
 ## Use The Skill
 
 Typical requests that should trigger this skill:

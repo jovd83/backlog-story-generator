@@ -32,8 +32,11 @@ test("writes the latest eval report to the requested output path", () => {
   assert.match(written, /Regenerate this file with `npm run eval:report`/);
 });
 
-test("reports the canonical eval report as current", () => {
-  const outputPath = path.join(__dirname, "..", "evals", "latest-eval-report.md");
+test("reports a freshly generated eval report as current", () => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "eval-report-current-"));
+  const outputPath = path.join(tempDir, "latest-eval-report.md");
+
+  writeEvalReport(outputPath);
   const result = checkEvalReport(outputPath);
 
   assert.equal(result.valid, true);

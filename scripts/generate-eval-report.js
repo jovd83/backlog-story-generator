@@ -152,7 +152,6 @@ function buildEvalReport(root = repoRoot) {
   );
 
   const metrics = {
-    date: new Date().toISOString().slice(0, 10),
     skillName: evalCatalog.skill_name || packageJson.name,
     version: evalCatalog.version || packageJson.version,
     promptCount: Array.isArray(evalCatalog.evals) ? evalCatalog.evals.length : 0,
@@ -173,7 +172,6 @@ function buildEvalReport(root = repoRoot) {
   const lines = [
     "# Latest Eval Report",
     "",
-    `Date: ${metrics.date}`,
     `Skill: \`${metrics.skillName}\``,
     `Version: \`${metrics.version}\``,
     "",
