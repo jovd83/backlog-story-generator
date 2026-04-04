@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/badge/version-5.1.0-blue.svg)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-43853d.svg)](#requirements)
-[![CI](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml)
+[![Validate Skills](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/jovd83)
 
 `backlog-story-generator` is an AgentSkill repository for turning raw product inputs into structured epic-and-story packs that can be reviewed, validated, and exported into common backlog tools.
