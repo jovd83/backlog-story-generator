@@ -1,6 +1,7 @@
 # Backlog Story Generator
 
 [![Version](https://img.shields.io/badge/version-5.1.0-blue.svg)](#)
+[![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-43853d.svg)](#requirements)
 [![Validate Skills](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/jovd83/backlog-story-generator/actions/workflows/ci.yml)
