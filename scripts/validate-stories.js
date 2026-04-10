@@ -5,7 +5,7 @@ const { collectStoryFiles, parseStory, slugify } = require("./story-utils");
 
 const schemaPath = path.resolve(__dirname, "..", "schemas", "story.schema.json");
 const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
-const PLACEHOLDER_PATTERN = /\[[^\]\n]{2,}\]/;
+const PLACEHOLDER_PATTERN = /\[[^\]\n]{2,}\](?!\()/;
 
 function usage() {
   console.error("Usage: node scripts/validate-stories.js <input-directory> [--json]");
@@ -137,6 +137,19 @@ function validateStory(story) {
     story.testingNotes,
     story.openQuestions,
     story.implementationNotes,
+    story.dataModelFields,
+    story.webAppUiInteraction,
+    story.apiRestContract,
+    story.functionalRequirements,
+    story.nonFunctionalRequirements,
+    story.technicalConsiderations,
+    story.qaTestingStrategy,
+    story.unitTests,
+    story.integrationTests,
+    story.e2eTests,
+    story.regressionSanityTests,
+    story.testExecutionPlan,
+    story.definitionOfDone,
     ...(story.sourceTraceability || []),
   ].filter(Boolean);
 

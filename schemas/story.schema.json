@@ -126,6 +126,45 @@
     "implementationNotes": {
       "type": "string"
     },
+    "dataModelFields": {
+      "type": "string"
+    },
+    "webAppUiInteraction": {
+      "type": "string"
+    },
+    "apiRestContract": {
+      "type": "string"
+    },
+    "functionalRequirements": {
+      "type": "string"
+    },
+    "nonFunctionalRequirements": {
+      "type": "string"
+    },
+    "technicalConsiderations": {
+      "type": "string"
+    },
+    "qaTestingStrategy": {
+      "type": "string"
+    },
+    "unitTests": {
+      "type": "string"
+    },
+    "integrationTests": {
+      "type": "string"
+    },
+    "e2eTests": {
+      "type": "string"
+    },
+    "regressionSanityTests": {
+      "type": "string"
+    },
+    "testExecutionPlan": {
+      "type": "string"
+    },
+    "definitionOfDone": {
+      "type": "string"
+    },
     "sourcePath": {
       "type": "string"
     }

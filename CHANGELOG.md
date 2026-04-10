@@ -2,7 +2,20 @@
 
 All notable changes to this repository are documented here.
 
-## [5.1.0]
+## [5.2.0] - 2026-04-10
+
+### Added
+- Upgraded the canonical user story template to the modern, technical TMT standard.
+- Added structured sections for **Data Models (Fields)**, **WebApp (UI) Interaction**, and **API (REST) Contracts**.
+- Added categorized **Non-Functional Requirements** and **Technical Considerations**.
+- Added a comprehensive **QA & Testing Strategy** (Unit, Integration, E2E) and a **Definition of Done (DoD)** checklist to every story.
+- Updated `scripts/refine-generic-story-pack.js` to automatically infer technical details and contracts for Java/Spring and Angular stacks.
+
+### Changed
+- Refined the structural validation regex in `scripts/validate-stories.js` to avoid flagging valid Markdown links as placeholders.
+- Batch-migrated all 150 stories in `sandbox/TMT` to the new high-fidelity technical template.
+
+## [5.1.0] - 2026-04-09
 
 ### Added
 - Added `scripts/improve-story-pack.js` as a single-command validation, reporting, and refinement workflow for story packs.

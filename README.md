@@ -1,6 +1,6 @@
 # Backlog Story Generator
 
-[![Version](https://img.shields.io/badge/version-5.1.0-blue.svg)](#)
+[![Version](https://img.shields.io/badge/version-5.2.0-blue.svg)](#)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-43853d.svg)](#requirements)
@@ -18,12 +18,14 @@ It is designed for AI-assisted backlog authoring where the output must be:
 ## What This Skill Does
 
 The skill helps Codex:
-- decompose source material into epics shaped around business capabilities or workflow boundaries
-- write one markdown file per user story using a stable contract
-- preserve numbering continuity when extending an existing backlog pack
-- validate the story pack before calling it ready
-- export validated packs to Jira, Azure DevOps, GitHub Issues, or Tulip CSV
-- ground backlog work in an observed codebase without hallucinating unobserved tools or frameworks
+- Decompose source material into epics shaped around business capabilities.
+- Generate implementable user stories with **Observable ACs** (Gherkin scenarios).
+- Define **Technical Contracts** (Data Models, API specs, UI flows).
+- Implement **Comprehensive Testing Strategies** (Unit, Integration, E2E, Quality Gates).
+- Preserve **Numbered Continuity** when extending existing packs.
+- Validate story packs before export or delivery.
+- Export to Jira, Azure DevOps, GitHub Issues, or Tulip CSV.
+- Ground backlog work in an observed codebase without hallucinations.
 
 ## Capability Matrix
 
@@ -107,7 +109,10 @@ The operational workflow lives in [`SKILL.md`](./SKILL.md). The short version is
 Each story file is expected to contain:
 - story metadata such as ID, epic, priority, points, and status
 - a user story statement with `As a`, `I want`, and `So that`
-- Gherkin-style acceptance criteria
+- **Technical Contracts**: Detailed Data Models, API specifications, and UI interaction flows
+- Gherkin-style acceptance criteria covering Happy, Alternative, and Error paths
+- **Comprehensive Testing**: Integrated strategy for Unit, Integration, and E2E validation
+- a clear **Definition of Done** checklist
 - optional supporting sections for rules, dependencies, notes, and traceability
 
 Canonical references:

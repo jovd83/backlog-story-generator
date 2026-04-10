@@ -1,6 +1,6 @@
 {
   "name": "backlog-story-generator",
-  "version": "5.0.0",
+  "version": "5.2.0",
   "description": "AgentSkill repository for generating structured epics and backlog-ready user stories from requirements with validation, codebase grounding, and CSV export.",
   "author": "jovd83",
   "license": "MIT",

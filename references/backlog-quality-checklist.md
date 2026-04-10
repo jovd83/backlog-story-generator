@@ -15,12 +15,19 @@ Use this as the ready-for-review checklist for generated stories.
 - [ ] Does the `Context` explain what the capability is and why it matters, instead of how the story was generated?
 - [ ] Is the story small enough to review and deliver as a coherent increment?
 
-## Acceptance Criteria Quality
+## Technical Contract Integrity
+
+- [ ] **Data Model**: Are field types, mandatory flags, and business purposes clearly defined in a table?
+- [ ] **UI Interaction**: Does the story describe the navigation path and user trigger for this capability?
+- [ ] **API Contract**: Are endpoints, methods, and example request/response payloads provided (if applicable)?
+- [ ] **Business Rules**: Are domain policies extracted from the requirements and explicitly listed?
+
+## Acceptance Criteria & Testing
 
 - [ ] Are scenarios observable and written in `Given / When / Then` form?
-- [ ] Are the scenarios specific to this story rather than generic platform boilerplate with the title swapped in?
-- [ ] Are important negative paths, permission boundaries, or edge cases represented when the source material implies them?
-- [ ] Do the scenarios avoid UI-level trivia or invented implementation detail?
+- [ ] Does the AC cover the Happy Path, Alternative Flow, and at least one Error case?
+- [ ] Does the testing strategy define unit, integration, and E2E requirements?
+- [ ] Is there a clear **Definition of Done** checklist tailored to the story?
 
 ## Traceability And Grounding
 

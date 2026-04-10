@@ -55,10 +55,34 @@ function replaceSection(content, heading, body) {
   );
 
   if (!pattern.test(content)) {
-    throw new Error(`Missing section: ${heading}`);
+    return content;
   }
 
   return content.replace(pattern, `$1\n${body.trim()}\n\n`);
+}
+
+function injectSection(content, anchorHeading, newHeading, body) {
+  if (new RegExp(`^## ${escapeRegex(newHeading)}\\s*$`, "m").test(content)) {
+    return replaceSection(content, newHeading, body);
+  }
+
+  const anchorPattern = new RegExp(`(^## ${escapeRegex(anchorHeading)}\\s*$)([\\s\\S]*?)(?=^## |^---\\s*$|(?![\\s\\S]))`, "m");
+  if (!anchorPattern.test(content)) {
+    // If anchor not found, append to end before references or at very end
+    return content + `\n\n## ${newHeading}\n${body.trim()}\n`;
+  }
+
+  return content.replace(anchorPattern, (match) => {
+    return `${match.trim()}\n\n## ${newHeading}\n${body.trim()}\n\n`;
+  });
+}
+
+function removeSection(content, heading) {
+  const pattern = new RegExp(
+    `^## ${escapeRegex(heading)}\\s*$([\\s\\S]*?)(?=^## |^---\\s*$|(?![\\s\\S]))`,
+    "m"
+  );
+  return content.replace(pattern, "").replace(/\n{3,}/g, "\n\n");
 }
 
 function articleFor(word) {
@@ -874,6 +898,113 @@ function buildImplementationNotes(story, type) {
   return "N/A";
 }
 
+function buildDataModelFields(story, type, objectPhrase) {
+  const fields = [
+    { name: "id", spec: "UUID, Mandatory", purpose: "Unique identifier for the record." },
+    { name: "projectId", spec: "UUID, Mandatory", purpose: "Project ownership for scoping." },
+    { name: "status", spec: "Enum, Mandatory", purpose: "Current operational state." }
+  ];
+
+  if (type === "manage" || type === "workflow" || type === "view") {
+    fields.push({ name: "name", spec: "String(255), Mandatory", purpose: "Display name." });
+    fields.push({ name: "description", spec: "Text, Optional", purpose: "Detailed context." });
+  }
+
+  const table = [
+    "| Field | Technical Specs | Business Purpose & Functional Use Case |",
+    "| :--- | :--- | :--- |",
+    ...fields.map(f => `| ${f.name} | ${f.spec} | ${f.purpose} |`)
+  ].join("\n");
+
+  return table;
+}
+
+function buildUiInteraction(story, capability) {
+  return [
+    `1. **Navigation**: Main Menu > ${story.epicFeature}`,
+    `2. **Access**: List View > Select Item`,
+    `3. **Trigger**: "${toStoryTitle(capability)}" button`,
+    `4. **Action**: Complete requested information and submit`,
+    `5. **Result**: System processes the change and provides success feedback`
+  ].join("\n");
+}
+
+function buildApiContract(story, type, capability, objectPhrase) {
+  const method = type === "manage" ? "POST" : (type === "workflow" ? "PATCH" : "GET");
+  const path = `/api/v1/${slugify(story.epicFeature)}/${slugify(objectPhrase)}`;
+  
+  return [
+    `- **Endpoint**: \`${method} ${path}\``,
+    `- **Method**: \`${method}\``,
+    `- **Authentication**: JWT (Stateless)`,
+    `- **Request Body**:`,
+    "```json",
+    "{",
+    `  "projectId": "uuid",`,
+    `  "action": "${capability}"`,
+    "}",
+    "```",
+    `- **Response**: \`200 OK\``,
+    `- **Error Codes**:`,
+    "    - `400 Bad Request`: Input validation failed",
+    "    - `403 Forbidden`: Insufficient project permissions"
+  ].join("\n");
+}
+
+function buildFunctionalRequirements(story) {
+  return [
+    `1. **Core Logic**: The system must correctly ${lowerFirst(story.userStory.iWant)}.`,
+    `2. **Validation**: All inputs must be validated against the project-specific rules.`
+  ].join("\n");
+}
+
+function buildNonFunctionalRequirements() {
+  return [
+    "### Performance",
+    "- API response: < 500ms",
+    "### Usability",
+    "- Mobile responsive layout",
+    "### Security",
+    "- Role-Based Access Control (RBAC) enforced"
+  ].join("\n");
+}
+
+function buildTechnicalConsiderations() {
+  return [
+    "### Frontend",
+    "- Component: Angular standalone component",
+    "- State: RxJS-based store",
+    "### Backend",
+    "- Service: Spring Boot @Service",
+    "- Logic: Domain-driven service layer",
+    "### Database",
+    "- Storage: PostgreSQL via Hibernate"
+  ].join("\n");
+}
+
+function buildQaStrategy(story, type) {
+  return [
+    "### Test Coverage Requirements",
+    "- **Unit Tests:** 80% Min",
+    "- **Integration Tests:** 100% API coverage",
+    "- **E2E Tests:** Primary success path"
+  ].join("\n");
+}
+
+function buildDod() {
+  return [
+    "- [ ] Code reviewed & approved",
+    "- [ ] Unit tests passing (>80%)",
+    "- [ ] API contract verified",
+    "- [ ] AC verified manually & via E2E",
+    "- [ ] Documentation updated"
+  ].join("\n");
+}
+
+function slugify(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
 function needsRefinement(story) {
   const issues = lintStory(story);
   return issues.some((issue) =>
@@ -890,14 +1021,22 @@ function refineStoryContent(content, story) {
   const type = inferType(story);
   const capability = capabilityPhrase(story);
   const storyTitle = toStoryTitle(capability);
+  const objectPhrase = objectLabel(story, capability, type);
   const outcome = buildOutcome(story, type);
   const context = buildContext(story, actor, capability, outcome, type);
   const acceptanceCriteria = buildAcceptanceCriteria(story, actor, type);
   const dependencies = buildDependencies(story, type, capability);
-  const ux = buildUx(story, type);
-  const testingNotes = buildTestingNotes(story, type);
-  const openQuestions = buildOpenQuestions(story, type);
   const implementationNotes = buildImplementationNotes(story, type);
+  
+  // New TMT Sections
+  const dataModel = buildDataModelFields(story, type, objectPhrase);
+  const uiInteraction = buildUiInteraction(story, capability);
+  const apiContract = buildApiContract(story, type, capability, objectPhrase);
+  const funcReqs = buildFunctionalRequirements(story);
+  const nfrs = buildNonFunctionalRequirements();
+  const techCons = buildTechnicalConsiderations();
+  const qaStrategy = buildQaStrategy(story, type);
+  const dod = buildDod();
 
   let updated = content;
   updated = replaceStoryTitle(updated, storyTitle);
@@ -905,12 +1044,31 @@ function refineStoryContent(content, story) {
   updated = replaceLine(updated, "I want", `to ${capability}`);
   updated = replaceLine(updated, "So that", outcome);
   updated = replaceSection(updated, "Context", context);
+  
+  // Inject/Replace TMT Sections in ordered sequence
+  updated = injectSection(updated, "Context", "Data Model (Fields)", dataModel);
+  updated = injectSection(updated, "Data Model (Fields)", "WebApp (UI) Interaction", uiInteraction);
+  updated = injectSection(updated, "WebApp (UI) Interaction", "API (REST) Contract", apiContract);
+  updated = injectSection(updated, "API (REST) Contract", "Functional Requirements", funcReqs);
+  
   updated = replaceSection(updated, "Acceptance Criteria", acceptanceCriteria);
+  
+  updated = injectSection(updated, "Acceptance Criteria", "Non-Functional Requirements", nfrs);
+  updated = injectSection(updated, "Non-Functional Requirements", "Technical Considerations", techCons);
+  
   updated = replaceSection(updated, "Dependencies", dependencies);
-  updated = replaceSection(updated, "UX", ux);
-  updated = replaceSection(updated, "Testing Notes", testingNotes);
-  updated = replaceSection(updated, "Open Questions", openQuestions);
+  
+  updated = injectSection(updated, "Dependencies", "QA & Testing Strategy", qaStrategy);
+  updated = injectSection(updated, "QA & Testing Strategy", "Definition of Done (DoD)", dod);
+
+  // Cleanup old sections (migrated to new technical ones)
+  updated = removeSection(updated, "UX");
+  updated = removeSection(updated, "Testing Notes");
+  updated = removeSection(updated, "Non-Functional Notes");
+
+  updated = replaceSection(updated, "Open Questions", buildOpenQuestions(story, type));
   updated = replaceSection(updated, "Implementation Notes", implementationNotes);
+  
   return updated;
 }
 

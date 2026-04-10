@@ -26,6 +26,7 @@ Use this skill to turn requirements into:
 This skill is responsible for:
 - shaping epics around business capabilities or workflow boundaries
 - writing implementable user stories with observable Gherkin scenarios
+- generating technical contracts including Data Models, API specifications, and UI flows
 - preserving traceability to the provided source material
 - extending an existing numbered story pack safely
 - validating the generated pack before claiming it is ready
@@ -131,6 +132,9 @@ Follow this sequence unless the user explicitly asks for a narrower task.
 - Do not restate the epic name or say the capability is merely "available in the platform" as the value statement.
 - Write `Context` as a short explanation of what the story is, what it changes from AS-IS to TO-BE, what users gain, and how it fits with the rest of the epic and product. Do not describe the prompt, repository, template, or reconstruction process there.
 - Write acceptance criteria as observable `Given / When / Then` scenarios.
+- Cover Happy Path, Alternative Flow, and Error/Edge cases in every story.
+- Include technical contracts (Data Model, API, UI) when the source material supports them.
+- Define a comprehensive testing strategy (Unit, Integration, E2E) and a clear Definition of Done.
 - Make each acceptance-criteria scenario specific to the story behavior. Do not use generic fallbacks such as "the platform completes the requested action successfully."
 - Draft the story in this order: actor, capability, value, main success path, important failure path, then optional supporting sections.
 - Capture negative paths, permission boundaries, and important edge cases when the source material implies them.
