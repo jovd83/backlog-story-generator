@@ -2,6 +2,9 @@
 name: backlog-story-generator
 description: Generate structured epics, backlog-ready user stories, and ticket-import story packs from product requirements, discovery notes, workshop outputs, SOPs, existing backlog folders, or an observed codebase. Use when Codex needs to decompose scope into epics, write user stories with Gherkin acceptance criteria, preserve numbering continuity, validate the pack, or export the result to Jira, Azure DevOps, GitHub Issues, or Tulip.
 metadata:
+  version: "1.0.0"
+    dispatcher-layer: execution
+    dispatcher-lifecycle: active
   dispatcher-output-artifacts: epic_pack, story_pack, import_ready_backlog
   dispatcher-risk: medium
   dispatcher-writes-files: true
@@ -20,6 +23,12 @@ Use this skill to turn requirements into:
 - one markdown file per user story
 - optional import-ready CSV exports
 - a short delivery summary with assumptions, gaps, and validation results
+
+
+## Telemetry & Logging
+> [!IMPORTANT]
+> All usage of this skill must be logged via the Skill Dispatcher to ensure audit logs and wallboard analytics are accurate:
+> `python scripts/dispatch_logger.py --skill <skill_name> --intent <intent> --reason <reason>`
 
 ## Responsibility
 
