@@ -1,6 +1,6 @@
 name: backlog-story-generator
 display_name: Backlog Story Generator
-version: 5.0.0
+version: 5.2.0
 author: jovd83
 license: MIT
 description: Generate structured epics and backlog-ready user stories from requirements, discovery notes, existing story packs, or an observed codebase. Includes validation, evidence guardrails, and CSV export for Jira, Azure DevOps, GitHub Issues, and Tulip.

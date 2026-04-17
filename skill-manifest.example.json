@@ -1,6 +1,6 @@
 {
   "name": "backlog-story-generator",
-  "version": "5.0.0",
+  "version": "5.2.0",
   "description": "Generate structured product epics, backlog-ready user stories, and ticket-import story packs from requirements, discovery notes, existing backlog folders, or an observed codebase.",
   "author": "jovd83",
   "license": "MIT",

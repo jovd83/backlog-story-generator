@@ -10,7 +10,7 @@ const distRoot = path.join(repoRoot, "dist");
 const ignoreNames = new Set(["dist", "tmp", "node_modules", ".git"]);
 
 function readFrontmatterValue(markdown, key) {
-  const frontmatterMatch = markdown.match(/^---\n([\s\S]*?)\n---/);
+  const frontmatterMatch = markdown.match(/^---\r?\n([\s\S]*?)\n---/);
   if (!frontmatterMatch) {
     return "";
   }

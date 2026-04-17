@@ -112,7 +112,7 @@ N/A
   assert.match(after.context, /It sits with/i);
   assert.match(after.rawSections.acceptanceCriteria, /resulting state remains visible and traceable/i);
   assert.doesNotMatch(after.rawSections.acceptanceCriteria, /\*\*Given\*\*\s+Given/i);
-  assert.match(after.testingNotes, /primary success path/i);
+  assert.match(after.qaTestingStrategy, /primary success path/i);
   assert.equal(after.openQuestions, "N/A");
   assert.equal(after.implementationNotes, "N/A");
 });
@@ -212,8 +212,8 @@ N/A
   assert.match(after.context, /It sits with/i);
   assert.match(after.rawSections.acceptanceCriteria, /current API operations, schemas, and request details/i);
   assert.match(after.dependencies, /Swagger viewing surface/i);
-  assert.match(after.ux, /browser-based viewer/i);
-  assert.match(after.testingNotes, /viewer availability/i);
+  assert.match(after.webAppUiInteraction, /browser-based viewer/i);
+  assert.match(after.qaTestingStrategy, /viewer availability/i);
   assert.match(after.openQuestions, /released API versions/i);
   assert.match(after.implementationNotes, /documentation publishing path/i);
 });

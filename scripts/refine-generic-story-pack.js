@@ -919,14 +919,21 @@ function buildDataModelFields(story, type, objectPhrase) {
   return table;
 }
 
-function buildUiInteraction(story, capability) {
-  return [
+function buildUiInteraction(story, capability, type) {
+  const ux = buildUx(story, type);
+  const steps = [
     `1. **Navigation**: Main Menu > ${story.epicFeature}`,
     `2. **Access**: List View > Select Item`,
     `3. **Trigger**: "${toStoryTitle(capability)}" button`,
     `4. **Action**: Complete requested information and submit`,
     `5. **Result**: System processes the change and provides success feedback`
-  ].join("\n");
+  ];
+
+  if (ux && ux !== "N/A") {
+    return `### User Experience Goals\n${ux}\n\n### Interaction Steps\n${steps.join("\n")}`;
+  }
+
+  return steps.join("\n");
 }
 
 function buildApiContract(story, type, capability, objectPhrase) {
@@ -983,12 +990,19 @@ function buildTechnicalConsiderations() {
 }
 
 function buildQaStrategy(story, type) {
-  return [
+  const notes = buildTestingNotes(story, type);
+  const strategy = [
     "### Test Coverage Requirements",
     "- **Unit Tests:** 80% Min",
     "- **Integration Tests:** 100% API coverage",
     "- **E2E Tests:** Primary success path"
-  ].join("\n");
+  ];
+
+  if (notes && notes !== "N/A") {
+    return `${strategy.join("\n")}\n\n### Tactical Testing Notes\n${notes}`;
+  }
+
+  return strategy.join("\n");
 }
 
 function buildDod() {
@@ -1030,7 +1044,7 @@ function refineStoryContent(content, story) {
   
   // New TMT Sections
   const dataModel = buildDataModelFields(story, type, objectPhrase);
-  const uiInteraction = buildUiInteraction(story, capability);
+  const uiInteraction = buildUiInteraction(story, capability, type);
   const apiContract = buildApiContract(story, type, capability, objectPhrase);
   const funcReqs = buildFunctionalRequirements(story);
   const nfrs = buildNonFunctionalRequirements();

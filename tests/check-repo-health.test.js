@@ -12,5 +12,5 @@ test("passes repository health checks for the canonical repo state", () => {
     encoding: "utf8",
   });
 
-  assert.match(stdout, /Repository health checks completed for backlog-story-generator@5\.0\.0\./);
+  assert.match(stdout, /Repository health checks completed for backlog-story-generator@\d+\.\d+\.\d+\./);
 });
