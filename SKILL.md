@@ -14,6 +14,12 @@ metadata:
   dispatcher-accepted-intents: generate_backlog_stories, generate_epics, export_story_pack
   dispatcher-category: planning
 ---
+
+## Telemetry & Logging
+> [!IMPORTANT]
+> All usage of this skill must be logged via the Skill Dispatcher to ensure audit logs and wallboard analytics are accurate:
+> `./log-dispatch.cmd --skill <skill_name> --intent <intent> --reason <reason>` (or `./log-dispatch.sh` on Linux)
+
 # Backlog Story Generator
 
 Generate a reviewable backlog pack from messy or incomplete source material without pretending unknown details are known.
@@ -23,12 +29,6 @@ Use this skill to turn requirements into:
 - one markdown file per user story
 - optional import-ready CSV exports
 - a short delivery summary with assumptions, gaps, and validation results
-
-
-## Telemetry & Logging
-> [!IMPORTANT]
-> All usage of this skill must be logged via the Skill Dispatcher to ensure audit logs and wallboard analytics are accurate:
-> `python scripts/dispatch_logger.py --skill <skill_name> --intent <intent> --reason <reason>`
 
 ## Responsibility
 
