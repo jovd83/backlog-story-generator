@@ -83,3 +83,55 @@ test("fails export for invalid story files", () => {
     });
   }, /Validation failed/);
 });
+
+test("preserves diagrams in exported descriptions when present", () => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "story-export-diagrams-"));
+  const epicDir = path.join(tempDir, "epic-01-visual-contracts");
+  fs.mkdirSync(epicDir, { recursive: true });
+
+  fs.writeFileSync(path.join(epicDir, "US-301-document-approval-flow.md"), `# User Story: Document Approval Flow
+
+**Story ID:** US-301
+**Epic/Feature:** Visual Contracts
+**Priority:** Medium
+**Story Points:** 3
+**Status:** Proposed
+
+## User Story
+**As a** business analyst
+**I want** a story with a useful diagram
+**So that** reviewers can understand the approval flow quickly
+
+## Context
+This story verifies that optional diagrams remain part of exported story descriptions when authors include them intentionally.
+
+## Functional / Business References
+- export test fixture
+
+## Acceptance Criteria
+### Scenario 1: Export keeps diagrams
+**Given** a story includes a diagrams section
+**When** the exporter builds the description
+**Then** the diagrams section appears in the exported output
+
+## Diagrams
+### Diagram 1: Approval flow
+- **Type**: Mermaid
+- **Why this is useful**: It clarifies the review and approval sequence.
+
+\`\`\`mermaid
+flowchart TD
+  A[Draft] --> B[Review] --> C[Approved]
+\`\`\`
+
+- **Explanation**: The diagram shows the happy-path approval flow.
+
+## Source Traceability
+- tests/export-stories.test.js
+`, "utf8");
+
+  const { csv } = runExport("github", tempDir);
+  assert.match(csv, /## Diagrams/);
+  assert.match(csv, /```mermaid/);
+  assert.match(csv, /Approval flow/);
+});

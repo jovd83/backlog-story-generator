@@ -52,6 +52,7 @@ function buildDescription(story, format) {
     formatSection("Scope Notes", story.scopeNotes),
     formatSection("Dependencies", story.dependencies),
     formatSection("Non-Functional Notes", story.nonFunctionalNotes),
+    formatSection("Diagrams", story.diagrams),
     formatSection("Testing Notes", story.testingNotes),
     formatSection("Open Questions", story.openQuestions),
     formatSourceTraceability(story),

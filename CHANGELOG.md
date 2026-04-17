@@ -2,6 +2,16 @@
 
 All notable changes to this repository are documented here.
 
+## [5.3.0] - 2026-04-17
+
+### Added
+- Added an optional `Diagrams` section to the canonical user story template so stories can include Mermaid, UML, BPMN, and similar visuals when they materially clarify behavior or structure.
+- Added parser, schema, validation, and export support for the optional `Diagrams` section.
+- Added regression coverage to ensure diagrams are parsed, placeholder-checked, and preserved in exports.
+
+### Changed
+- Updated skill instructions, README guidance, and quality references to make `Diagrams` an explicitly optional section that the AI should include only when useful and explain when present.
+
 ## [5.2.0] - 2026-04-10
 
 ### Added

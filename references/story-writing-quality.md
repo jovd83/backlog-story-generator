@@ -71,6 +71,7 @@ If a section adds no meaningful information, prefer `N/A`.
 
 Examples:
 - `UX`: use only when the story has interaction, responsiveness, or accessibility constraints worth calling out
+- `Diagrams`: use only when a UML, BPMN, Mermaid, or similar visual materially clarifies flow, state, ownership, or structure, and include a short explanation for each diagram
 - `Testing Notes`: use when there is an important coverage focus, fixture need, or environment concern
 - `Implementation Notes`: use only when delivery planning is materially affected by technical context
 

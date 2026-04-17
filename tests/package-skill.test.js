@@ -34,7 +34,7 @@ test("packages the skill into a distributable directory with manifest", () => {
 
   const manifest = JSON.parse(fs.readFileSync(path.join(packageDir, "skill-manifest.json"), "utf8"));
   assert.equal(manifest.name, "backlog-story-generator");
-  assert.equal(manifest.version, "5.2.0");
+  assert.equal(manifest.version, "5.3.0");
   assert.equal(manifest.author, "jovd83");
   assert.equal(manifest.license, "MIT");
   assert.match(manifest.description, /Generate structured epics/);

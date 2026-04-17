@@ -1,7 +1,7 @@
 # Latest Eval Report
 
 Skill: `backlog-story-generator`
-Version: `5.0.0`
+Version: `5.3.0`
 
 ## Eval Method
 
@@ -19,7 +19,7 @@ The report summarizes:
 - eval prompts: 7
 - example stories: 12
 - automated test files: 12
-- approximate automated tests: 34
+- approximate automated tests: 37
 - repository verification command: `npm run verify`
 - repo-health command: `npm run check:repo-health`
 

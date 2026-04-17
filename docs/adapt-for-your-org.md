@@ -59,6 +59,7 @@ Examples:
 - `## Security Notes`
 - `## Release Notes`
 - `## Compliance Mapping`
+- `## Diagrams`
 
 Decide whether the section is:
 - required

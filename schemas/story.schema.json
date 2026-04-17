@@ -110,6 +110,9 @@
     "ux": {
       "type": "string"
     },
+    "diagrams": {
+      "type": "string"
+    },
     "testingNotes": {
       "type": "string"
     },

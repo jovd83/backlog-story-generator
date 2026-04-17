@@ -10,7 +10,7 @@ test("builds an eval report from the current repository state", () => {
   const report = buildEvalReport();
 
   assert.equal(report.metrics.skillName, "backlog-story-generator");
-  assert.equal(report.metrics.version, "5.0.0");
+  assert.equal(report.metrics.version, "5.3.0");
   assert.equal(report.metrics.promptCount, 7);
   assert.equal(report.metrics.exampleStoryCount, 12);
   assert.ok(report.metrics.testFileCount >= 12);

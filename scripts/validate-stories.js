@@ -11,6 +11,10 @@ function usage() {
   console.error("Usage: node scripts/validate-stories.js <input-directory> [--json]");
 }
 
+function stripFencedCodeBlocks(text) {
+  return String(text).replace(/```[\s\S]*?```/g, "");
+}
+
 function validatePrimitive(value, definition, pointer, errors) {
   if (definition.type === "string") {
     if (typeof value !== "string") {
@@ -134,6 +138,7 @@ function validateStory(story) {
     story.dependencies,
     story.nonFunctionalNotes,
     story.ux,
+    story.diagrams,
     story.testingNotes,
     story.openQuestions,
     story.implementationNotes,
@@ -153,7 +158,7 @@ function validateStory(story) {
     ...(story.sourceTraceability || []),
   ].filter(Boolean);
 
-  if (fieldsToCheck.some((value) => PLACEHOLDER_PATTERN.test(value))) {
+  if (fieldsToCheck.some((value) => PLACEHOLDER_PATTERN.test(stripFencedCodeBlocks(value)))) {
     errors.push("story contains unresolved template placeholders");
   }
 

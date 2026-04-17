@@ -72,3 +72,13 @@ test("requires context and functional business references sections", () => {
   assert.ok(errors.some((error) => error.includes("story.context")));
   assert.ok(errors.some((error) => error.includes("story.functionalBusinessReferences")));
 });
+
+test("checks diagrams content for unresolved placeholders", () => {
+  const story = parseStory(
+    path.join(examplesDir, "epic-01-checkout-experience", "US-001-capture-shipping-address.md")
+  );
+  story.diagrams = "[Add useful diagram here]";
+
+  const errors = validateStory(story);
+  assert.ok(errors.some((error) => error.includes("placeholders")));
+});

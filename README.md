@@ -1,6 +1,6 @@
 # Backlog Story Generator
 
-[![Version](https://img.shields.io/badge/version-5.2.0-blue.svg)](#)
+[![Version](https://img.shields.io/badge/version-5.3.0-blue.svg)](#)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-43853d.svg)](#requirements)
@@ -20,7 +20,7 @@ It is designed for AI-assisted backlog authoring where the output must be:
 The skill helps Codex:
 - Decompose source material into epics shaped around business capabilities.
 - Generate implementable user stories with **Observable ACs** (Gherkin scenarios).
-- Define **Technical Contracts** (Data Models, API specs, UI flows).
+- Define **Technical Contracts** (Data Models, API specs, UI flows, and optional explanatory diagrams).
 - Implement **Comprehensive Testing Strategies** (Unit, Integration, E2E, Quality Gates).
 - Preserve **Numbered Continuity** when extending existing packs.
 - Validate story packs before export or delivery.
@@ -109,7 +109,7 @@ The operational workflow lives in [`SKILL.md`](./SKILL.md). The short version is
 Each story file is expected to contain:
 - story metadata such as ID, epic, priority, points, and status
 - a user story statement with `As a`, `I want`, and `So that`
-- **Technical Contracts**: Detailed Data Models, API specifications, and UI interaction flows
+- **Technical Contracts**: Detailed Data Models, API specifications, UI interaction flows, and optional diagrams when they add real clarity
 - Gherkin-style acceptance criteria covering Happy, Alternative, and Error paths
 - **Comprehensive Testing**: Integrated strategy for Unit, Integration, and E2E validation
 - a clear **Definition of Done** checklist

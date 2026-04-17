@@ -92,6 +92,7 @@ Good reasons to populate them:
 - `Dependencies`: another system, data source, team, or story is a real dependency
 - `Non-Functional Notes`: performance, accessibility, security, reliability, or compliance is materially relevant
 - `UX`: interaction, feedback, accessibility, or responsiveness matters
+- `Diagrams`: a flow, state model, architecture relationship, or sequence is easier to understand visually than in prose alone
 - `Testing Notes`: there is a meaningful coverage focus, fixture need, or environment concern
 - `Implementation Notes`: delivery planning materially depends on technical context
 

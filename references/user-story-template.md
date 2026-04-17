@@ -7,6 +7,7 @@ Use this as the canonical story-file template.
 - Keep the story title concise and action-oriented.
 - Keep `Story ID`, filename, and title slug aligned.
 - Mark optional sections `N/A` when they are intentionally not used.
+- Treat `Diagrams` as optional. Add them only when a diagram materially clarifies the story, choose a notation that fits the need, and explain what each diagram shows.
 - Put only evidence-backed material into the story. Put unresolved decisions into `Open Questions`.
 
 ## Canonical Template
@@ -84,6 +85,21 @@ Use this as the canonical story-file template.
 - **Error Codes**:
     - `400 Bad Request`: [Condition]
     - `403 Forbidden`: [Condition]
+
+---
+
+## Diagrams
+[Optional. Use only when a diagram materially clarifies the story; otherwise write `N/A`.]
+
+### Diagram 1: [Concise diagram title]
+- **Type**: [Mermaid | UML | BPMN | Sequence | Flowchart | Class | State | Other]
+- **Why this is useful**: [What ambiguity, workflow, or structure the diagram clarifies]
+
+```text
+[Diagram content or fenced Mermaid/UML/BPMN definition]
+```
+
+- **Explanation**: [How to read the diagram and what story behavior or structure it highlights]
 
 ---
 
@@ -234,4 +250,3 @@ Use this as the canonical story-file template.
 ## Implementation Notes
 - [Only include when implementation context materially affects delivery planning]
 ```
-

@@ -20,6 +20,7 @@ Use this as the ready-for-review checklist for generated stories.
 - [ ] **Data Model**: Are field types, mandatory flags, and business purposes clearly defined in a table?
 - [ ] **UI Interaction**: Does the story describe the navigation path and user trigger for this capability?
 - [ ] **API Contract**: Are endpoints, methods, and example request/response payloads provided (if applicable)?
+- [ ] **Diagrams**: If diagrams are included, do they use a fitting notation, clarify something the prose alone would not, and include a short explanation for each diagram?
 - [ ] **Business Rules**: Are domain policies extracted from the requirements and explicitly listed?
 
 ## Acceptance Criteria & Testing
