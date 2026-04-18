@@ -58,6 +58,16 @@ This story adds the operational ability to print a shipping label for an order. 
 ## Testing Notes
 - Validate authorization, successful printing, and printer-unavailable recovery behavior.
 
+## Diagrams
+### Diagram 1: Initial label printing sequence
+**Type:** PlantUML Sequence Diagram
+**Why this is useful:** It clarifies the interaction between the associate, the warehouse system, and the printer during first-time label generation.
+
+![Diagram 1: Initial label printing sequence](../_diagrams/us-020-initial-label-printing-sequence.svg)
+
+**Source:** [us-020-initial-label-printing-sequence.puml](../_diagram-sources/us-020-initial-label-printing-sequence.puml)
+**Explanation:** The diagram shows the happy path and the printer-unavailable branch without mixing in reprint or audit behavior that belongs to a different story.
+
 ## Open Questions
 N/A
 

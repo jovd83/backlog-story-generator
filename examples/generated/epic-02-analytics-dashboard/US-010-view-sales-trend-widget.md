@@ -59,6 +59,9 @@ This story adds a dashboard widget that shows sales trends to an administrative 
 ## Testing Notes
 - Validate default rendering, retry behavior, and the performance expectation under normal conditions.
 
+## Diagrams
+N/A
+
 ## Open Questions
 N/A
 

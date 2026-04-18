@@ -58,6 +58,9 @@ This story adds appointment cancellation with explicit policy messaging. It matt
 ## Testing Notes
 - Validate policy visibility, confirmed cancellation, and cancellation abandonment behavior.
 
+## Diagrams
+N/A
+
 ## Open Questions
 - Confirm whether same-day cancellations require different wording.
 

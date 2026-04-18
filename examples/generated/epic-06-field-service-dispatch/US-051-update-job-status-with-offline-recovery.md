@@ -58,6 +58,16 @@ This story adds job-status updates that can recover from offline conditions. It 
 ## Testing Notes
 - Validate online updates, offline queuing, and synchronization after reconnect.
 
+## Diagrams
+### Diagram 1: Offline recovery state model
+**Type:** PlantUML State Diagram
+**Why this is useful:** It clarifies the offline queuing lifecycle and shows how a status update moves from local capture to synchronized visibility.
+
+![Diagram 1: Offline recovery state model](../_diagrams/us-051-offline-recovery-state-model.svg)
+
+**Source:** [us-051-offline-recovery-state-model.puml](../_diagram-sources/us-051-offline-recovery-state-model.puml)
+**Explanation:** The state model mirrors the three acceptance-criteria paths by separating connected updates, offline capture, and post-reconnect synchronization.
+
 ## Open Questions
 - Confirm whether timestamp conflict rules are needed when multiple updates are queued.
 

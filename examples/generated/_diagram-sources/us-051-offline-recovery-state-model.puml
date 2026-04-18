@@ -1,0 +1,8 @@
+@startuml
+[*] --> Connected
+Connected --> Synced : Update status online
+Connected --> OfflineQueued : Connectivity lost and status updated
+OfflineQueued --> Syncing : Device reconnects
+Syncing --> Synced : Status delivered to backend
+Syncing --> OfflineQueued : Sync fails and remains queued
+@enduml

@@ -58,6 +58,24 @@ This story adds the booking flow for a clinic appointment. It matters because pa
 ## Testing Notes
 - Validate successful booking, race-condition handling, and no-availability behavior.
 
+## Diagrams
+### Diagram 1: Appointment booking flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It illustrates the booking decision points around slot availability and makes the double-booking prevention path easier to review.
+
+```mermaid
+flowchart TD
+  A[Patient searches specialty and location] --> B[Show matching slots]
+  B --> C[Patient selects slot]
+  C --> D{Slot still available?}
+  D -- Yes --> E[Create appointment]
+  E --> F[Mark slot unavailable]
+  F --> G[Show booking confirmation]
+  D -- No --> H[Explain slot is no longer available]
+```
+
+**Explanation:** The flow maps the main booking path and the race-condition branch where another patient books the slot first.
+
 ## Open Questions
 - Confirm whether patients can book on behalf of dependents in the initial release.
 

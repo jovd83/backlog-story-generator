@@ -14,6 +14,10 @@ Generated examples under `examples/generated/` intentionally:
 - use globally unique story IDs
 - follow epic-folder and story-file naming rules
 - include both required sections and selective optional sections
+- demonstrate the optional `Diagrams` section selectively, using real diagrams only where they materially clarify the story and `N/A` where prose is sufficient
+- use raw Mermaid code blocks for Mermaid-based examples so Markdown renderers with Mermaid support can render them directly
+- include rendered SVG previews plus source files under `examples/generated/_diagrams/` and `examples/generated/_diagram-sources/` for the PlantUML-based examples
+- split the visual examples across Mermaid and PlantUML so both notations are represented where they fit best
 - remain valid under the parser, schema, validator, and exporter
 
 Use these examples when changing:

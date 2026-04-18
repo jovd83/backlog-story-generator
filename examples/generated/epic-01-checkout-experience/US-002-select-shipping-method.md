@@ -59,6 +59,25 @@ This story adds the decision point where the shopper chooses how the order will 
 ## Testing Notes
 - Validate destination-based availability, cost recalculation, and unavailable-method handling.
 
+## Diagrams
+### Diagram 1: Shipping method selection decision flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It shows how address context, method availability, and price recalculation interact before the shopper can continue checkout.
+
+```mermaid
+flowchart TD
+  A[Shipping step loads] --> B[Fetch methods for destination]
+  B --> C{More than one method available?}
+  C -- No --> D[Show only valid method]
+  C -- Yes --> E[Show standard and express options]
+  E --> F[Shopper selects method]
+  F --> G[Recalculate order total]
+  D --> H[Continue to next step]
+  G --> H
+```
+
+**Explanation:** This diagram highlights the two core outcomes in the story: destination-based availability and checkout-total updates after a valid selection.
+
 ## Open Questions
 N/A
 

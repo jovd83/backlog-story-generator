@@ -58,6 +58,16 @@ This story adds the ability to reprint a failed label while preserving who trigg
 ## Testing Notes
 - Validate successful reprints, unauthorized attempts, and audit-record completeness.
 
+## Diagrams
+### Diagram 1: Reprint with audit capture sequence
+**Type:** PlantUML Sequence Diagram
+**Why this is useful:** It makes the audit requirement concrete by showing that successful reprints must produce both a print action and an audit event.
+
+![Diagram 1: Reprint with audit capture sequence](../_diagrams/us-021-reprint-audit-sequence.svg)
+
+**Source:** [us-021-reprint-audit-sequence.puml](../_diagram-sources/us-021-reprint-audit-sequence.puml)
+**Explanation:** This sequence shows that audit capture is part of the successful reprint path, while unauthorized attempts are blocked before any audit record could imply a successful reprint.
+
 ## Open Questions
 - Confirm the required retention period for audit events.
 

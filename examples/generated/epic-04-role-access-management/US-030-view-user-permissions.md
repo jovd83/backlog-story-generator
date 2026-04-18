@@ -58,6 +58,9 @@ This story adds a way to inspect the permissions currently assigned to a user. I
 ## Testing Notes
 - Validate role display, elevated-role context, and unavailable-user handling.
 
+## Diagrams
+N/A
+
 ## Open Questions
 N/A
 

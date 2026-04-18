@@ -58,6 +58,9 @@ This story adds dispatch assignment based on technician territory and skill fit.
 ## Testing Notes
 - Validate successful assignment, blocked mismatch behavior, and no-match visibility.
 
+## Diagrams
+N/A
+
 ## Open Questions
 - Confirm which users can apply territory overrides.
 

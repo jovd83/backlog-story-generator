@@ -1,0 +1,19 @@
+@startuml
+actor "Administrator" as Admin
+participant "Access UI" as UI
+participant "Authorization Policy" as Auth
+participant "Role Service" as Roles
+database "Audit Log" as Audit
+
+Admin -> UI: Submit role assignment or revocation
+UI -> Auth: Check authority for requested change
+alt Change permitted
+  UI -> Roles: Save role update
+  Roles --> UI: Updated effective permissions
+  UI -> Audit: Record actor, change, and timestamp
+  UI --> Admin: Show successful access update
+else Change blocked
+  Auth --> UI: Deny change
+  UI --> Admin: Explain privilege boundary
+end
+@enduml

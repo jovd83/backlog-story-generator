@@ -1,0 +1,17 @@
+@startuml
+actor "Warehouse Lead" as L
+participant "Warehouse System" as S
+participant "Label Printer" as P
+database "Audit Log" as A
+
+L -> S: Request label reprint
+S -> S: Check reprint permission
+alt Authorized
+  S -> P: Submit reprint job
+  P --> S: Reprint accepted
+  S -> A: Record who, when, and order
+  S --> L: Confirm reprint completed
+else Unauthorized
+  S --> L: Block request and explain permission error
+end
+@enduml

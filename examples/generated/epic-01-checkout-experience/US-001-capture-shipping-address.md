@@ -59,6 +59,22 @@ This story adds the checkout step where the shopper provides a delivery address.
 ## Testing Notes
 - Validate required-field errors, session persistence, and unsupported-country handling.
 
+## Diagrams
+### Diagram 1: Shipping address validation flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It clarifies how checkout branches between valid input, required-field errors, and unsupported destinations.
+
+```mermaid
+flowchart TD
+  A[Shopper enters shipping address] --> B{Required fields complete?}
+  B -- No --> C[Show field validation errors]
+  B -- Yes --> D{Destination supported?}
+  D -- No --> E[Explain shipping restriction]
+  D -- Yes --> F[Save address to checkout session]
+```
+
+**Explanation:** The diagram maps directly to the three acceptance-criteria paths and shows the two decision points that determine whether checkout can continue.
+
 ## Open Questions
 N/A
 

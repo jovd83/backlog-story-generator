@@ -58,6 +58,16 @@ This story adds the capability to grant or remove roles from a user. It matters 
 ## Testing Notes
 - Validate allowed changes, blocked privilege escalation, and audit-log completeness.
 
+## Diagrams
+### Diagram 1: Role change and audit sequence
+**Type:** PlantUML Sequence Diagram
+**Why this is useful:** It shows the authorization boundary around role changes and the audit step that must occur after a successful assignment or revocation.
+
+![Diagram 1: Role change and audit sequence](../_diagrams/us-031-role-change-audit-sequence.svg)
+
+**Source:** [us-031-role-change-audit-sequence.puml](../_diagram-sources/us-031-role-change-audit-sequence.puml)
+**Explanation:** The diagram emphasizes that permission checks happen before the write, and that a successful write is incomplete until the audit event is captured.
+
 ## Open Questions
 - Confirm whether dual approval is required for sensitive roles.
 

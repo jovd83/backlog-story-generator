@@ -37,6 +37,22 @@ Then the system blocks progression and explains the shipping restriction
 ## Non-Functional Notes
 - Validation feedback should be accessible to keyboard and screen-reader users.
 
+## Diagrams
+### Diagram 1: Shipping address validation flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It clarifies how checkout branches between valid input, required-field errors, and unsupported destinations.
+
+```mermaid
+flowchart TD
+  A[Shopper enters shipping address] --> B{Required fields complete?}
+  B -- No --> C[Show field validation errors]
+  B -- Yes --> D{Destination supported?}
+  D -- No --> E[Explain shipping restriction]
+  D -- Yes --> F[Save address to checkout session]
+```
+
+**Explanation:** The diagram maps directly to the three acceptance-criteria paths and shows the two decision points that determine whether checkout can continue.
+
 ## Testing Notes
 - Validate required-field errors, session persistence, and unsupported-country handling.
 
@@ -82,6 +98,25 @@ Then unavailable methods are not selectable
 
 ## Non-Functional Notes
 - Shipping options should load quickly enough to avoid interrupting checkout flow.
+
+## Diagrams
+### Diagram 1: Shipping method selection decision flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It shows how address context, method availability, and price recalculation interact before the shopper can continue checkout.
+
+```mermaid
+flowchart TD
+  A[Shipping step loads] --> B[Fetch methods for destination]
+  B --> C{More than one method available?}
+  C -- No --> D[Show only valid method]
+  C -- Yes --> E[Show standard and express options]
+  E --> F[Shopper selects method]
+  F --> G[Recalculate order total]
+  D --> H[Continue to next step]
+  G --> H
+```
+
+**Explanation:** This diagram highlights the two core outcomes in the story: destination-based availability and checkout-total updates after a valid selection.
 
 ## Testing Notes
 - Validate destination-based availability, cost recalculation, and unavailable-method handling.

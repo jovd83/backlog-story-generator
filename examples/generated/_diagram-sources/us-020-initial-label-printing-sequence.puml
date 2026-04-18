@@ -1,0 +1,15 @@
+@startuml
+actor "Warehouse Associate" as A
+participant "Warehouse System" as S
+participant "Label Printer" as P
+
+A -> S: Request shipping label for packed order
+S -> S: Validate shipment readiness and permission
+alt Printer available
+  S -> P: Send label print job
+  P --> S: Print accepted
+  S --> A: Confirm label printed
+else Printer unavailable
+  S --> A: Show recoverable printer error
+end
+@enduml

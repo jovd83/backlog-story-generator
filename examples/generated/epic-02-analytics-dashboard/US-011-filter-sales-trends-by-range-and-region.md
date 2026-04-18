@@ -58,6 +58,22 @@ This story adds filtering controls for the sales trend widget. It matters becaus
 ## Testing Notes
 - Validate date-range switching, region filtering, and empty-state behavior.
 
+## Diagrams
+### Diagram 1: Widget filter interaction flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It shows the filter-driven reload loop and makes the empty-state path explicit for reviewers.
+
+```mermaid
+flowchart TD
+  A[Analyst views sales trend widget] --> B[Choose date range or region]
+  B --> C[Reload filtered data]
+  C --> D{Matching data found?}
+  D -- Yes --> E[Render filtered chart and totals]
+  D -- No --> F[Render empty state]
+```
+
+**Explanation:** The flow focuses on the behavior added by this story: filter selection, widget refresh, and the branch between a normal filtered result and an empty state.
+
 ## Open Questions
 N/A
 

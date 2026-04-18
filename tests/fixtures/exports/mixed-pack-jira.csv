@@ -37,6 +37,22 @@ h3. Dependencies
 h3. Non-Functional Notes
 - Validation feedback should be accessible to keyboard and screen-reader users.
 
+h3. Diagrams
+h4. Diagram 1: Shipping address validation flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It clarifies how checkout branches between valid input, required-field errors, and unsupported destinations.
+
+```mermaid
+flowchart TD
+  A[Shopper enters shipping address] --> B{Required fields complete?}
+  B -- No --> C[Show field validation errors]
+  B -- Yes --> D{Destination supported?}
+  D -- No --> E[Explain shipping restriction]
+  D -- Yes --> F[Save address to checkout session]
+```
+
+**Explanation:** The diagram maps directly to the three acceptance-criteria paths and shows the two decision points that determine whether checkout can continue.
+
 h3. Testing Notes
 - Validate required-field errors, session persistence, and unsupported-country handling.
 
@@ -82,6 +98,25 @@ h3. Dependencies
 
 h3. Non-Functional Notes
 - Shipping options should load quickly enough to avoid interrupting checkout flow.
+
+h3. Diagrams
+h4. Diagram 1: Shipping method selection decision flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It shows how address context, method availability, and price recalculation interact before the shopper can continue checkout.
+
+```mermaid
+flowchart TD
+  A[Shipping step loads] --> B[Fetch methods for destination]
+  B --> C{More than one method available?}
+  C -- No --> D[Show only valid method]
+  C -- Yes --> E[Show standard and express options]
+  E --> F[Shopper selects method]
+  F --> G[Recalculate order total]
+  D --> H[Continue to next step]
+  G --> H
+```
+
+**Explanation:** This diagram highlights the two core outcomes in the story: destination-based availability and checkout-total updates after a valid selection.
 
 h3. Testing Notes
 - Validate destination-based availability, cost recalculation, and unavailable-method handling.
@@ -129,6 +164,9 @@ h3. Non-Functional Notes
 - The widget must display usable content in under 1 second.
 - The layout should fit common admin dashboard widths without horizontal scrolling.
 
+h3. Diagrams
+N/A
+
 h3. Testing Notes
 - Validate default rendering, retry behavior, and the performance expectation under normal conditions.
 
@@ -173,6 +211,22 @@ h3. Dependencies
 
 h3. Non-Functional Notes
 - Filter controls should remain accessible and understandable for keyboard users.
+
+h3. Diagrams
+h4. Diagram 1: Widget filter interaction flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It shows the filter-driven reload loop and makes the empty-state path explicit for reviewers.
+
+```mermaid
+flowchart TD
+  A[Analyst views sales trend widget] --> B[Choose date range or region]
+  B --> C[Reload filtered data]
+  C --> D{Matching data found?}
+  D -- Yes --> E[Render filtered chart and totals]
+  D -- No --> F[Render empty state]
+```
+
+**Explanation:** The flow focuses on the behavior added by this story: filter selection, widget refresh, and the branch between a normal filtered result and an empty state.
 
 h3. Testing Notes
 - Validate date-range switching, region filtering, and empty-state behavior.
@@ -219,6 +273,16 @@ h3. Dependencies
 h3. Non-Functional Notes
 - Packing station actions should remain resilient to brief device interruptions.
 
+h3. Diagrams
+h4. Diagram 1: Initial label printing sequence
+**Type:** PlantUML Sequence Diagram
+**Why this is useful:** It clarifies the interaction between the associate, the warehouse system, and the printer during first-time label generation.
+
+![Diagram 1: Initial label printing sequence](../_diagrams/us-020-initial-label-printing-sequence.svg)
+
+**Source:** [us-020-initial-label-printing-sequence.puml](../_diagram-sources/us-020-initial-label-printing-sequence.puml)
+**Explanation:** The diagram shows the happy path and the printer-unavailable branch without mixing in reprint or audit behavior that belongs to a different story.
+
 h3. Testing Notes
 - Validate authorization, successful printing, and printer-unavailable recovery behavior.
 
@@ -263,6 +327,16 @@ h3. Dependencies
 
 h3. Non-Functional Notes
 - Audit data must be retained in a way that supports operational investigation.
+
+h3. Diagrams
+h4. Diagram 1: Reprint with audit capture sequence
+**Type:** PlantUML Sequence Diagram
+**Why this is useful:** It makes the audit requirement concrete by showing that successful reprints must produce both a print action and an audit event.
+
+![Diagram 1: Reprint with audit capture sequence](../_diagrams/us-021-reprint-audit-sequence.svg)
+
+**Source:** [us-021-reprint-audit-sequence.puml](../_diagram-sources/us-021-reprint-audit-sequence.puml)
+**Explanation:** This sequence shows that audit capture is part of the successful reprint path, while unauthorized attempts are blocked before any audit record could imply a successful reprint.
 
 h3. Testing Notes
 - Validate successful reprints, unauthorized attempts, and audit-record completeness.
@@ -309,6 +383,9 @@ h3. Dependencies
 h3. Non-Functional Notes
 - Permission details should load fast enough to support administrative triage workflows.
 
+h3. Diagrams
+N/A
+
 h3. Testing Notes
 - Validate role display, elevated-role context, and unavailable-user handling.
 
@@ -353,6 +430,16 @@ h3. Dependencies
 
 h3. Non-Functional Notes
 - Role changes should preserve security and accountability expectations.
+
+h3. Diagrams
+h4. Diagram 1: Role change and audit sequence
+**Type:** PlantUML Sequence Diagram
+**Why this is useful:** It shows the authorization boundary around role changes and the audit step that must occur after a successful assignment or revocation.
+
+![Diagram 1: Role change and audit sequence](../_diagrams/us-031-role-change-audit-sequence.svg)
+
+**Source:** [us-031-role-change-audit-sequence.puml](../_diagram-sources/us-031-role-change-audit-sequence.puml)
+**Explanation:** The diagram emphasizes that permission checks happen before the write, and that a successful write is incomplete until the audit event is captured.
 
 h3. Testing Notes
 - Validate allowed changes, blocked privilege escalation, and audit-log completeness.
@@ -399,6 +486,24 @@ h3. Dependencies
 h3. Non-Functional Notes
 - Availability updates should be timely enough to reduce booking conflicts during active scheduling.
 
+h3. Diagrams
+h4. Diagram 1: Appointment booking flow
+**Type:** Mermaid Flowchart
+**Why this is useful:** It illustrates the booking decision points around slot availability and makes the double-booking prevention path easier to review.
+
+```mermaid
+flowchart TD
+  A[Patient searches specialty and location] --> B[Show matching slots]
+  B --> C[Patient selects slot]
+  C --> D{Slot still available?}
+  D -- Yes --> E[Create appointment]
+  E --> F[Mark slot unavailable]
+  F --> G[Show booking confirmation]
+  D -- No --> H[Explain slot is no longer available]
+```
+
+**Explanation:** The flow maps the main booking path and the race-condition branch where another patient books the slot first.
+
 h3. Testing Notes
 - Validate successful booking, race-condition handling, and no-availability behavior.
 
@@ -443,6 +548,9 @@ h3. Dependencies
 
 h3. Non-Functional Notes
 - Policy messaging should be easy to read on both desktop and mobile appointment flows.
+
+h3. Diagrams
+N/A
 
 h3. Testing Notes
 - Validate policy visibility, confirmed cancellation, and cancellation abandonment behavior.
@@ -489,6 +597,9 @@ h3. Dependencies
 h3. Non-Functional Notes
 - Assignment decisions should remain understandable to dispatchers during high job volume periods.
 
+h3. Diagrams
+N/A
+
 h3. Testing Notes
 - Validate successful assignment, blocked mismatch behavior, and no-match visibility.
 
@@ -533,6 +644,16 @@ h3. Dependencies
 
 h3. Non-Functional Notes
 - Offline recovery should minimize technician confusion about whether an update is pending or sent.
+
+h3. Diagrams
+h4. Diagram 1: Offline recovery state model
+**Type:** PlantUML State Diagram
+**Why this is useful:** It clarifies the offline queuing lifecycle and shows how a status update moves from local capture to synchronized visibility.
+
+![Diagram 1: Offline recovery state model](../_diagrams/us-051-offline-recovery-state-model.svg)
+
+**Source:** [us-051-offline-recovery-state-model.puml](../_diagram-sources/us-051-offline-recovery-state-model.puml)
+**Explanation:** The state model mirrors the three acceptance-criteria paths by separating connected updates, offline capture, and post-reconnect synchronization.
 
 h3. Testing Notes
 - Validate online updates, offline queuing, and synchronization after reconnect.
