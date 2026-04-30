@@ -1,8 +1,7 @@
 ---
 name: backlog-story-generator
-description: Generate structured epics, backlog-ready user stories, and ticket-import story packs from product requirements, discovery notes, workshop outputs, SOPs, existing backlog folders, or an observed codebase. Use when Codex needs to decompose scope into epics, write user stories with Gherkin acceptance criteria, preserve numbering continuity, validate the pack, or export the result to Jira, Azure DevOps, GitHub Issues, or Tulip.
+description: Generate structured epics, backlog-ready user stories, and ticket-import packs from requirements, discovery notes, workshops, SOPs, existing backlog folders, or an observed codebase. Use to decompose scope into epics, write user stories with Gherkin acceptance criteria, preserve numbering, validate, or export to Jira, Azure DevOps, GitHub Issues, or Tulip.
 metadata:
-  version: 5.3.0
   dispatcher-layer: information
   dispatcher-lifecycle: active
   dispatcher-output-artifacts: epic_pack, story_pack, import_ready_backlog
@@ -13,14 +12,18 @@ metadata:
   dispatcher-stack-tags: planning, backlog, product
   dispatcher-accepted-intents: generate_backlog_stories, generate_epics, export_story_pack
   dispatcher-category: planning
+
 ---
 
 ## Telemetry & Logging
 > [!IMPORTANT]
 > All usage of this skill must be logged via the Skill Dispatcher to ensure audit logs and wallboard analytics are accurate:
-> `./log-dispatch.cmd --skill <skill_name> --intent <intent> --reason <reason>` (or `./log-dispatch.sh` on Linux)
+> `./log-dispatch.cmd --skill <skill_name> --intent <intent> --model <model_name> --reason <reason>` (or `./log-dispatch.sh` on Linux)
 
 # Backlog Story Generator
+
+> **Version:** 5.3.1
+
 
 Generate a reviewable backlog pack from messy or incomplete source material without pretending unknown details are known.
 
