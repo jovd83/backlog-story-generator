@@ -209,7 +209,7 @@ If you persist project-local memory, keep it auditable and scoped to this reposi
 ### Shared memory
 
 Do not implement shared cross-agent memory inside this skill.
-If the task truly requires reusable cross-repository conventions, treat shared memory as an external dependency and integrate through a dedicated shared-memory skill or equivalent boundary.
+If the task truly requires reusable cross-repository conventions, keep them in the agent's own memory (for example CLAUDE.md or AGENTS.md) rather than in this skill.
 
 ## References To Load As Needed
 
