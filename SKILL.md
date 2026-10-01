@@ -2,22 +2,13 @@
 name: backlog-story-generator
 description: Generate structured epics, backlog-ready user stories, and ticket-import packs from requirements, discovery notes, workshops, SOPs, existing backlog folders, or an observed codebase. Use to decompose scope into epics, write user stories with Gherkin acceptance criteria, preserve numbering, validate, or export to Jira, Azure DevOps, GitHub Issues, or Tulip.
 metadata:
-  dispatcher-layer: information
-  dispatcher-lifecycle: active
-  dispatcher-output-artifacts: epic_pack, story_pack, import_ready_backlog
-  dispatcher-risk: medium
-  dispatcher-writes-files: true
-  dispatcher-input-artifacts: requirements, discovery_notes, backlog_context, numbering_rules
-  dispatcher-capabilities: backlog-generation, epic-design, story-export
-  dispatcher-stack-tags: planning, backlog, product
-  dispatcher-accepted-intents: generate_backlog_stories, generate_epics, export_story_pack
-  dispatcher-category: planning
-
+  author: jovd83
+  version: 5.3.2
 ---
 
 # Backlog Story Generator
 
-> **Version:** 5.3.1
+> **Version:** 5.3.2
 
 
 Generate a reviewable backlog pack from messy or incomplete source material without pretending unknown details are known.

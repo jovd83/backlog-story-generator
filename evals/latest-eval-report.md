@@ -1,7 +1,7 @@
 # Latest Eval Report
 
 Skill: `backlog-story-generator`
-Version: `5.3.0`
+Version: `5.3.2`
 
 ## Eval Method
 
