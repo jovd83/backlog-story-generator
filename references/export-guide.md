@@ -46,7 +46,7 @@ Before calling an export ready, confirm:
 - story IDs are unique
 - filenames align with IDs and titles
 - no placeholders remain
-- the pack has already gone through the quality-improvement workflow when semantic cleanup is needed
+- the quality lint passes, or the flagged stories have been rewritten
 
 ## Field Mapping
 

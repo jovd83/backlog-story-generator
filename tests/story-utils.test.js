@@ -79,3 +79,43 @@ flowchart TD
   assert.match(story.diagrams, /Approval flow/);
   assert.match(story.diagrams, /```mermaid/);
 });
+
+test("keeps And and But lines in acceptance-criteria clauses", () => {
+  const storyDir = path.join(repoRoot, "tmp", "tests-story-utils-and-lines");
+  const storyPath = path.join(storyDir, "US-998-place-order.md");
+  require("fs").mkdirSync(storyDir, { recursive: true });
+  require("fs").writeFileSync(storyPath, `# User Story: Place Order
+
+**Story ID:** US-998
+**Epic/Feature:** Checkout
+**Priority:** High
+**Story Points:** 3
+**Status:** Proposed
+
+## User Story
+**As a** shopper
+**I want** to place my order
+**So that** my items are reserved and shipped
+
+## Context
+Placing the order turns a reviewed cart into a confirmed order.
+
+## Functional / Business References
+- checkout.md
+
+## Acceptance Criteria
+
+### Scenario 1: Card declined
+**Given** the shopper is on the order summary
+**And** their card will be declined
+**When** they place the order
+**Then** the payment error is shown
+**And** no order is created
+**But** the cart is kept
+`);
+
+  const [criterion] = parseStory(storyPath).acceptanceCriteria;
+  assert.equal(criterion.given, "the shopper is on the order summary\nAnd their card will be declined");
+  assert.equal(criterion.when, "they place the order");
+  assert.equal(criterion.then, "the payment error is shown\nAnd no order is created\nBut the cart is kept");
+});

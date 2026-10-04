@@ -17,18 +17,19 @@ Use this as the ready-for-review checklist for generated stories.
 
 ## Technical Contract Integrity
 
-- [ ] **Data Model**: Are field types, mandatory flags, and business purposes clearly defined in a table?
-- [ ] **UI Interaction**: Does the story describe the navigation path and user trigger for this capability?
-- [ ] **API Contract**: Are endpoints, methods, and example request/response payloads provided (if applicable)?
+- [ ] **Grounding**: Does every field, endpoint, auth scheme, component, framework, and numeric target trace back to the source or to observed code? Is everything else `N/A` with the decision in `Open Questions`?
+- [ ] **Data Model**: When present, are field types, mandatory flags, and business purposes clearly defined in a table?
+- [ ] **UX**: When the source describes the UI, does the story give the navigation path, trigger, and feedback?
+- [ ] **API Contract**: When an API is specified or observed, are endpoints, methods, and example payloads given? Is an unspecified API left as an open question rather than invented?
 - [ ] **Diagrams**: If diagrams are included, do they use a fitting notation, clarify something the prose alone would not, and include a short explanation for each diagram?
 - [ ] **Business Rules**: Are domain policies extracted from the requirements and explicitly listed?
 
 ## Acceptance Criteria & Testing
 
 - [ ] Are scenarios observable and written in `Given / When / Then` form?
-- [ ] Does the AC cover the Happy Path, Alternative Flow, and at least one Error case?
-- [ ] Does the testing strategy define unit, integration, and E2E requirements?
-- [ ] Is there a clear **Definition of Done** checklist tailored to the story?
+- [ ] Does the AC cover the main success path and the failure, permission, or edge paths the behavior actually has, without filler scenarios added to reach a count?
+- [ ] Does the testing strategy follow from this story's acceptance criteria, and does it name tools, coverage targets, or release gates only when the project defines them?
+- [ ] Is the **Definition of Done** tailored to the story, with team-wide gates only when the team's DoD was supplied?
 
 ## Traceability And Grounding
 
@@ -37,7 +38,7 @@ Use this as the ready-for-review checklist for generated stories.
 - [ ] Are assumptions and unresolved gaps made explicit instead of being hidden inside the story text?
 - [ ] Are optional sections selectively meaningful rather than populated with generic cross-cutting filler?
 
-Any "no" answer should trigger a refinement pass before the pack is called ready.
+Any "no" answer means the affected stories need rewriting before the pack is called ready.
 
 For larger packs, run:
 
@@ -45,4 +46,4 @@ For larger packs, run:
 node scripts/story-quality-report.js <stories-dir>
 ```
 
-Use the summary to identify which fields and stories need the first refinement pass.
+Use the summary to identify which fields and stories need rewriting first.

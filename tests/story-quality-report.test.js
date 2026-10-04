@@ -37,12 +37,12 @@ test("surfaces repeated hotspots for a generic story pack", () => {
 
 **As a** user
 **I want** perform a task
-**So that** the capability is available in TMT
+**So that** the capability is available in the platform
 
 ---
 
 ## Context
-This story belongs to the Test Epic backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story belongs to the Test Epic backlog and should keep project scope, traceability, and operability clear as the platform grows.
 
 ---
 

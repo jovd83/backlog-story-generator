@@ -1,6 +1,6 @@
 name: backlog-story-generator
 display_name: Backlog Story Generator
-version: 5.3.2
+version: 6.0.0
 author: jovd83
 license: MIT
 description: Generate structured epics and backlog-ready user stories from requirements, discovery notes, existing story packs, or an observed codebase. Includes validation, evidence guardrails, and CSV export for Jira, Azure DevOps, GitHub Issues, and Tulip.
@@ -17,7 +17,7 @@ commands:
   verify: npm run verify
   validate_examples: npm run validate:examples
   lint_quality_examples: npm run lint:quality:examples
-  improve_examples: npm run improve:examples
+  check_examples: npm run check:examples
   package: npm run package
   report_existing_pack: npm run report:existing-pack
 evaluation:

@@ -30,13 +30,13 @@ The `So that` clause should describe value, not platform existence.
 
 Weak:
 - `So that the reporting capability is available in the platform`
-- `So that the feature works in TMT`
+- `So that the feature works in the portal`
 - `So that the epic is supported`
 
 Stronger:
 - `So that shipment recovery actions remain traceable`
 - `So that unsupported destinations are blocked before payment begins`
-- `So that release stakeholders can see current execution status without asking QA manually`
+- `So that store managers can see today's stock shortfalls without asking the warehouse by phone`
 
 Quick test:
 - if you can replace the story title with any other story and the `So that` still sounds plausible, it is probably too generic

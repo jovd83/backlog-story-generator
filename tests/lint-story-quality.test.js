@@ -49,12 +49,12 @@ test("flags generic generated story prose", () => {
 
 **As a** user
 **I want** to do the thing
-**So that** the generic epic capability is available in TMT with clear project-scoped behavior
+**So that** the generic epic capability is available in the platform with clear project-scoped behavior
 
 ---
 
 ## Context
-This story belongs to the Generic Epic backlog and should keep project scope, traceability, and operability clear while TMT grows.
+This story belongs to the Generic Epic backlog and should keep project scope, traceability, and operability clear as the platform grows.
 
 ---
 
@@ -64,7 +64,7 @@ This story belongs to the Generic Epic backlog and should keep project scope, tr
 ## Acceptance Criteria
 
 ### Scenario 1: Primary success path
-**Given** a valid TMT project context exists
+**Given** a valid project context exists
 **When** an authorized user performs the thing workflow
 **Then** the platform completes the requested action successfully
 
@@ -86,7 +86,7 @@ This story belongs to the Generic Epic backlog and should keep project scope, tr
 - Keep the workflow understandable for product, QA, and engineering users.
 
 ## Testing Notes
-- Update Playwright coverage when this story changes user-facing behavior.
+- Achieve at least 80% unit coverage for impacted core logic.
 
 ## Open Questions
 - Does this capability require additional decomposition into smaller delivery increments for the target team?

@@ -1,6 +1,6 @@
 {
   "skill_name": "backlog-story-generator",
-  "version": "5.3.2",
+  "version": "6.0.0",
   "evals": [
     {
       "id": 1,
@@ -36,7 +36,8 @@
         "The under-1-second performance expectation is preserved explicitly.",
         "The output avoids filler-only optional sections.",
         "Story scope stays focused on the widget and its supporting behavior.",
-        "Non-functional concerns are grounded in the source prompt."
+        "Non-functional concerns are grounded in the source prompt.",
+        "No generic non-functional targets (page-load budgets, WCAG levels, coverage percentages) are added beyond the source's under-1-second requirement."
       ],
       "files": []
     },
@@ -61,7 +62,7 @@
     {
       "id": 4,
       "name": "extend-existing-pack-without-renumbering",
-      "prompt": "Review an existing story directory, continue numbering from the highest story ID already present, and export the updated pack to Azure DevOps CSV. Do not renumber existing stories. Tell me what validation you performed before exporting.",
+      "prompt": "Our order follow-up backlog lives in ./stories (seeded from tests/fixtures/existing-pack). Add stories so customers can opt out of shipping-notification emails and can report a delivery problem from the tracking view. Continue numbering from the highest story ID already present, do not renumber existing stories, and export the updated pack to Azure DevOps CSV. Tell me what validation you performed before exporting.",
       "expected_output": "A refined or extended story set that preserves numbering continuity, produces a valid Azure DevOps CSV, and reports duplicate-ID checks, filename alignment, and export verification.",
       "target_capabilities": [
         "incremental backlog extension",
@@ -72,14 +73,17 @@
         "Existing story IDs remain unchanged.",
         "New story numbering continues from the highest observed story ID.",
         "Validation steps are reported explicitly before export.",
-        "The final output is ready for Azure DevOps CSV import."
+        "The final output is ready for Azure DevOps CSV import.",
+        "Existing stories that predate the current template are handled visibly: their IDs, titles, statements, and acceptance criteria are unchanged, and any backfilled sections are reported."
       ],
-      "files": []
+      "files": [
+        "tests/fixtures/existing-pack/"
+      ]
     },
     {
       "id": 5,
       "name": "codebase-grounded-story-pack-without-tech-hallucination",
-      "prompt": "Inspect this internal admin codebase and generate stories for improving role-management workflows, but do not guess frameworks, APIs, or test tools that are not already present. Separate observed behavior from proposed work.",
+      "prompt": "Inspect this internal admin codebase (seeded from tests/fixtures/codebase/admin-role-app) and generate stories for improving role-management workflows: assigning and revoking roles, and seeing who changed a user's role. Do not guess frameworks, APIs, or test tools that are not already present. Separate observed behavior from proposed work.",
       "expected_output": "A story pack grounded in inspected code and explicit evidence, with assumptions called out instead of invented implementation details.",
       "target_capabilities": [
         "codebase inspection",
@@ -90,9 +94,12 @@
         "Observed current-state behavior is distinguished from proposed backlog work.",
         "No unsupported frameworks, APIs, or tools are invented.",
         "Assumptions and thin-evidence areas are labeled clearly.",
-        "Stories remain actionable despite the guardrails."
+        "Stories remain actionable despite the guardrails.",
+        "Testing and technical sections name only tools observed in the codebase (for example Vitest, Express, React) and mark unspecified API or data decisions as open questions."
       ],
-      "files": []
+      "files": [
+        "tests/fixtures/codebase/admin-role-app/"
+      ]
     },
     {
       "id": 6,
@@ -125,6 +132,24 @@
         "Acceptance criteria mention story-specific states and outcomes.",
         "At least one failure, permission, or edge path is represented where relevant.",
         "The scenarios do not read like generic placeholders."
+      ],
+      "files": []
+    },
+    {
+      "id": 8,
+      "name": "user-chosen-sections-only",
+      "prompt": "Write user stories for our library app: members can reserve a book that is currently on loan, get notified when it is ready for pickup, and cancel a reservation. We only want these sections in each story: user story, context, references, acceptance criteria, business rules and open questions. Nothing else.",
+      "expected_output": "A small story pack whose story files contain only the required sections plus Business Rules and Open Questions, with no other optional sections and no N/A stubs for sections the user did not ask for.",
+      "target_capabilities": [
+        "section selection",
+        "story writing",
+        "scope control"
+      ],
+      "review_criteria": [
+        "Every story contains only the metadata block, User Story, Context, Functional / Business References, Acceptance Criteria, Business Rules, and Open Questions.",
+        "Sections the user did not ask for are left out entirely rather than written as N/A.",
+        "The pack still passes validate-stories.js.",
+        "The closeout states the section set that was used and that the user chose it."
       ],
       "files": []
     }

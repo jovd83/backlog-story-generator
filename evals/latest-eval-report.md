@@ -1,7 +1,7 @@
 # Latest Eval Report
 
 Skill: `backlog-story-generator`
-Version: `5.3.2`
+Version: `6.0.0`
 
 ## Eval Method
 
@@ -16,10 +16,10 @@ The report summarizes:
 
 ## Coverage Snapshot
 
-- eval prompts: 7
+- eval prompts: 8
 - example stories: 12
-- automated test files: 12
-- approximate automated tests: 37
+- automated test files: 11
+- approximate automated tests: 36
 - repository verification command: `npm run verify`
 - repo-health command: `npm run check:repo-health`
 
@@ -74,7 +74,6 @@ Supporting evidence:
 - quality checks in `scripts/lint-story-quality.js`
 - `references/story-drafting-playbook.md`
 - semantic linting in `scripts/lint-story-quality.js`
-- `scripts/refine-generic-story-pack.js`
 - Prompt definition in `evals/evals.json`
 
 Review focus:
@@ -82,6 +81,7 @@ Review focus:
 - The output avoids filler-only optional sections.
 - Story scope stays focused on the widget and its supporting behavior.
 - Non-functional concerns are grounded in the source prompt.
+- No generic non-functional targets (page-load budgets, WCAG levels, coverage percentages) are added beyond the source's under-1-second requirement.
 
 ### Eval 3: messy-warehouse-notes-normalized-into-backlog
 Status: Supported by current repository artifacts
@@ -134,6 +134,7 @@ Review focus:
 - New story numbering continues from the highest observed story ID.
 - Validation steps are reported explicitly before export.
 - The final output is ready for Azure DevOps CSV import.
+- Existing stories that predate the current template are handled visibly: their IDs, titles, statements, and acceptance criteria are unchanged, and any backfilled sections are reported.
 
 ### Eval 5: codebase-grounded-story-pack-without-tech-hallucination
 Status: Supported by current repository artifacts
@@ -159,6 +160,7 @@ Review focus:
 - No unsupported frameworks, APIs, or tools are invented.
 - Assumptions and thin-evidence areas are labeled clearly.
 - Stories remain actionable despite the guardrails.
+- Testing and technical sections name only tools observed in the codebase (for example Vitest, Express, React) and mark unspecified API or data decisions as open questions.
 
 ### Eval 6: story-value-and-context-are-not-boilerplate
 Status: Supported by current repository artifacts
@@ -174,7 +176,7 @@ Target capabilities:
 Supporting evidence:
 - `references/story-writing-quality.md`
 - `scripts/lint-story-quality.js`
-- `scripts/refine-generic-story-pack.js`
+- `scripts/check-story-pack.js`
 - `references/story-drafting-playbook.md`
 - quality checks for weak `So that` clauses in `scripts/lint-story-quality.js`
 - `references/user-story-template.md`
@@ -200,7 +202,6 @@ Target capabilities:
 Supporting evidence:
 - `references/acceptance-criteria-patterns.md`
 - `scripts/lint-story-quality.js`
-- `scripts/refine-generic-story-pack.js`
 - `references/story-writing-quality.md`
 - example scenarios under `examples/generated/`
 - Prompt definition in `evals/evals.json`
@@ -209,6 +210,29 @@ Review focus:
 - Acceptance criteria mention story-specific states and outcomes.
 - At least one failure, permission, or edge path is represented where relevant.
 - The scenarios do not read like generic placeholders.
+
+### Eval 8: user-chosen-sections-only
+Status: Supported by current repository artifacts
+
+Expected output:
+A small story pack whose story files contain only the required sections plus Business Rules and Open Questions, with no other optional sections and no N/A stubs for sections the user did not ask for.
+
+Target capabilities:
+- section selection
+- story writing
+- scope control
+
+Supporting evidence:
+- `references/story-writing-quality.md`
+- `references/story-drafting-playbook.md`
+- semantic linting in `scripts/lint-story-quality.js`
+- Prompt definition in `evals/evals.json`
+
+Review focus:
+- Every story contains only the metadata block, User Story, Context, Functional / Business References, Acceptance Criteria, Business Rules, and Open Questions.
+- Sections the user did not ask for are left out entirely rather than written as N/A.
+- The pack still passes validate-stories.js.
+- The closeout states the section set that was used and that the user chose it.
 
 ## Notes
 

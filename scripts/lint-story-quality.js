@@ -5,7 +5,6 @@ const GENERIC_PATTERNS = {
   soThat: [
     /capability is available in/i,
     /clear project-scoped behavior/i,
-    /available in tmt/i,
   ],
   context: [
     /adds support for users who need/i,
@@ -14,27 +13,21 @@ const GENERIC_PATTERNS = {
     /reconstructed from/i,
     /canonical skill format/i,
     /belongs to the .* backlog/i,
-    /should keep project scope, traceability, and operability clear while tmt grows/i,
-    /the platform foundation supports safe and scalable tmt delivery/i,
-    /available in tmt with clear project-scoped behavior/i,
   ],
   acceptance: [
     /completes the requested action successfully/i,
     /workflow is submitted/i,
-    /valid .* project context exists/i,
-    /changes platform state, execution data, or linked records/i,
+    /valid (.* )?project context exists/i,
   ],
   optionalSections: [
     /keep the workflow understandable/i,
     /provide explicit success, validation, and failure feedback/i,
-    /use a consistent angular-based interaction model/i,
+    /use a consistent [\w-]+-based interaction model/i,
     /cross-cutting platform capabilities/i,
     /achieve at least 80% unit coverage/i,
     /add or update backend, frontend, and end-to-end tests/i,
-    /update playwright coverage/i,
     /are there project-specific rules, data models, or permissions/i,
     /does this capability require additional decomposition/i,
-    /keep implementation compatible with multi-project operation/i,
     /implementation details should be refined in design and engineering work/i,
   ],
 };

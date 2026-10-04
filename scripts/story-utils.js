@@ -107,10 +107,34 @@ function parseAcceptanceCriteria(section) {
 
   for (const block of scenarioBlocks) {
     const scenario = (block.match(/^### Scenario \d+:\s*(.+)$/m) || [null, ""])[1].trim();
-    const given = (block.match(/\*\*Given\*\*\s*(.+)$/m) || [null, ""])[1].trim();
-    const when = (block.match(/\*\*When\*\*\s*(.+)$/m) || [null, ""])[1].trim();
-    const then = (block.match(/\*\*Then\*\*\s*(.+)$/m) || [null, ""])[1].trim();
-    scenarios.push({ scenario, given, when, then });
+    const clauses = { given: [], when: [], then: [] };
+    let current = null;
+
+    // **And** / **But** lines (and repeated keywords) extend the clause above them,
+    // so exports keep every step instead of only the first line of each clause.
+    for (const line of block.split("\n")) {
+      const match = line.match(/\*\*(Given|When|Then|And|But)\*\*\s*(.+)$/);
+      if (!match) {
+        continue;
+      }
+      const keyword = match[1];
+      const text = match[2].trim();
+      if (keyword === "And" || keyword === "But") {
+        if (current) {
+          clauses[current].push(`${keyword} ${text}`);
+        }
+        continue;
+      }
+      current = keyword.toLowerCase();
+      clauses[current].push(clauses[current].length === 0 ? text : `And ${text}`);
+    }
+
+    scenarios.push({
+      scenario,
+      given: clauses.given.join("\n"),
+      when: clauses.when.join("\n"),
+      then: clauses.then.join("\n"),
+    });
   }
 
   return scenarios;

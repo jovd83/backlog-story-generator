@@ -82,3 +82,16 @@ test("checks diagrams content for unresolved placeholders", () => {
   const errors = validateStory(story);
   assert.ok(errors.some((error) => error.includes("placeholders")));
 });
+
+test("rejects scenarios with a missing Given, When, or Then", () => {
+  const story = parseStory(
+    path.join(examplesDir, "epic-01-checkout-experience", "US-001-capture-shipping-address.md")
+  );
+  story.acceptanceCriteria = [
+    { scenario: "Address saved", given: "a shopper is on the shipping step", when: "", then: "" },
+  ];
+
+  const errors = validateStory(story);
+  assert.ok(errors.some((error) => error.includes("acceptanceCriteria[0].when")));
+  assert.ok(errors.some((error) => error.includes("acceptanceCriteria[0].then")));
+});

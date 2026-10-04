@@ -1,6 +1,6 @@
 {
   "name": "backlog-story-generator",
-  "version": "5.3.2",
+  "version": "6.0.0",
   "description": "AgentSkill repository for generating structured epics and backlog-ready user stories from requirements with validation, codebase grounding, and CSV export.",
   "author": "jovd83",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "validate:examples:json": "node scripts/validate-stories.js ./examples/generated --json",
     "lint:quality:examples": "node scripts/lint-story-quality.js ./examples/generated",
     "report:quality:examples": "node scripts/story-quality-report.js ./examples/generated",
-    "improve:examples": "node scripts/improve-story-pack.js ./examples/generated --refine",
+    "check:examples": "node scripts/check-story-pack.js ./examples/generated",
     "eval:report": "node scripts/generate-eval-report.js",
     "check:eval-report": "node scripts/generate-eval-report.js --check",
     "report:existing-pack": "node scripts/story-pack-report.js ./tests/fixtures/existing-pack",

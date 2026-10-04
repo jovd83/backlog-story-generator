@@ -36,7 +36,7 @@ const capabilityEvidence = {
   ],
   "story writing": [
     "`references/story-writing-quality.md`",
-    "`scripts/refine-generic-story-pack.js`",
+    "`references/story-drafting-playbook.md`",
   ],
   "normalization of scattered input": [
     "`SKILL.md` source-normalization workflow",
@@ -77,7 +77,7 @@ const capabilityEvidence = {
   "story writing quality": [
     "`references/story-writing-quality.md`",
     "`scripts/lint-story-quality.js`",
-    "`scripts/refine-generic-story-pack.js`",
+    "`scripts/check-story-pack.js`",
   ],
   "business value extraction": [
     "`references/story-drafting-playbook.md`",
@@ -90,11 +90,10 @@ const capabilityEvidence = {
   "acceptance criteria quality": [
     "`references/acceptance-criteria-patterns.md`",
     "`scripts/lint-story-quality.js`",
-    "`scripts/refine-generic-story-pack.js`",
   ],
   "story specificity": [
     "`references/story-writing-quality.md`",
-    "`scripts/refine-generic-story-pack.js`",
+    "`references/acceptance-criteria-patterns.md`",
   ],
   "negative-path coverage": [
     "`references/acceptance-criteria-patterns.md`",

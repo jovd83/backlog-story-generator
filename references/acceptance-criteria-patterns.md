@@ -1,6 +1,6 @@
 # Acceptance Criteria Patterns
 
-Use this reference when acceptance criteria start drifting into generic scaffolding.
+Use this reference when no acceptance-criteria skill (such as `acceptance-criteria-designer`) is installed, when the surrounding workflow has its own acceptance-criteria step, or when criteria start drifting into generic scaffolding. When a specialist skill wrote the criteria, use this file to check that they are specific to the story.
 
 The goal is not to force every story into the same three scenarios. The goal is to help you choose story-specific scenarios that reflect the actual behavior, risks, and boundaries implied by the source material.
 
@@ -37,9 +37,9 @@ Good candidates:
 - duplicate, conflict, or unsupported-input handling
 
 Examples:
-- create a manual test case
+- register a new patient
 - capture a shipping address
-- create a new project
+- create a purchase order
 
 ### Update Or Edit
 
@@ -49,8 +49,8 @@ Good candidates:
 - audit trail or version history after the change
 
 Examples:
-- edit test-case metadata
-- update project settings
+- edit a supplier's bank details
+- update notification preferences
 - change user roles
 
 ### Delete, Archive, Or Revoke
@@ -61,8 +61,8 @@ Good candidates:
 - confirmation, audit, or recovery behavior
 
 Examples:
-- archive a project
-- delete a test suite
+- archive a completed project
+- delete a saved payment card
 - revoke a user role
 
 ### Search, Filter, Or Query
@@ -73,9 +73,9 @@ Good candidates:
 - performance or sorting behavior when explicitly required
 
 Examples:
-- search test cases
+- search the product catalogue
 - filter dashboards by date and region
-- query requirements coverage
+- look up an order by reference number
 
 ### Assignment, Linking, Or Mapping
 
@@ -85,9 +85,9 @@ Good candidates:
 - traceability or synchronization result after linking
 
 Examples:
-- assign test cases to cycles
-- link test cases to requirements
-- map automation to manual tests
+- assign a technician to a service job
+- link an invoice to a purchase order
+- map a product to a warehouse location
 
 ### Execution Or Workflow Progression
 
@@ -97,9 +97,9 @@ Good candidates:
 - evidence, timestamp, or audit result after progression
 
 Examples:
-- mark a test step passed
-- submit an execution result
-- pause and resume a cycle
+- approve an expense claim
+- mark an order as packed
+- pause and resume a subscription
 
 ### Reporting Or Visualization
 
@@ -110,8 +110,8 @@ Good candidates:
 
 Examples:
 - dashboard widget
-- execution trend report
-- traceability matrix
+- monthly sales trend report
+- audit trail view
 
 ### Import, Export, Or Integration
 
@@ -121,9 +121,9 @@ Good candidates:
 - duplicate handling, partial-failure handling, or audit logging
 
 Examples:
-- import from TestLink
+- import customers from a CSV file
 - export project data
-- push results from CI
+- receive shipment updates from a carrier webhook
 
 ### Performance, Security, Or Compliance
 
@@ -133,9 +133,9 @@ Weak:
 - `Then the system performs well`
 
 Stronger:
-- `Then the search results return within the agreed response budget for a project-sized dataset`
-- `Then the audit record cannot be edited after the execution is closed`
-- `Then only project members with the required permission can export execution data`
+- `Then the search results return within the response budget agreed in the requirements`
+- `Then the audit record cannot be edited after the claim is closed`
+- `Then only finance staff with the export permission can download payroll data`
 
 ## Scenario Smells
 

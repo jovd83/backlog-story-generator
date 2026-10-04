@@ -28,7 +28,7 @@ body:
         - label: references or docs
         - label: schema
         - label: parser or validator
-        - label: refinement or quality tooling
+        - label: quality tooling
         - label: exports
         - label: examples or tests
   - type: textarea

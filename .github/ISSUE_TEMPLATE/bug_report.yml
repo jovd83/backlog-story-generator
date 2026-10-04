@@ -42,7 +42,7 @@ body:
       options:
         - Skill instructions
         - Validation or parsing
-        - Refinement workflow
+        - Quality checks (lint, quality report, check-story-pack)
         - Export behavior
         - Packaging or CI
         - Examples or docs

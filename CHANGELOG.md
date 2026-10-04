@@ -2,6 +2,42 @@
 
 All notable changes to this repository are documented here.
 
+## [6.0.0] - 2026-10-04
+
+The skill is now project-neutral. Everything that was specific to one test-management product backlog ("TMT") is gone.
+
+### Added
+- SKILL.md has a "Specialist skills come first" section. When the environment has a dedicated skill for acceptance criteria (`acceptance-criteria-designer`), diagrams (`diagram-generator`), codebase grounding (`codebase-context`), or a readiness review (`test-analysis-skill`), the agent invokes it for that part and translates the result into the story format. The bundled references are the fallback. Skills are matched by capability, not by exact name. Delegation is skipped when the surrounding workflow already has its own step for that part, such as the new-feature SDLC chain's acceptance-criteria phase.
+- Section choice. Before drafting, the skill offers the optional story sections as four presets (Lean, Standard, Technical, Full) or a custom mix, and asks the user to pick. It recommends Technical when a codebase or API description is part of the input and Standard otherwise. It skips the question when the user already named the sections, when extending a pack (it follows the sections the existing stories use), or when nobody can answer, in which case it uses the recommended preset and names it in the closeout. Unchosen sections are left out of the files rather than written as `N/A`. The Full preset brings back the heavier delivery sections (progress checklist, Functional Requirements, Technical Considerations, and the separate test sections) as an opt-in, with bracketed guidance instead of default values.
+- The closeout names which specialist skills were used, for which parts and which stories.
+
+### Removed
+- `scripts/refine-generic-story-pack.js` and its test. It rewrote stories from fixed templates built for that one backlog. On any other pack it injected product-specific wording, placeholder data models, JWT auth, endpoints, and NFRs, and it fired on stories as ordinary as "As a user".
+- The `--refine` and `--force-refine` options, which called that script.
+- Lint patterns that only ever matched text the refiner produced: TMT wording, Angular, Playwright, multi-project, and execution data.
+- `WebApp (UI) Interaction` from the story template. The parser still reads it.
+- The heavier delivery sections as part of every story: the progress checklist; the separate unit, integration, end-to-end, regression, and test-execution-plan sections; Functional Requirements; and Technical Considerations. They come back only through the opt-in Full preset (see Added). The parser still reads all of these headings, and the old long forms such as `Data Model (Fields)` and `Definition of Done (DoD)`, so existing packs keep validating. `docs/adapt-for-your-org.md` explains how to change the presets.
+- Default values in the template that read like content: page load under 2 s, 500 ms API budget, 80% unit coverage, 100% API coverage, WCAG 2.1, mobile responsive, RBAC, the CI trigger table, and the generic DoD.
+
+### Changed
+- `scripts/improve-story-pack.js` is renamed to `scripts/check-story-pack.js`. It runs validation and the quality summary and never changes files. The npm script `improve:examples` is now `check:examples`, and the `openai.yaml` command `improve_examples` is now `check_examples`. The module export is `checkStoryPack` (was `improveStoryPack`). Its `--json` output is one flat result: the `before`, `after`, `refined`, and `refinedCount` fields are gone, and `storiesFound`, `validationValid`, `qualityValid`, and the issue counts sit at the top level.
+- `SKILL.md` is rewritten for the agent that runs it:
+  - scripts are called from the skill directory, and the pack is written into the user's project (`./stories/` by default)
+  - technical and testing sections are filled only from the source or observed code
+  - the scenario count follows the behaviour instead of a fixed three
+  - a new section covers extending a pack written to an older template
+  - a fixed closeout format
+  - repository-only notes and the long memory policy were moved out
+- The story template is project-neutral and uses the section names of the example packs (`Non-Functional Notes`, `Testing Notes`) plus `UX`, plus optional `Data Model`, `API Contract`, and `Definition of Done` sections that require evidence.
+- Reference examples now come from several domains instead of test management.
+- `references/backlog-quality-checklist.md` asks whether technical details are grounded in the source or code.
+- `evals/evals.json`: evals 4 and 5 now attach their fixtures and make concrete requests, so they can be run.
+
+### Fixed
+- `validate-stories.js` never applied the schema rules to individual acceptance-criteria scenarios. A scenario with no `Given`, `When`, or `Then` passed validation and exported as empty clauses. Each scenario is now checked, with a regression test.
+- Acceptance-criteria parsing kept only the first `Given`, `When`, and `Then` line of each scenario, so exports silently dropped every `And` / `But` line. Those lines now stay with their clause in all four CSV formats.
+- The lint pattern for generic "valid project context exists" scenarios matched only when an extra word, such as a product name, sat in the middle.
+
 ## [5.3.2] - 2026-10-01
 
 ### Changed

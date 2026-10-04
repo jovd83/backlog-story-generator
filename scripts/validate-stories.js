@@ -42,7 +42,7 @@ function validatePrimitive(value, definition, pointer, errors) {
       errors.push(`${pointer} must contain at least ${definition.minItems} item(s)`);
     }
     value.forEach((item, index) => {
-      validatePrimitive(item, definition.items, `${pointer}[${index}]`, errors);
+      validateAgainstSchema(item, definition.items, `${pointer}[${index}]`, errors);
     });
   }
 }

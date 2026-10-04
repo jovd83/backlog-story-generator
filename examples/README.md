@@ -32,10 +32,10 @@ Recommended checks against the example pack:
 ```bash
 npm run validate:examples
 npm run lint:quality:examples
-npm run improve:examples
+npm run check:examples
 ```
 
 The examples should remain:
 - structurally valid
 - free of semantic boilerplate under the current lint rules
-- stable under the deterministic improvement workflow
+- clean under `check-story-pack.js`

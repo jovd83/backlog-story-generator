@@ -52,10 +52,4 @@ node scripts/story-quality-report.js <stories-dir>
 
 This helps surface repeated weak fields such as generic `So that` clauses or reusable acceptance-criteria scaffolding without forcing reviewers to inspect raw JSON by hand.
 
-When the output is structurally valid but clearly generic, follow with:
-
-```bash
-node scripts/refine-generic-story-pack.js <stories-dir>
-```
-
-Then rerun validation and the semantic quality checks.
+When the output is structurally valid but clearly generic, rewrite the flagged stories using `references/story-drafting-playbook.md`, then rerun validation and the semantic quality checks.

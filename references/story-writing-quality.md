@@ -23,11 +23,11 @@ Avoid these patterns:
 ## Better `So that` Clauses
 
 Weak:
-- `So that the reporting capability is available in TMT`
+- `So that the reporting capability is available in the platform`
 - `So that the feature works reliably`
 
 Stronger:
-- `So that release stakeholders can see current execution status without asking the QA team manually`
+- `So that store managers can see today's stock shortfalls without asking the warehouse by phone`
 - `So that warehouse recovery actions remain traceable during shipment incidents`
 - `So that unsupported shipping destinations are blocked before payment begins`
 
@@ -77,7 +77,7 @@ Examples:
 
 ## Quality Gate
 
-Before calling a pack ready:
+Before calling a pack ready, run these from the skill directory:
 
 ```bash
 node scripts/validate-stories.js <dir>

@@ -34,7 +34,7 @@ Most organizations start by changing:
 5. Update exporters if the changed fields affect downstream tools.
 6. Add or refresh examples and fixtures that demonstrate the new contract.
 7. Run `npm run verify`.
-8. Run `node scripts/improve-story-pack.js <stories-dir> --refine` on at least one representative pack so your customization still produces a clean review workflow instead of only a passing schema.
+8. Run `node scripts/check-story-pack.js <stories-dir>` on at least one representative pack so your customization still produces a clean review workflow instead of only a passing schema.
 
 ## Common Adaptation Patterns
 
@@ -67,6 +67,8 @@ Decide whether the section is:
 - optional but preferred when certain triggers are present
 
 Then update the template, parser, validator, and at least one example story.
+
+Teams choose which sections their stories get. The skill offers four presets (Lean, Standard, Technical, Full) before drafting, and the user can also name a custom mix. The Full preset brings in the heavier delivery sections: a progress checklist, Functional Requirements, Technical Considerations, and separate unit, integration, end-to-end, regression, and test-execution-plan sections. To change the presets or the recommended default for your organization, edit `Section Sets` in [`references/user-story-template.md`](../references/user-story-template.md) and step 4 of [`SKILL.md`](../SKILL.md). Fill the heavier sections with your team's real gates rather than generic defaults.
 
 ### Change Export Behavior
 

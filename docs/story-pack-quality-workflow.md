@@ -2,24 +2,20 @@
 
 Use this workflow when a story pack needs to move from "generated" to "review-ready".
 
-The repository supports two modes:
-- report-only, when you want to inspect the current pack without changing files
-- refine-and-recheck, when you want deterministic cleanup of common boilerplate before human review
-
 ## Fastest Path
 
-Run the full workflow in one command:
+Run validation and the quality summary in one command:
 
 ```bash
-node scripts/improve-story-pack.js <stories-dir> --refine
+node scripts/check-story-pack.js <stories-dir>
 ```
 
 What it does:
 - checks structural validity
 - summarizes semantic quality
-- refines the pack if structural validation passes and semantic issues are present
-- reruns the checks after refinement
 - prints a compact summary with next actions
+
+It never changes files. Rewriting weak stories is a judgment task, so it stays with the author.
 
 ## Recommended Decision Path
 
@@ -29,7 +25,7 @@ What it does:
 node scripts/validate-stories.js <stories-dir>
 ```
 
-If this fails, fix structural issues first. Do not refine a pack that still has broken headings, malformed metadata, or parser drift.
+If this fails, fix structural issues first. Do not polish prose in a pack that still has broken headings, malformed metadata, or parser drift.
 
 ### 2. Summarize quality hotspots
 
@@ -42,22 +38,16 @@ Use this when the pack is large and you need a quick answer to:
 - how many stories still fail semantic checks
 - which stories deserve the first review pass
 
-### 3. Refine deterministic boilerplate
+### 3. Rewrite the flagged stories
 
-```bash
-node scripts/refine-generic-story-pack.js <stories-dir>
-```
-
-Use this when the pack is structurally valid but still suffers from:
+Rewrite the stories the report flags, using [`references/story-drafting-playbook.md`](../references/story-drafting-playbook.md) and [`references/acceptance-criteria-patterns.md`](../references/acceptance-criteria-patterns.md). Typical problems:
 - weak `So that` clauses
 - generic `Context`
 - reusable acceptance-criteria scaffolding
 - generic `Dependencies`
 - boilerplate `UX`, `Testing Notes`, `Open Questions`, or `Implementation Notes`
 
-Use `--force` only when you intentionally want to reapply the deterministic rewrite to an already clean pack.
-
-### 4. Recheck after refinement
+### 4. Recheck after rewriting
 
 ```bash
 node scripts/validate-stories.js <stories-dir>

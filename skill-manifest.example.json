@@ -1,6 +1,6 @@
 {
   "name": "backlog-story-generator",
-  "version": "5.3.2",
+  "version": "6.0.0",
   "description": "Generate structured product epics, backlog-ready user stories, and ticket-import story packs from requirements, discovery notes, existing backlog folders, or an observed codebase.",
   "author": "jovd83",
   "license": "MIT",
@@ -45,6 +45,6 @@
   "notes": [
     "This manifest is an example publication descriptor for registries or internal distribution workflows.",
     "Treat generated outputs such as dist, tmp, and exports as derived artifacts rather than canonical source.",
-    "Use scripts/improve-story-pack.js when you want validation, quality reporting, and deterministic refinement in one repeatable workflow."
+    "Use scripts/check-story-pack.js when you want validation and quality reporting in one step."
   ]
 }

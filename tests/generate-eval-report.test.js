@@ -11,9 +11,9 @@ test("builds an eval report from the current repository state", () => {
 
   assert.equal(report.metrics.skillName, "backlog-story-generator");
   assert.equal(report.metrics.version, require("../package.json").version);
-  assert.equal(report.metrics.promptCount, 7);
+  assert.equal(report.metrics.promptCount, 8);
   assert.equal(report.metrics.exampleStoryCount, 12);
-  assert.ok(report.metrics.testFileCount >= 12);
+  assert.ok(report.metrics.testFileCount >= 11);
   assert.ok(report.metrics.testCaseCount >= 29);
   assert.match(report.markdown, /## Coverage Snapshot/);
   assert.match(report.markdown, /### Eval 6: story-value-and-context-are-not-boilerplate/);
